@@ -5,7 +5,18 @@ const seed = async () => {
   try {
     await db.sync({ force: true });
 
-    const samples = [
+    const floppys = [
+      { color: 'yellow' },
+      { color: 'green' },
+      { color: 'purple' },
+      { color: 'red' },
+      { color: 'blue' },
+    ];
+
+    await Floppy.bulkCreate(floppys);
+    console.log(green('seeded floppys'));
+
+    const breakbeatSamples = [
       {
         name: 'breakbeat',
         bpm: 160,
@@ -31,22 +42,37 @@ const seed = async () => {
         unlocked: false,
       },
       {
-        name: 'bass',
+        name: 'breakbeat4',
         bpm: 160,
         playType: 'one-shot',
         unlocked: false,
       },
       {
-        name: 'vocal',
+        name: 'breakbeat5',
         bpm: 160,
         playType: 'loop',
         unlocked: false,
       },
       {
-        name: 'synth',
+        name: 'breakbeat6',
         bpm: 160,
         playType: 'one-shot',
         unlocked: true,
+      },
+      {
+        name: 'breakbeat7',
+        bpm: 160,
+        playType: 'loop',
+        unlocked: false,
+      },
+    ];
+
+    const bassSamples = [
+      {
+        name: 'bass',
+        bpm: 160,
+        playType: 'one-shot',
+        unlocked: false,
       },
       {
         name: 'bass2',
@@ -54,30 +80,151 @@ const seed = async () => {
         playType: 'loop',
         unlocked: false,
       },
+      {
+        name: 'bass3',
+        bpm: 160,
+        playType: 'loop',
+        unlocked: false,
+      },
+      {
+        name: 'bass4',
+        bpm: 160,
+        playType: 'loop',
+        unlocked: false,
+      },
+      {
+        name: 'bass5',
+        bpm: 160,
+        playType: 'loop',
+        unlocked: false,
+      },
     ];
 
-    const seededsamples = await Sample.bulkCreate(samples);
+    const vocalSamples = [
+      {
+        name: 'vocal',
+        bpm: 160,
+        playType: 'loop',
+        unlocked: false,
+      },
+      {
+        name: 'vocal2',
+        bpm: 160,
+        playType: 'loop',
+        unlocked: false,
+      },
+      {
+        name: 'vocal3',
+        bpm: 160,
+        playType: 'loop',
+        unlocked: false,
+      },
+      {
+        name: 'vocal4',
+        bpm: 160,
+        playType: 'loop',
+        unlocked: false,
+      },
+      {
+        name: 'vocal5',
+        bpm: 160,
+        playType: 'loop',
+        unlocked: false,
+      },
+    ];
 
-    const generateRandomInt = () => {
-      return Math.ceil(Math.random() * 5);
-    };
+    const synthSamples = [
+      {
+        name: 'synth',
+        bpm: 160,
+        playType: 'one-shot',
+        unlocked: true,
+      },
+      {
+        name: 'synth2',
+        bpm: 160,
+        playType: 'one-shot',
+        unlocked: true,
+      },
+      {
+        name: 'synth3',
+        bpm: 160,
+        playType: 'one-shot',
+        unlocked: true,
+      },
+      {
+        name: 'synth4',
+        bpm: 160,
+        playType: 'one-shot',
+        unlocked: true,
+      },
+      {
+        name: 'synth5',
+        bpm: 160,
+        playType: 'one-shot',
+        unlocked: true,
+      },
+    ];
 
-    seededsamples.forEach(async (sample) => {
-      await sample.setFloppy(generateRandomInt());
+    const padSamples = [
+      {
+        name: 'pad',
+        bpm: 160,
+        playType: 'one-shot',
+        unlocked: true,
+      },
+      {
+        name: 'pad2',
+        bpm: 160,
+        playType: 'one-shot',
+        unlocked: true,
+      },
+      {
+        name: 'pad3',
+        bpm: 160,
+        playType: 'one-shot',
+        unlocked: true,
+      },
+      {
+        name: 'pad4',
+        bpm: 160,
+        playType: 'one-shot',
+        unlocked: true,
+      },
+      {
+        name: 'pad5',
+        bpm: 160,
+        playType: 'one-shot',
+        unlocked: true,
+      },
+    ];
+
+    const seededBreaks = await Sample.bulkCreate(breakbeatSamples);
+    seededBreaks.forEach(async (sample) => {
+      await sample.setFloppy(1);
+    });
+
+    const seededBass = await Sample.bulkCreate(bassSamples);
+    seededBass.forEach(async (sample) => {
+      await sample.setFloppy(2);
+    });
+
+    const seededVocals = await Sample.bulkCreate(vocalSamples);
+    seededVocals.forEach(async (sample) => {
+      await sample.setFloppy(3);
+    });
+
+    const seededSynth = await Sample.bulkCreate(synthSamples);
+    seededSynth.forEach(async (sample) => {
+      await sample.setFloppy(4);
+    });
+
+    const seededPads = await Sample.bulkCreate(padSamples);
+    seededPads.forEach(async (sample) => {
+      await sample.setFloppy(5);
     });
 
     console.log(green('seeded samples'));
-
-    const floppys = [
-      { color: 'yellow' },
-      { color: 'green' },
-      { color: 'purple' },
-      { color: 'red' },
-      { color: 'blue' },
-    ];
-
-    await Floppy.bulkCreate(floppys);
-    console.log(green('seeding floppys'));
   } catch (error) {
     console.log(red(error));
   }
@@ -89,7 +236,9 @@ if (require.main === module) {
   seed()
     .then(() => {
       console.log(green('Seeding success!'));
-      db.close();
+      setTimeout(() => {
+        db.close();
+      }, 100);
     })
     .catch((err) => {
       console.error(red('Something went wrong!'));
