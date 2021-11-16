@@ -6,7 +6,8 @@
   "scripts": {
     "start": "node main.js",
     "start-server": "nodemon main.js",
-    "seed": "node seed.js"
+    "seed": "node seed.js",
+    "start-dev": "webpack serve --mode development"
   },
   "repository": {
     "type": "git",
@@ -19,15 +20,33 @@
   },
   "homepage": "https://github.com/gg447062/floppy#readme",
   "dependencies": {
+    "@babel/core": "^7.16.0",
+    "@babel/preset-react": "^7.16.0",
+    "@walletconnect/web3-provider": "^1.6.6",
+    "babel-loader": "^8.2.3",
     "chalk": "^4.1.2",
+    "dotenv": "^10.0.0",
     "express": "^4.17.1",
+    "moralis": "^0.0.128",
     "morgan": "^1.10.0",
+    "node-polyfill-webpack-plugin": "^1.1.4",
     "nodemon": "^2.0.14",
     "pg": "^8.7.1",
-    "sequelize": "^6.9.0"
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-moralis": "^0.2.8",
+    "react-router-dom": "^6.0.2",
+    "react-transition-group": "^4.4.2",
+    "sequelize": "^6.9.0",
+    "webpack": "^5.63.0",
+    "webpack-dev-server": "^4.4.0"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.16.0",
-    "eslint": "^8.1.0"
+    "@openzeppelin/contracts": "^4.3.3",
+    "dotenv-webpack": "^7.0.3",
+    "eslint": "^8.1.0",
+    "hardhat": "^2.6.8",
+    "webpack-cli": "^4.9.1"
   }
 }
