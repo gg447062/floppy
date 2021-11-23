@@ -9,6 +9,7 @@ const App = () => {
   const [showGallery, setShowGallery] = useState(false);
   const [showCrates, setShowCrates] = useState(false);
   const [showDub, setShowDub] = useState(false);
+
   return (
     <div>
       <Header
@@ -40,6 +41,13 @@ const App = () => {
       >
         <DubPlate showDub={setShowDub} />
       </CSSTransition>
+      <video
+        id="source"
+        width="560"
+        height="315"
+        src="assets/video/test.mp4"
+        controls
+      ></video>
     </div>
   );
 };
