@@ -1,6 +1,7 @@
 import React from 'react';
 import { useMoralis } from 'react-moralis';
 import Moralis from 'moralis/';
+import { saveSamples, saveVideo } from '../../moralis_seed';
 
 // const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 // const ABI = require('../../artifacts/contracts/Floppy.sol/Floppy.json').abi;
