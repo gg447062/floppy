@@ -1,0 +1,9 @@
+{
+  "description": "a slower breakbeat",
+  "animation_url": "https://ipfs.moralis.io:2053/ipfs/QmX5k7qFt1mqY2RaSAqTpfkZNY9j2AAbnSLQFmHGx8opxA",
+  "name": "breakbeat",
+  "attributes": [
+    { "trait_type": "bpm", "value": 150 },
+    { "trait_type": "playType", "value": "loop" }
+  ]
+}

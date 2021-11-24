@@ -1,13 +1,13 @@
 import React from 'react';
 import { useMoralis } from 'react-moralis';
 import Moralis from 'moralis/';
-import { saveSamples, saveVideo } from '../../moralis_seed';
 
 // const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
 // const ABI = require('../../artifacts/contracts/Floppy.sol/Floppy.json').abi;
 
 // ROPSTEN TESTNET DEPLOYMENT
-const ADDRESS = '0x3E17a956A258829e9b66045E9db894bb418Cca16';
+
+const ADDRESS = '0x9E89f2EF3d15fED935a480675193AF85297194d7';
 import ABI from '../../abi';
 
 const Header = (props) => {

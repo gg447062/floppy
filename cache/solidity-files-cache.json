@@ -2,8 +2,8 @@
   "_format": "hh-sol-cache-2",
   "files": {
     "/Users/gabrielgutierrez/Code/floppy/contracts/Floppy.sol": {
-      "lastModificationDate": 1637083822165,
-      "contentHash": "7838cdb8ceb05087ed87951617d66b3b",
+      "lastModificationDate": 1637721705224,
+      "contentHash": "b18263fe6990e38963629ba348bf4845",
       "sourceName": "contracts/Floppy.sol",
       "solcConfig": {
         "version": "0.8.2",

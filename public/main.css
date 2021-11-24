@@ -89,3 +89,9 @@ button {
   left: -550px;
   transition: left 500ms;
 }
+
+#upload {
+  position: fixed;
+  top: 20%;
+  left: 30%;
+}

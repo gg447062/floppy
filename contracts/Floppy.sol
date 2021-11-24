@@ -15,7 +15,7 @@ contract Floppy is ERC721, ERC721Enumerable, Ownable {
     constructor() ERC721("Floppy", "FLPY") {}
 
     function _baseURI() internal pure override returns (string memory) {
-        return "https://floppytest/tokens/";
+        return "ipfs://QmQrktwi4SyZ8QpZVNb9yyF6J2oSr3zxKRvXGHb3gAMvb9/";
     }
 
     function safeMint(address to) public payable {

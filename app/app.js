@@ -16,6 +16,7 @@ const App = () => {
         showCrates={setShowCrates}
         showDub={setShowDub}
       />
+
       <CSSTransition
         in={showGallery}
         timeout={500}
