@@ -2,13 +2,15 @@ import React from 'react';
 import { useMoralis } from 'react-moralis';
 import Moralis from 'moralis/';
 
-// const contractAddress = '0x5FbDB2315678afecb367f032d93F642f64180aa3';
-// const ABI = require('../../artifacts/contracts/Floppy.sol/Floppy.json').abi;
-
 // ROPSTEN TESTNET DEPLOYMENT
 
-const ADDRESS = '0x9E89f2EF3d15fED935a480675193AF85297194d7';
-import ABI from '../../abi';
+// const ADDRESS = '0x9E89f2EF3d15fED935a480675193AF85297194d7';
+// import ABI from '../../abi';
+
+// RINKEBY DEPLOY
+
+const ADDRESS = '0xd7872f30CdbBF766fbf23322587011116fF8F80b';
+const ABI = require('../../artifacts/contracts/Floppy.sol/Floppy.json').abi;
 
 const Header = (props) => {
   const { showGallery, showCrates, showDub } = props;
