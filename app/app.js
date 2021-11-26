@@ -41,13 +41,6 @@ const App = () => {
       >
         <DubPlate showDub={setShowDub} />
       </CSSTransition>
-      <video
-        id="source"
-        width="560"
-        height="315"
-        src="assets/video/test.mp4"
-        controls
-      ></video>
     </div>
   );
 };
