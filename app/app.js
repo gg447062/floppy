@@ -8,7 +8,7 @@ import DubPlate from './Components/DubPlate';
 const App = () => {
   const [showGallery, setShowGallery] = useState(false);
   const [showCrates, setShowCrates] = useState(false);
-  const [showDub, setShowDub] = useState(false);
+  const [showDub, setShowDub] = useState(true);
   return (
     <div>
       <Header

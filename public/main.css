@@ -1,6 +1,5 @@
 body {
   width: 100vw;
-  height: 100vh;
   font-family: Arial, Helvetica, sans-serif;
   color: green;
   margin: 0;
@@ -17,8 +16,14 @@ button {
 
 .container {
   display: flex;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
+}
+
+#dub-button {
+  position: absolute;
+  top: 5px;
+  left: 5px;
 }
 
 #header {
@@ -46,12 +51,12 @@ button {
   background-color: black;
   flex-direction: column;
   padding: 20px;
-  width: calc(100vw * 0.5);
-  height: 500px;
+  width: 100vw;
+  height: 520px;
   position: absolute;
   z-index: 2;
   top: 101px;
-  left: 25%;
+  left: 0;
 }
 
 .modal-top-enter {
@@ -88,4 +93,67 @@ button {
 .modal-left-exit-active {
   left: -550px;
   transition: left 500ms;
+}
+
+#canvas-bg {
+  position: absolute;
+  bottom: 20px;
+  left: calc(50% - 250px);
+  z-index: 0;
+  pointer-events: none;
+}
+
+#canvas-fg {
+  position: absolute;
+  bottom: 20px;
+  left: calc(50% - 250px);
+  z-index: 3;
+}
+
+#stamps {
+  position: absolute;
+  left: 0px;
+  display: flex;
+  height: 400px;
+  flex-direction: column;
+  z-index: 3;
+}
+
+#controls {
+  position: absolute;
+  flex-direction: column;
+  height: 300px;
+  right: 50px;
+}
+
+.stamp {
+  height: 80px;
+  border: 1px solid green;
+}
+
+.selected {
+  border-color: orangered;
+}
+
+#size-input {
+  appearance: none;
+  background: black;
+  outline: 1px solid green;
+}
+
+#size-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: green;
+}
+
+#overlay {
+  position: absolute;
+  z-index: 100;
+  pointer-events: none;
+  opacity: 0.5;
+  padding: 0;
+  margin: 0;
 }
