@@ -49,9 +49,10 @@ const Header = (props) => {
         </button>
       </div>
       {isAuthenticated ? <div>{user.get('ethAddress')}</div> : <div />}
-      <audio id="source" controls>
+      <video id="source" src="assets/test.mp4" controls />
+      {/* <audio id="source" controls>
         <source src="assets/test.mp3" type="audio/mpeg" />
-      </audio>
+      </audio> */}
       {src ? <audio src={src} controls></audio> : <div />}
     </div>
   );

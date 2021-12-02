@@ -1,4 +1,6 @@
 node_modules
 API_DOCS.txt
 .env
-public/assets/video
+public/assets/
+bundle.js
+bundle.js.license.txt
