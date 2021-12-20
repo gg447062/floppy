@@ -1,6 +1,5 @@
 const router = require('express').Router();
 
-router.use('/samples', require('./samples'));
 router.use('/floppys', require('./floppys'));
 
 router.use((req, res, next) => {
