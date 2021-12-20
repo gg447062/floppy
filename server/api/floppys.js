@@ -1,19 +1,6 @@
 const router = require('express').Router();
 const Moralis = require('moralis/node');
 
-// GET /api/floppys
-router.get('/', async (req, res, next) => {
-  try {
-    const query = new Moralis.Query('Sample');
-    query.equalTo('unlocked', true);
-    const allFloppySamples = await query.find();
-
-    res.send(allFloppySamples);
-  } catch (error) {
-    next(error);
-  }
-});
-
 // GET /api/floppys/:id
 router.get('/:id', async (req, res, next) => {
   try {
