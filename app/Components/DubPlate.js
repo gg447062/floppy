@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import StampSelector from './StampSelector';
 
 const DubPlate = (props) => {
   const [stamp, setStamp] = useState(null);
@@ -40,16 +41,30 @@ const DubPlate = (props) => {
   };
 
   const moveOverlay = (e) => {
+    const rect = fg.getBoundingClientRect();
     const x = e.pageX - 2 - size / 2;
     const y = e.pageY - 102 - size / 2;
     const overlay = document.getElementById('overlay');
     overlay.style.top = `${y}px`;
     overlay.style.left = `${x}px`;
+    if (
+      e.pageX > rect.right ||
+      e.pageX < rect.left ||
+      e.pageY < rect.top ||
+      e.pageY > rect.bottom
+    ) {
+      overlay.style.opacity = 0;
+    } else {
+      if (overlay.style.opacity == 0) {
+        overlay.style.opacity = 0.7;
+      }
+    }
   };
 
   const chooseStamp = (e) => {
     stamp.classList.remove('selected');
     setStamp(e.target);
+    console.log(e.target);
     e.target.classList.add('selected');
   };
 
@@ -57,27 +72,28 @@ const DubPlate = (props) => {
     setSize(e.target.value);
   };
 
-  const setImageRotation = (e) => {
-    setRotation(e.target.value);
-  };
+  // const setImageRotation = (e) => {
+  //   setRotation(e.target.value);
+  // };
 
   const draw = () => {
     const [x, y] = coords;
-    const offsetX = x - size / 2 - 250;
-    const offsetY = y - size / 2 - 250;
+    const offsetX = x - size / 2; // - 250
+    const offsetY = y - size / 2; // - 250
     const img = stamp;
-    fgCtx.translate(fg.height / 2, fg.width / 2);
-    if (rotation) {
-      // fgCtx.translate(-fg.height / 2, -fg.width / 2);
-      fgCtx.rotate((parseInt(rotation) * Math.PI) / 180);
-      // fgCtx.translate(-fg.height / 2, fg.width / 2);
-    }
+    // fgCtx.translate(fg.height / 2, fg.width / 2);
+    // if (rotation) {
+    // fgCtx.translate(-fg.height / 2, -fg.width / 2);
+    // fgCtx.rotate((parseInt(rotation) * Math.PI) / 180);
+    // fgCtx.translate(-fg.height / 2, fg.width / 2);
+    // }
     fgCtx.drawImage(img, offsetX, offsetY, size * 0.8, size);
-    fgCtx.setTransform(1, 0, 0, 1, 0, 0);
+    // fgCtx.setTransform(1, 0, 0, 1, 0, 0);
   };
 
   const clearFg = () => {
     fgCtx.clearRect(0, 0, fg.width, fg.height);
+    setRotation(0);
   };
 
   const save = () => {
@@ -114,7 +130,8 @@ const DubPlate = (props) => {
         height="500px"
         width="500px"
       ></canvas>
-      <div id="stamps" className="container">
+      <StampSelector chooseStamp={chooseStamp} />
+      {/* <div id="stamps" className="container">
         <img
           id="stamp_0"
           onClick={chooseStamp}
@@ -145,7 +162,7 @@ const DubPlate = (props) => {
           className="stamp"
           src="assets/bassface red.png"
         />
-      </div>
+      </div> */}
       <div id="controls" className="container">
         <label htmlFor="current">current</label>
         <img
@@ -166,7 +183,7 @@ const DubPlate = (props) => {
           onChange={setStampSize}
         />
         <label htmlFor="size">Size</label>
-        <input
+        {/* <input
           id="size-input"
           type="range"
           name="rotation"
@@ -176,7 +193,7 @@ const DubPlate = (props) => {
           step="2"
           onChange={setImageRotation}
         />
-        <label htmlFor="rotation">rotate</label>
+        <label htmlFor="rotation">rotate</label> */}
         <button id="clear" onClick={clearFg}>
           reset
         </button>
