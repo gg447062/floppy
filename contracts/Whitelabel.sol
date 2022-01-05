@@ -6,11 +6,13 @@ import "@openzeppelin/contracts/access/Ownable.sol";
 import "@openzeppelin/contracts/token/ERC1155/extensions/ERC1155Burnable.sol";
 
 contract Whitelabel is ERC1155, Ownable, ERC1155Burnable {
-    uint256 public constant TOKEN = 0;
+    uint256 public constant WHITELABEL = 0;
+    uint256 public constant XTACY = 1;
     constructor()
         ERC1155("ipfs://QmVfN4RG7KHQYWhzsy3sqLeNJ9y19qn1B6jNeb5XEiDEHW/")
     {
-        _mint(msg.sender, 0, 10**5, "");
+        _mint(msg.sender, 0, 10**6, "");
+        _mint(msg.sender, 1, 10**6, "");
     }
 
     function setURI(string memory newuri) public onlyOwner {
