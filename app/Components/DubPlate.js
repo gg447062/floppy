@@ -3,6 +3,7 @@ import StampSelector from './StampSelector';
 
 const DubPlate = (props) => {
   const [stamp, setStamp] = useState(null);
+  const [color, setColor] = useState(null);
   const [coords, setCoords] = useState(null);
   const [size, setSize] = useState(100);
   const [rotation, setRotation] = useState(0);
@@ -27,7 +28,7 @@ const DubPlate = (props) => {
     const _fgCtx = _fg.getContext('2d');
 
     setFg([_fg, _fgCtx]);
-    setStamp(document.getElementById('stamp_0'));
+    setStamp(document.getElementById('bassface_stamp'));
     drawBg();
   };
 
@@ -64,7 +65,6 @@ const DubPlate = (props) => {
   const chooseStamp = (e) => {
     stamp.classList.remove('selected');
     setStamp(e.target);
-    console.log(e.target);
     e.target.classList.add('selected');
   };
 
@@ -131,38 +131,6 @@ const DubPlate = (props) => {
         width="500px"
       ></canvas>
       <StampSelector chooseStamp={chooseStamp} />
-      {/* <div id="stamps" className="container">
-        <img
-          id="stamp_0"
-          onClick={chooseStamp}
-          className="stamp selected"
-          src="assets/bassface blue.png"
-        />
-        <img
-          id="stamp_1"
-          onClick={chooseStamp}
-          className="stamp"
-          src="assets/bassface green.png"
-        />
-        <img
-          id="stamp_2"
-          onClick={chooseStamp}
-          className="stamp"
-          src="assets/bassface orange.png"
-        />
-        <img
-          id="stamp_3"
-          onClick={chooseStamp}
-          className="stamp"
-          src="assets/bassface purple.png"
-        />
-        <img
-          id="stamp_4"
-          onClick={chooseStamp}
-          className="stamp"
-          src="assets/bassface red.png"
-        />
-      </div> */}
       <div id="controls" className="container">
         <label htmlFor="current">current</label>
         <img

@@ -110,13 +110,21 @@ button {
   z-index: 3;
 }
 
-#stamps {
+#selector {
   position: absolute;
   left: 0px;
-  display: flex;
+}
+
+#stamps {
+  /* display: flex; */
   height: 400px;
   flex-direction: column;
   z-index: 3;
+}
+
+#colors {
+  /* display: flex; */
+  flex-direction: column;
 }
 
 #controls {
