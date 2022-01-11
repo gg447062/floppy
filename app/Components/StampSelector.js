@@ -1,7 +1,7 @@
 import React from 'react';
 
 const StampSelector = (props) => {
-  const { chooseStamp } = props;
+  const { chooseStamp, setColor } = props;
   return (
     <div id="selector" className="container">
       <div id="stamps" className="container">
@@ -43,19 +43,36 @@ const StampSelector = (props) => {
         />
       </div>
       <div id="colors" className="container">
-        <img id="blue" className="stamp" src="assets/stamp-colors/blue.png" />
-        <img id="green" className="stamp" src="assets/stamp-colors/green.png" />
+        <img
+          id="blue"
+          className="stamp"
+          src="assets/stamp-colors/blue.png"
+          onClick={setColor}
+        />
+        <img
+          id="green"
+          className="stamp"
+          src="assets/stamp-colors/green.png"
+          onClick={setColor}
+        />
         <img
           id="orange"
           className="stamp"
           src="assets/stamp-colors/orange.png"
+          onClick={setColor}
         />
         <img
           id="purple"
           className="stamp"
           src="assets/stamp-colors/purple.png"
+          onClick={setColor}
         />
-        <img id="red" className="stamp" src="assets/stamp-colors/red.png" />
+        <img
+          id="red"
+          className="stamp"
+          src="assets/stamp-colors/red.png"
+          onClick={setColor}
+        />
       </div>
     </div>
   );

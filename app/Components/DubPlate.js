@@ -3,7 +3,6 @@ import StampSelector from './StampSelector';
 
 const DubPlate = (props) => {
   const [stamp, setStamp] = useState(null);
-  const [color, setColor] = useState(null);
   const [coords, setCoords] = useState(null);
   const [size, setSize] = useState(100);
   const [rotation, setRotation] = useState(0);
@@ -72,6 +71,14 @@ const DubPlate = (props) => {
     setSize(e.target.value);
   };
 
+  const setColor = (e) => {
+    const index = stamp.src.lastIndexOf('/');
+    const newSource = `${stamp.src.slice(0, index + 1)}${e.target.id}.png`;
+    const img = new Image(stamp.width, stamp.height);
+    img.src = newSource;
+    setStamp(img);
+  };
+
   // const setImageRotation = (e) => {
   //   setRotation(e.target.value);
   // };
@@ -130,7 +137,7 @@ const DubPlate = (props) => {
         height="500px"
         width="500px"
       ></canvas>
-      <StampSelector chooseStamp={chooseStamp} />
+      <StampSelector chooseStamp={chooseStamp} setColor={setColor} />
       <div id="controls" className="container">
         <label htmlFor="current">current</label>
         <img
