@@ -95,6 +95,24 @@ button {
   transition: left 800ms;
 }
 
+.modal-right-enter {
+  right: 1500px;
+}
+
+.modal-right-enter-active {
+  right: 0px;
+  transition: right 800ms ease;
+}
+
+.modal-right-exit {
+  right: 0;
+}
+
+.modal-right-exit-active {
+  right: 1500px;
+  transition: right 800ms;
+}
+
 #canvas-bg {
   position: absolute;
   bottom: 20px;
@@ -165,4 +183,10 @@ button {
   padding: 0;
   margin: 0;
   transition: opacity 200ms;
+}
+
+#mint-input {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid purple;
 }

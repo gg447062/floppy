@@ -115,6 +115,11 @@ const DubPlate = (props) => {
     drawBg();
   };
 
+  const goToMint = () => {
+    props.showDub(false);
+    props.showMinter(true);
+  };
+
   useEffect(() => {
     prepareCanvas();
   }, []);
@@ -173,6 +178,7 @@ const DubPlate = (props) => {
           reset
         </button>
         <button onClick={save}>save</button>
+        <button onClick={goToMint}>mint</button>
       </div>
       <img
         id="overlay"

@@ -4,11 +4,13 @@ import Gallery from './Components/Gallery';
 import Crates from './Components/Crates';
 import Header from './Components/Header';
 import DubPlate from './Components/DubPlate';
+import Minter from './Components/Minter';
 
 const App = () => {
   const [showGallery, setShowGallery] = useState(false);
   const [showCrates, setShowCrates] = useState(false);
-  const [showDub, setShowDub] = useState(true);
+  const [showDub, setShowDub] = useState(false);
+  const [showMinter, setShowMinter] = useState(true);
   return (
     <div>
       <Header
@@ -38,8 +40,17 @@ const App = () => {
         classNames="modal-left"
         unmountOnExit
       >
-        <DubPlate showDub={setShowDub} />
+        <DubPlate showDub={setShowDub} showMinter={setShowMinter} />
       </CSSTransition>
+      <CSSTransition
+        in={showMinter}
+        timeout={500}
+        classNames="modal-right"
+        unmountOnExit
+      >
+        <Minter showMinter={setShowMinter} />
+      </CSSTransition>
+      <video id="source" src="assets/test.mp4" controls />
     </div>
   );
 };
