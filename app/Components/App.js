@@ -1,16 +1,16 @@
 import React, { useState } from 'react';
 import { CSSTransition } from 'react-transition-group';
-import Gallery from './Components/Gallery';
-import Crates from './Components/Crates';
-import Header from './Components/Header';
-import DubPlate from './Components/DubPlate';
-import Minter from './Components/Minter';
+import Gallery from './Gallery';
+import Crates from './Crates';
+import Header from './Header';
+import ImageEditor from './ImageEditor/ImageEditor';
+import Minter from './Minter';
 
 const App = () => {
   const [showGallery, setShowGallery] = useState(false);
   const [showCrates, setShowCrates] = useState(false);
-  const [showDub, setShowDub] = useState(false);
-  const [showMinter, setShowMinter] = useState(true);
+  const [showDub, setShowDub] = useState(true);
+  const [showMinter, setShowMinter] = useState(false);
   return (
     <div>
       <Header
@@ -40,7 +40,7 @@ const App = () => {
         classNames="modal-left"
         unmountOnExit
       >
-        <DubPlate showDub={setShowDub} showMinter={setShowMinter} />
+        <ImageEditor showDub={setShowDub} showMinter={setShowMinter} />
       </CSSTransition>
       <CSSTransition
         in={showMinter}

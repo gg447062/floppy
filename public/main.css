@@ -42,10 +42,6 @@ button {
   flex-direction: column;
 }
 
-#dub {
-  flex-direction: column;
-}
-
 .modal {
   border: 1px solid green;
   background-color: black;
@@ -56,6 +52,19 @@ button {
   position: absolute;
   z-index: 2;
   top: 101px;
+  left: 0;
+}
+
+.ie-modal {
+  border: 1px solid green;
+  background-color: rgba(0, 0, 0);
+  flex-direction: column;
+  /* padding: 20px; */
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 20;
+  top: 0;
   left: 0;
 }
 
@@ -145,11 +154,26 @@ button {
   flex-direction: column;
 }
 
-#controls {
+.controls {
   position: absolute;
   flex-direction: column;
   height: 300px;
   right: 50px;
+}
+
+.color-selector {
+  position: absolute;
+  top: 40px;
+}
+
+.permanent {
+  height: 40px;
+  right: 50px;
+  bottom: 20px;
+}
+
+.stamps {
+  top: 20px;
 }
 
 .stamp {
