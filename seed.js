@@ -1,4 +1,4 @@
-const { readdir } = require('fs');
+const { readdir } = require('fs/promises');
 const { red, green } = require('chalk');
 const Moralis = require('moralis/node');
 const dotenv = require('dotenv').config();
@@ -10,62 +10,37 @@ const seed = async () => {
   try {
     Moralis.start({ serverUrl, appId, masterKey });
 
-    const audioBaseURL =
-      'https://gateway.pinata.cloud/ipfs/QmSs8VAXeGHJpZAp5eUfMGn3xYUMNeKSwuKt8wB3My9BKN';
-    const imageBaseURL =
-      'https://gateway.pinata.cloud/ipfs/QmNgEcokwRpBbf8KRqHRkdBa7fmZZfBofqg9hX2Hpa1vx6';
+    const basePath =
+      '/Users/gabrielgutierrez/Pictures/floppy_assets/m27_samplepack';
 
-    const samples = [];
-    const waveforms = [];
-    readdir(
-      '/Users/gabrielgutierrez/Documents/floppy/SAMPLES',
-      (err, files) => {
-        if (err) console.log(err);
-        for (const file of files) {
-          samples.push(file);
-        }
-      }
-    );
-    readdir('/Users/gabrielgutierrez/Documents/floppy/PICS', (err, files) => {
-      if (err) console.log(err);
+    let total = 0;
+
+    const folders = await readdir(basePath);
+    for (const folder of folders) {
+      if (folder == '.DS_Store') continue;
+      const files = await readdir(`${basePath}/${folder}`);
       for (const file of files) {
-        waveforms.push(file);
+        if (file == '.DS_Store') continue;
+        const floppy = parseInt(folder.split('_')[0]);
+        const parts = file.split('_');
+        const id = parseInt(parts[0]);
+        const name = parts[1].split('.')[0];
+        const obj = new Moralis.Object('Samples');
+        obj.set('name', name);
+        obj.set('sampleID', id);
+        obj.set('floppy', floppy);
+        obj.set('unlocked', false);
+        obj.save().then(
+          () => {
+            total++;
+            console.log(`${total} of 999 samples saved`);
+          },
+          (error) => {
+            console.log('an error occurred: ' + error.message);
+          }
+        );
       }
-    });
-
-    const range = (start, stop, step) =>
-      Array.from(
-        { length: (stop - start) / step + 1 },
-        (_, i) => start + i * step
-      );
-
-    const randomIndex = (value) => Math.floor(Math.random() * value);
-
-    const bpms = range(140, 180, 5);
-    const playTypes = ['loop', 'one-shot'];
-    const unlockedOptions = [true, false];
-    const floppys = [0, 1, 2];
-    const sampleNames = [];
-
-    setTimeout(() => {
-      samples.forEach((sample) => {
-        sampleNames.push(sample.split('.')[0]);
-      });
-      for (let i = 0; i < sampleNames.length; i++) {
-        const file = new Moralis.Object('Sample');
-
-        file.set('name', sampleNames[i]);
-        file.set('bpm', bpms[randomIndex(bpms.length)]);
-        file.set('playType', playTypes[randomIndex(2)]);
-        file.set('unlocked', unlockedOptions[randomIndex(2)]);
-        file.set('floppy', floppys[randomIndex(3)]);
-        file.set('audioUrl', `${audioBaseURL}/${samples[i]}`);
-        file.set('waveform', `${imageBaseURL}/${waveforms[i]}`);
-        file.save();
-      }
-
-      console.log(green('seeded samples'));
-    }, 100);
+    }
   } catch (error) {
     console.log(red(error));
   }
