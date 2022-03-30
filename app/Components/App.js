@@ -3,7 +3,7 @@ import { CSSTransition } from 'react-transition-group';
 import Gallery from './Gallery';
 import Crates from './Crates';
 import Header from './Header';
-import ImageEditor from './ImageEditor/ImageEditor';
+import ImageEditor from './ImageEditor';
 import Minter from './Minter';
 
 const App = () => {
@@ -50,7 +50,7 @@ const App = () => {
       >
         <Minter showMinter={setShowMinter} />
       </CSSTransition>
-      <video id="source" src="assets/test.mp4" controls />
+      {/* <video id="source" src="assets/test.mp4" controls /> */}
     </div>
   );
 };

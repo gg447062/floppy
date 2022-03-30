@@ -57,7 +57,7 @@ button {
 
 .ie-modal {
   border: 1px solid green;
-  background-color: rgba(0, 0, 0);
+  background-color: rgb(118, 118, 118);
   flex-direction: column;
   /* padding: 20px; */
   width: 100vw;
@@ -122,31 +122,41 @@ button {
   transition: right 800ms;
 }
 
-#canvas-bg {
+.canvas {
   position: absolute;
   bottom: 20px;
   left: calc(50% - 250px);
+}
+
+#canvas-bg {
   z-index: 0;
   pointer-events: none;
 }
 
 #canvas-fg {
-  position: absolute;
-  bottom: 20px;
-  left: calc(50% - 250px);
   z-index: 3;
+}
+
+#centerlabel {
+  z-index: -1;
+  pointer-events: none;
 }
 
 #selector {
   position: absolute;
   left: 0px;
+  flex-direction: column;
 }
 
-#stamps {
+.stamps {
   /* display: flex; */
-  height: 400px;
-  flex-direction: column;
+  height: 300px;
+  flex-direction: row;
+  background-color: green;
+  flex-wrap: wrap;
+  max-width: 300px;
   z-index: 3;
+  overflow-y: scroll;
 }
 
 #colors {
@@ -172,10 +182,6 @@ button {
   bottom: 20px;
 }
 
-.stamps {
-  top: 20px;
-}
-
 .stamp {
   height: 80px;
   border: 1px solid green;
@@ -183,6 +189,14 @@ button {
 
 .selected {
   border-color: orangered;
+}
+
+.size {
+  top: 20px;
+}
+
+.text {
+  top: 140px;
 }
 
 #size-input {
