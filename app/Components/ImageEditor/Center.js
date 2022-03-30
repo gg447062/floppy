@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setColor } from '../../Redux/editor';
 import { Color, Solver } from '../../utils';
@@ -6,11 +6,16 @@ import { Color, Solver } from '../../utils';
 const Center = () => {
   const dispatch = useDispatch();
   const stamp = useSelector((state) => state.editor.stamp);
+  const template = useSelector((state) => state.editor.template);
   const overlay = useSelector((state) => state.editor.overlay);
+  const layer = useSelector((state) => state.editor.layer);
   const color = useSelector((state) => state.editor.color);
   const size = useSelector((state) => state.editor.size);
+  const bg = useSelector((state) => state.editor.bg[0]);
+  const bgCtx = useSelector((state) => state.editor.bg[1]);
   const fg = useSelector((state) => state.editor.fg[0]);
   const fgCtx = useSelector((state) => state.editor.fg[1]);
+  const clCtx = useSelector((state) => state.editor.cl[1]);
   const [coords, setCoords] = useState(null);
 
   const handleMouseMove = (e) => {
@@ -24,11 +29,38 @@ const Center = () => {
 
   const draw = () => {
     const [x, y] = coords;
-    const offsetX = x - size / 2;
-    const offsetY = y - size / 2;
-    const img = stamp;
-    fgCtx.filter = color;
-    fgCtx.drawImage(img, offsetX, offsetY, size * 0.8, size);
+    const offsetX = x - (stamp.naturalWidth * size) / 2;
+    const offsetY = y - (stamp.naturalHeight * size) / 2;
+    switch (layer) {
+      case 'center-label':
+        drawFg(offsetX, offsetY, true, clCtx);
+        break;
+      case 'stickers':
+        drawFg(offsetX, offsetY, false, fgCtx);
+        break;
+      case 'stamps':
+        drawFg(offsetX, offsetY, true, fgCtx);
+        break;
+      default:
+        return;
+    }
+  };
+
+  const drawFg = (x, y, filter, ctx) => {
+    if (filter) {
+      ctx.filter = color;
+      ctx.globalAlpha = 0.8;
+    } else {
+      ctx.filter = 'none';
+      ctx.globalAlpha = 1;
+    }
+    ctx.drawImage(
+      stamp,
+      x,
+      y,
+      size * stamp.naturalWidth,
+      size * stamp.naturalHeight
+    );
   };
 
   const setColorFilter = (e) => {
@@ -44,17 +76,34 @@ const Center = () => {
     const filterCSS = result.filter;
     overlay.style.filter = filterCSS;
     dispatch(setColor(filterCSS));
+    if (layer == 'template') {
+      bgCtx.clearRect(0, 0, bg.width, bg.height);
+      bgCtx.filter = filterCSS;
+      bgCtx.drawImage(template, 0, 0, 522, 522);
+    }
   };
 
   return (
     <div className="center">
-      <canvas id="canvas-bg" height="500px" width="500px"></canvas>
       <canvas
-        onMouseMove={handleMouseMove}
-        onClick={draw}
-        id="canvas-fg"
+        id="centerlabel"
+        className="canvas"
         height="500px"
         width="500px"
+      ></canvas>
+      <canvas
+        id="canvas-bg"
+        className="canvas"
+        height="500px"
+        width="500px"
+      ></canvas>
+      <canvas
+        id="canvas-fg"
+        className="canvas"
+        height="500px"
+        width="500px"
+        onMouseMove={handleMouseMove}
+        onClick={draw}
       ></canvas>
       <input
         className="color-selector"
