@@ -129,8 +129,13 @@ button {
 }
 
 #canvas-bg {
-  z-index: 0;
+  z-index: 1;
   pointer-events: none;
+}
+
+#bg-texture {
+  pointer-events: none;
+  z-index: 5;
 }
 
 #canvas-fg {
@@ -140,6 +145,11 @@ button {
 #centerlabel {
   z-index: -1;
   pointer-events: none;
+}
+
+#centerlabel-texture {
+  pointer-events: none;
+  z-index: 0;
 }
 
 #selector {
@@ -183,7 +193,7 @@ button {
 }
 
 .stamp {
-  height: 80px;
+  height: 60px;
   border: 1px solid green;
 }
 
@@ -213,18 +223,178 @@ button {
   background: green;
 }
 
-#overlay {
+#stamp-ol {
+  pointer-events: none;
+}
+
+.overlay {
   position: absolute;
   z-index: 100;
-  pointer-events: none;
   opacity: 0.7;
   padding: 0;
   margin: 0;
   transition: opacity 200ms;
 }
 
+.artist {
+  top: 20em;
+}
+
+.track {
+  top: 23em;
+}
+
+.fonts {
+  position: absolute;
+  top: 200px;
+  right: 10px;
+  max-width: 140px;
+  max-height: 300px;
+  overflow-y: scroll;
+  background-color: green;
+  color: black;
+}
+
 #mint-input {
   display: flex;
   flex-direction: column;
   border: 1px solid purple;
+}
+
+/* ------------------- */
+/*        Utility      */
+/* ------------------- */
+
+/*        fonts        */
+
+.ff-0 {
+  font-family: 'AddCityboy', sans-serif;
+}
+
+.ff-1 {
+  font-family: 'Art Greco', sans-serif;
+}
+
+.ff-2 {
+  font-family: 'CapitalisTypOasis', sans-serif;
+}
+
+.ff-3 {
+  font-family: 'Argos George Contour', sans-serif;
+}
+
+.ff-4 {
+  font-family: 'Eat your heart out', sans-serif;
+}
+
+.ff-5 {
+  font-family: 'diel', sans-serif;
+}
+
+.ff-6 {
+  font-family: 'ExtraBlur', sans-serif;
+}
+
+.ff-7 {
+  font-family: 'Emilio 20', sans-serif;
+}
+
+.ff-8 {
+  font-family: 'El&Font Bubble', sans-serif;
+}
+
+.ff-9 {
+  font-family: 'KleinsThreePixel', sans-serif;
+}
+
+.ff-10 {
+  font-family: 'wassimo graffiti', sans-serif;
+}
+
+.ff-11 {
+  font-family: 'Fat Wandals PERSONAL USE', sans-serif;
+}
+
+.ff-12 {
+  font-family: 'Grid Fracture', sans-serif;
+}
+
+.ff-13 {
+  font-family: 'Gas Mask Warriors', sans-serif;
+}
+
+.ff-14 {
+  font-family: 'KleinsThreeFS', sans-serif;
+}
+
+.ff-15 {
+  font-family: 'Mionta', sans-serif;
+}
+
+.ff-16 {
+  font-family: 'Mainstream PERSONAL USE ONLY', sans-serif;
+}
+
+.ff-17 {
+  font-family: 'Movie Poster Personal Use', sans-serif;
+}
+
+.ff-18 {
+  font-family: 'Olde English', sans-serif;
+}
+
+.ff-19 {
+  font-family: 'Opiated BRK', sans-serif;
+}
+
+.ff-20 {
+  font-family: 'OptimusPrinceps', sans-serif;
+}
+
+.ff-21 {
+  font-family: 'RaseBasic', sans-serif;
+}
+
+.ff-22 {
+  font-family: 'Spire Alt', sans-serif;
+}
+
+.ff-23 {
+  font-family: 'row', sans-serif;
+}
+
+.ff-24 {
+  font-family: 'SANTOS DUMONT', sans-serif;
+}
+
+.ff-25 {
+  font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
+}
+
+.ff-26 {
+  font-family: 'Sans Poster Bold JL', sans-serif;
+}
+
+.ff-27 {
+  font-family: 'Plasmatica Open', sans-serif;
+}
+
+.ff-28 {
+  font-family: 'Univox', sans-serif;
+}
+
+.ff-29 {
+  font-family: 'Spoken PERSONAL USE ONLY', sans-serif;
+}
+
+.ff-30 {
+  font-family: 'Zimbra', sans-serif;
+}
+
+.ff-31 {
+  font-family: 'SPEW', sans-serif;
+}
+
+.ff-32 {
+  font-family: 'Thorne Shaded', sans-serif;
 }
