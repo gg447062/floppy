@@ -1,11 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Draggable from 'react-draggable';
 import {
   setOverlay,
   setBg,
   setFg,
   setCenterLabel,
   setLayer,
+  setTemplate,
 } from '../../Redux/editor';
 import Center from './Center';
 import Left from './Left';
@@ -16,40 +18,55 @@ const ImageEditor = (props) => {
   const stamp = useSelector((state) => state.editor.stamp);
   const overlay = useSelector((state) => state.editor.overlay);
   const size = useSelector((state) => state.editor.size);
+  const color = useSelector((state) => state.editor.color);
+  const font = useSelector((state) => state.editor.font);
   const fg = useSelector((state) => state.editor.fg[0]);
   const layer = useSelector((state) => state.editor.layer);
+  const [artist, setArtist] = useState('');
+  const [track, setTrack] = useState('');
   const { showDub, showMinter } = props;
 
   const drawInitialBg = (ctx1, ctx2) => {
-    const bgImg = new Image(522, 522);
-    bgImg.src = 'assets/TEMPLATES/cover-19/19_Cover.png';
-    bgImg.onload = () => {
+    const clTextureImg = new Image(522, 522);
+    clTextureImg.src = 'assets/RECORD_CENTERLABEL/centerlabel_texture.png';
+    clTextureImg.onload = () => {
       ctx1.filter = 'none';
-      ctx1.drawImage(bgImg, 0, 0, bgImg.width, bgImg.height);
+      ctx1.drawImage(
+        clTextureImg,
+        0,
+        0,
+        clTextureImg.width,
+        clTextureImg.height
+      );
     };
+
     const centerImg = new Image(522, 522);
-    centerImg.src = 'assets/RECORD_CENTERLABEL/centerlabel.png';
+    centerImg.src = 'assets/RECORD_CENTERLABEL/record.png';
     centerImg.onload = () => {
       ctx2.filter = 'none';
       ctx2.drawImage(centerImg, 0, 0, centerImg.width, centerImg.height);
     };
+    // dispatch(setTemplate(bgImg));
   };
 
   const prepareCanvas = () => {
     const _bg = document.getElementById('canvas-bg');
     const _bgCtx = _bg.getContext('2d');
+    const _bgTexture = document.getElementById('bg-texture');
+    const _bgTextureCtx = _bgTexture.getContext('2d');
     const _fg = document.getElementById('canvas-fg');
     const _fgCtx = _fg.getContext('2d');
     const _cl = document.getElementById('centerlabel');
     const _clCtx = _cl.getContext('2d');
-    const _overlay = document.getElementById('overlay');
+    const _clTexture = document.getElementById('centerlabel-texture');
+    const _clTextureCtx = _clTexture.getContext('2d');
+    const _overlay = document.getElementById('stamp-ol');
 
     dispatch(setOverlay(_overlay));
-    dispatch(setCenterLabel([_cl, _clCtx]));
+    dispatch(setCenterLabel([_cl, _clCtx], [_clTexture, _clTextureCtx]));
     dispatch(setFg([_fg, _fgCtx]));
-    dispatch(setBg([_bg, _bgCtx]));
-    dispatch(setLayer('template'));
-    drawInitialBg(_bgCtx, _clCtx);
+    dispatch(setBg([_bg, _bgCtx], [_bgTexture, _bgTextureCtx]));
+    drawInitialBg(_clTextureCtx, _clCtx);
   };
 
   const moveOverlay = (e) => {
@@ -98,12 +115,25 @@ const ImageEditor = (props) => {
         showDub={showDub}
         showMinter={showMinter}
         drawInitialBg={drawInitialBg}
+        setArtist={setArtist}
+        setTrack={setTrack}
       />
       <img
-        id="overlay"
+        id="stamp-ol"
+        className="overlay"
         src={stamp ? stamp.src : ''}
         height={stamp ? `${stamp.naturalHeight * size}px` : ''}
       ></img>
+      <Draggable>
+        <div className={`artist overlay ${font}`} style={{ color: color }}>
+          {artist}
+        </div>
+      </Draggable>
+      <Draggable>
+        <div className={`track overlay ${font}`} style={{ color: color }}>
+          {track}
+        </div>
+      </Draggable>
     </div>
   );
 };

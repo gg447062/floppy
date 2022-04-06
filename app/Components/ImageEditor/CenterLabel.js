@@ -7,7 +7,7 @@ const CenterLabel = ({ chooseStamp }) => {
         return (
           <img
             id={`cl_${i + 1}`}
-            className="stamp"
+            className="stamp cl"
             src={`assets/CENTER_LABEL_ASSETS/cl_${i + 1}.png`}
             onClick={chooseStamp}
             key={i}
