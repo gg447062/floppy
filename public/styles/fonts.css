@@ -49,7 +49,7 @@
 }
 
 @font-face {
-  font-family: 'diel';
+  font-family: 'diel-Regular';
   src: url('../assets/fonts/diel-Regular.woff2') format('woff2'),
     url('../assets/fonts/diel-Regular.woff') format('woff'),
     url('../assets/fonts/diel-Regular.ttf') format('truetype');
@@ -229,7 +229,7 @@
 }
 
 @font-face {
-  font-family: 'row';
+  font-family: 'row-Regular';
   src: url('../assets/fonts/row-Regular.woff2') format('woff2'),
     url('../assets/fonts/row-Regular.woff') format('woff'),
     url('../assets/fonts/row-Regular.ttf') format('truetype');
