@@ -75,7 +75,7 @@ const initState = {
   size: 0.125,
   filter: null,
   color: '#000000',
-  font: '',
+  font: {},
   bg: {},
   bgTexture: {},
   cl: {},

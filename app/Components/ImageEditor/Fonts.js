@@ -1,12 +1,15 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setFont } from '../../Redux/editor';
+import { fontNames } from '../../utils';
 
 const Fonts = () => {
   const dispatch = useDispatch();
 
   const selectFont = (e) => {
-    dispatch(setFont(e.target.className));
+    dispatch(
+      setFont({ class: e.target.className, name: fontNames[e.target.id] })
+    );
   };
 
   return (
@@ -16,13 +19,8 @@ const Fonts = () => {
         <li>---</li>
         {[...Array(33)].map((_, i) => {
           return (
-            <li
-              id={`ff-${i}`}
-              className={`ff-${i}`}
-              key={i}
-              onClick={selectFont}
-            >
-              {`Font ${i + 1}`}
+            <li id={i} className={`ff-${i}`} key={i} onClick={selectFont}>
+              Sample
             </li>
           );
         })}

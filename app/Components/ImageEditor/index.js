@@ -131,14 +131,14 @@ const ImageEditor = (props) => {
       <Draggable>
         <div
           id="artiste"
-          className={`artist overlay ${font}`}
+          className={`artist overlay ${font.class}`}
           style={{ color: color }}
         >
           {artist}
         </div>
       </Draggable>
       <Draggable>
-        <div className={`track overlay ${font}`} style={{ color: color }}>
+        <div className={`track overlay ${font.class}`} style={{ color: color }}>
           {track}
         </div>
       </Draggable>
