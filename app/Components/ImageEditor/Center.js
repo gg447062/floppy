@@ -12,16 +12,13 @@ const Center = () => {
   const size = useSelector((state) => state.editor.size);
   const filter = useSelector((state) => state.editor.filter);
   const bg = useSelector((state) => state.editor.bg);
-  // const bg = useSelector((state) => state.editor.bg[0]);
-  // const bgCtx = useSelector((state) => state.editor.bg[1]);
-  const fg = useSelector((state) => state.editor.fg[0]);
-  const fgCtx = useSelector((state) => state.editor.fg[1]);
-  const clCtx = useSelector((state) => state.editor.cl[1]);
+  const fg = useSelector((state) => state.editor.fg);
+  const cl = useSelector((state) => state.editor.cl);
   const [coords, setCoords] = useState(null);
 
   const handleMouseMove = (e) => {
-    if (fg) {
-      const rect = fg.getBoundingClientRect();
+    if (fg.canvas) {
+      const rect = fg.canvas.getBoundingClientRect();
       const x = e.pageX - rect.left;
       const y = e.pageY - rect.top;
       setCoords([x, y]);
@@ -34,13 +31,13 @@ const Center = () => {
     const offsetY = y - (stamp.naturalHeight * size) / 2;
     switch (layer) {
       case 'center-label':
-        drawFg(offsetX, offsetY, true, clCtx);
+        drawFg(offsetX, offsetY, true, cl.ctx);
         break;
       case 'stickers':
-        drawFg(offsetX, offsetY, false, fgCtx);
+        drawFg(offsetX, offsetY, false, fg.ctx);
         break;
       case 'stamps':
-        drawFg(offsetX, offsetY, true, fgCtx);
+        drawFg(offsetX, offsetY, true, fg.ctx);
         break;
       default:
         return;
@@ -65,7 +62,6 @@ const Center = () => {
   };
 
   const setColorFilter = (e) => {
-    console.log(bg);
     const val = e.target.value;
     const r = parseInt(val.substring(1, 3), 16);
     const g = parseInt(val.substring(3, 5), 16);
@@ -79,10 +75,10 @@ const Center = () => {
     overlay.style.filter = filterCSS;
     dispatch(setFilter(filterCSS));
     dispatch(setColor(e.target.value));
-    if (layer == 'template') {
-      bg[1].clearRect(0, 0, bg[0].width, bg[0].height);
-      bg[1].filter = filterCSS;
-      bg[1].drawImage(template, 0, 0, 522, 522);
+    if (layer == 'template' && template) {
+      bg.ctx.clearRect(0, 0, bg.canvas.width, bg.canvas.height);
+      bg.ctx.filter = filterCSS;
+      bg.ctx.drawImage(template, 0, 0, 522, 522);
     }
   };
 

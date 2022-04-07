@@ -74,13 +74,13 @@ const initState = {
   layer: 'template',
   size: 0.125,
   filter: null,
-  color: null,
+  color: '#000000',
   font: '',
-  bg: [],
-  bgTexture: [],
-  cl: [],
-  clTexture: [],
-  fg: [],
+  bg: {},
+  bgTexture: {},
+  cl: {},
+  clTexture: {},
+  fg: {},
 };
 
 const editorReducer = (state = initState, action) => {

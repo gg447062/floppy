@@ -1,14 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Draggable from 'react-draggable';
-import {
-  setOverlay,
-  setBg,
-  setFg,
-  setCenterLabel,
-  setLayer,
-  setTemplate,
-} from '../../Redux/editor';
+import { setOverlay, setBg, setFg, setCenterLabel } from '../../Redux/editor';
 import Center from './Center';
 import Left from './Left';
 import Right from './Right';
@@ -20,7 +13,7 @@ const ImageEditor = (props) => {
   const size = useSelector((state) => state.editor.size);
   const color = useSelector((state) => state.editor.color);
   const font = useSelector((state) => state.editor.font);
-  const fg = useSelector((state) => state.editor.fg[0]);
+  const fg = useSelector((state) => state.editor.fg);
   const layer = useSelector((state) => state.editor.layer);
   const [artist, setArtist] = useState('');
   const [track, setTrack] = useState('');
@@ -46,7 +39,6 @@ const ImageEditor = (props) => {
       ctx2.filter = 'none';
       ctx2.drawImage(centerImg, 0, 0, centerImg.width, centerImg.height);
     };
-    // dispatch(setTemplate(bgImg));
   };
 
   const prepareCanvas = () => {
@@ -63,9 +55,19 @@ const ImageEditor = (props) => {
     const _overlay = document.getElementById('stamp-ol');
 
     dispatch(setOverlay(_overlay));
-    dispatch(setCenterLabel([_cl, _clCtx], [_clTexture, _clTextureCtx]));
-    dispatch(setFg([_fg, _fgCtx]));
-    dispatch(setBg([_bg, _bgCtx], [_bgTexture, _bgTextureCtx]));
+    dispatch(setFg({ canvas: _fg, ctx: _fgCtx }));
+    dispatch(
+      setCenterLabel(
+        { canvas: _cl, ctx: _clCtx },
+        { canvas: _clTexture, ctx: _clTextureCtx }
+      )
+    );
+    dispatch(
+      setBg(
+        { canvas: _bg, ctx: _bgCtx },
+        { canvas: _bgTexture, ctx: _bgTextureCtx }
+      )
+    );
     drawInitialBg(_clTextureCtx, _clCtx);
   };
 
@@ -76,7 +78,7 @@ const ImageEditor = (props) => {
     if (layer == 'stickers') {
       overlay.style.filter = 'none';
     }
-    const rect = fg.getBoundingClientRect();
+    const rect = fg.canvas.getBoundingClientRect();
     const x = e.pageX - (stamp.naturalWidth * size) / 2;
     const y = e.pageY - (stamp.naturalHeight * size) / 2;
     overlay.style.top = `${y}px`;
@@ -117,6 +119,8 @@ const ImageEditor = (props) => {
         drawInitialBg={drawInitialBg}
         setArtist={setArtist}
         setTrack={setTrack}
+        artist={artist}
+        track={track}
       />
       <img
         id="stamp-ol"
@@ -125,7 +129,11 @@ const ImageEditor = (props) => {
         height={stamp ? `${stamp.naturalHeight * size}px` : ''}
       ></img>
       <Draggable>
-        <div className={`artist overlay ${font}`} style={{ color: color }}>
+        <div
+          id="artiste"
+          className={`artist overlay ${font}`}
+          style={{ color: color }}
+        >
           {artist}
         </div>
       </Draggable>

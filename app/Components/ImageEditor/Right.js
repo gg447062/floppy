@@ -4,39 +4,48 @@ import { useSelector, useDispatch } from 'react-redux';
 import { setSize } from '../../Redux/editor';
 import Fonts from './Fonts';
 
-const Right = ({ showDub, showMinter, drawInitialBg, setArtist, setTrack }) => {
+const Right = ({
+  showDub,
+  showMinter,
+  drawInitialBg,
+  setArtist,
+  setTrack,
+  artist,
+  track,
+}) => {
   const dispatch = useDispatch();
   const size = useSelector((state) => state.editor.size);
   const layer = useSelector((state) => state.editor.layer);
   const font = useSelector((state) => state.editor.font);
   const color = useSelector((state) => state.editor.color);
-  const fg = useSelector((state) => state.editor.fg[0]);
-  const fgCtx = useSelector((state) => state.editor.fg[1]);
-  const bg = useSelector((state) => state.editor.bg[0]);
-  const bgCtx = useSelector((state) => state.editor.bg[1]);
-  const bgTexture = useSelector((state) => state.editor.bgTexture[0]);
-  const cl = useSelector((state) => state.editor.cl[0]);
-  const clCtx = useSelector((state) => state.editor.cl[1]);
-  const clTexture = useSelector((state) => state.editor.clTexture[0]);
-  const clTextureCtx = useSelector((state) => state.editor.clTexture[1]);
+  const fg = useSelector((state) => state.editor.fg);
+  const bg = useSelector((state) => state.editor.bg);
+  const bgTexture = useSelector((state) => state.editor.bgTexture);
+  const cl = useSelector((state) => state.editor.cl);
+  const clTexture = useSelector((state) => state.editor.clTexture);
 
   const setStampSize = (e) => {
     dispatch(setSize(e.target.value));
   };
 
   const reset = () => {
-    fgCtx.clearRect(0, 0, fg.width, fg.height);
-    bgCtx.clearRect(0, 0, bg.width, bg.height);
-    clCtx.clearRect(0, 0, bg.width, bg.height);
-    clTextureCtx.clearRect(0, 0, bg.width, bg.height);
-    drawInitialBg(clTextureCtx, clCtx);
+    fg.ctx.clearRect(0, 0, fg.canvas.width, fg.canvas.height);
+    bg.ctx.clearRect(0, 0, bg.canvas.width, bg.canvas.height);
+    cl.ctx.clearRect(0, 0, cl.canvas.width, cl.canvas.height);
+    clTexture.ctx.clearRect(
+      0,
+      0,
+      clTexture.canvas.width,
+      clTexture.canvas.height
+    );
+    drawInitialBg(clTexture.ctx, cl.ctx);
   };
 
-  // const writeTextToCanvas = (e) => {
-  //   clCtx.font = font;
-  //   clCtx.fillStyle = color;
-  //   clCtx.fillText(e.target.value, 250, 250);
-  // };
+  const writeTextToCanvas = (ctx, text, posX, posY) => {
+    ctx.font = `30px ${font.name}`;
+    ctx.fillStyle = color;
+    ctx.fillText(text, posX, posY);
+  };
 
   const writeArtist = (e) => {
     setArtist(e.target.value);
@@ -50,11 +59,13 @@ const Right = ({ showDub, showMinter, drawInitialBg, setArtist, setTrack }) => {
     const final = document.getElementById('canvas-final-mixdown');
     const finalCtx = final.getContext('2d');
 
-    finalCtx.drawImage(cl, 0, 0);
-    finalCtx.drawImage(clTexture, 0, 0);
-    finalCtx.drawImage(bg, 0, 0);
-    finalCtx.drawImage(fg, 0, 0);
-    finalCtx.drawImage(bgTexture, 0, 0);
+    finalCtx.drawImage(cl.canvas, 0, 0);
+    writeTextToCanvas(finalCtx, artist, 250, 250);
+    writeTextToCanvas(finalCtx, track, 250, 290);
+    finalCtx.drawImage(clTexture.canvas, 0, 0);
+    finalCtx.drawImage(bg.canvas, 0, 0);
+    finalCtx.drawImage(fg.canvas, 0, 0);
+    finalCtx.drawImage(bgTexture.canvas, 0, 0);
 
     const image = final.toDataURL();
     const a = document.createElement('a');

@@ -5,23 +5,22 @@ import { setTemplate } from '../../Redux/editor';
 const Templates = () => {
   const dispatch = useDispatch();
   const filter = useSelector((state) => state.editor.filter);
-  const bg = useSelector((state) => state.editor.bg[0]);
-  const bgCtx = useSelector((state) => state.editor.bg[1]);
-  const bgTCtx = useSelector((state) => state.editor.bgTexture[1]);
+  const bg = useSelector((state) => state.editor.bg);
+  const bgT = useSelector((state) => state.editor.bgTexture);
 
   const drawBg = (e) => {
     const baseString = e.target.src.split('_')[0];
 
-    bgCtx.clearRect(0, 0, bg.width, bg.height);
-    bgTCtx.clearRect(0, 0, bg.width, bg.height);
+    bg.ctx.clearRect(0, 0, bg.canvas.width, bg.canvas.height);
+    bgT.ctx.clearRect(0, 0, bg.canvas.width, bg.canvas.height);
 
-    bgCtx.filter = filter;
+    bg.ctx.filter = filter;
     if (e.target.id !== 'cover-13') {
       const bgImg = new Image(522, 522);
       bgImg.src = `${baseString}_Cover.png`;
 
       bgImg.onload = () => {
-        bgCtx.drawImage(bgImg, 0, 0, bgImg.width, bgImg.height);
+        bg.ctx.drawImage(bgImg, 0, 0, bgImg.width, bgImg.height);
       };
     }
 
@@ -29,7 +28,7 @@ const Templates = () => {
     textureImg.src = `${baseString}_Cover_Texture.png`;
 
     textureImg.onload = () => {
-      bgTCtx.drawImage(textureImg, 0, 0, textureImg.width, textureImg.height);
+      bgT.ctx.drawImage(textureImg, 0, 0, textureImg.width, textureImg.height);
     };
 
     dispatch(setTemplate(e.target));
