@@ -47,10 +47,8 @@ const Center = () => {
   const drawFg = (x, y, applyFilter, ctx) => {
     if (applyFilter) {
       ctx.filter = filter;
-      ctx.globalAlpha = 0.8;
     } else {
       ctx.filter = 'none';
-      ctx.globalAlpha = 1;
     }
     ctx.drawImage(
       stamp,
