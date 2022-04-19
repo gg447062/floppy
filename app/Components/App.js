@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { CSSTransition } from 'react-transition-group';
+import { Player } from 'furioos-sdk';
 import Gallery from './Gallery';
 import Crates from './Crates';
 import Header from './Header';
@@ -11,6 +12,26 @@ const App = () => {
   const [showCrates, setShowCrates] = useState(false);
   const [showDub, setShowDub] = useState(true);
   const [showMinter, setShowMinter] = useState(false);
+  const [loaded, setLoaded] = useState(false);
+
+  const options = {
+    whiteLabel: true,
+    hideToolbar: true,
+    hideTitle: true,
+    hidePlayButton: false,
+  };
+
+  useEffect(() => {
+    if (!loaded) {
+      const player = new Player(
+        process.env.FURIOOS_SDK_LINK,
+        'player-container',
+        options
+      );
+      setLoaded(true);
+    }
+  });
+
   return (
     <div>
       <Header
@@ -50,7 +71,7 @@ const App = () => {
       >
         <Minter showMinter={setShowMinter} />
       </CSSTransition>
-      {/* <video id="source" src="assets/test.mp4" controls /> */}
+      <div id="player-container"></div>
     </div>
   );
 };

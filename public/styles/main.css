@@ -261,6 +261,11 @@ button {
   border: 1px solid purple;
 }
 
+#player-container {
+  height: 100vh;
+  width: 100vw;
+}
+
 /* ------------------- */
 /*        Utility      */
 /* ------------------- */
