@@ -1,4 +1,7 @@
 node_modules
 API_DOCS.txt
 .env
-public/assets
+public/assets/
+bundle.js
+bundle.js.license.txt
+.DS_Store

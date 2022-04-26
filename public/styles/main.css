@@ -1,0 +1,419 @@
+body {
+  width: 100vw;
+  font-family: Arial, Helvetica, sans-serif;
+  color: green;
+  margin: 0;
+  padding: 0;
+  background-color: black;
+}
+
+button {
+  background-color: black;
+  border: 1px solid green;
+  color: green;
+  padding: 10px;
+}
+
+.container {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+}
+
+#dub-button {
+  position: absolute;
+  top: 5px;
+  left: 5px;
+}
+
+#header {
+  position: fixed;
+  width: 100vw;
+  height: 100px;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  border: 1px solid green;
+  background-color: black;
+  z-index: 3;
+}
+
+#record {
+  flex-direction: column;
+}
+
+.modal {
+  border: 1px solid green;
+  background-color: black;
+  flex-direction: column;
+  padding: 20px;
+  width: 100vw;
+  height: 520px;
+  position: absolute;
+  z-index: 2;
+  top: 101px;
+  left: 0;
+}
+
+.ie-modal {
+  border: 1px solid green;
+  background-color: rgb(118, 118, 118);
+  flex-direction: column;
+  /* padding: 20px; */
+  width: 100vw;
+  height: 100vh;
+  position: absolute;
+  z-index: 20;
+  top: 0;
+  left: 0;
+}
+
+.modal-top-enter {
+  top: -400px;
+}
+
+.modal-top-enter-active {
+  top: 100px;
+  transition: top 500ms;
+}
+
+.modal-top-exit {
+  top: 100px;
+}
+
+.modal-top-exit-active {
+  top: -440px;
+  transition: top 500ms;
+}
+
+.modal-left-enter {
+  left: -1500px;
+}
+
+.modal-left-enter-active {
+  left: 150px;
+  transition: left 800ms ease;
+}
+
+.modal-left-exit {
+  left: 0;
+}
+
+.modal-left-exit-active {
+  left: -1500px;
+  transition: left 800ms;
+}
+
+.modal-right-enter {
+  right: 1500px;
+}
+
+.modal-right-enter-active {
+  right: 0px;
+  transition: right 800ms ease;
+}
+
+.modal-right-exit {
+  right: 0;
+}
+
+.modal-right-exit-active {
+  right: 1500px;
+  transition: right 800ms;
+}
+
+.canvas {
+  position: absolute;
+  bottom: 20px;
+  left: calc(50% - 250px);
+}
+
+#canvas-bg {
+  z-index: 1;
+  pointer-events: none;
+}
+
+#bg-texture {
+  pointer-events: none;
+  z-index: 5;
+}
+
+#canvas-fg {
+  z-index: 3;
+}
+
+#centerlabel {
+  z-index: -1;
+  pointer-events: none;
+}
+
+#centerlabel-texture {
+  pointer-events: none;
+  z-index: 0;
+}
+
+#selector {
+  position: absolute;
+  left: 0px;
+  flex-direction: column;
+}
+
+.stamps {
+  /* display: flex; */
+  height: 300px;
+  flex-direction: row;
+  background-color: green;
+  flex-wrap: wrap;
+  max-width: 300px;
+  z-index: 3;
+  overflow-y: scroll;
+}
+
+#colors {
+  /* display: flex; */
+  flex-direction: column;
+}
+
+.controls {
+  position: absolute;
+  flex-direction: column;
+  height: 300px;
+  right: 50px;
+}
+
+.color-selector {
+  position: absolute;
+  top: 40px;
+}
+
+.permanent {
+  height: 40px;
+  right: 50px;
+  bottom: 20px;
+}
+
+.stamp {
+  height: 60px;
+  border: 1px solid green;
+}
+
+.selected {
+  border-color: orangered;
+}
+
+.size {
+  top: 20px;
+}
+
+.text {
+  top: 140px;
+}
+
+#size-input {
+  appearance: none;
+  background: black;
+  outline: 1px solid green;
+}
+
+#size-input::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 20px;
+  height: 20px;
+  background: green;
+}
+
+#stamp-ol {
+  pointer-events: none;
+}
+
+.overlay {
+  position: absolute;
+  z-index: 100;
+  opacity: 0.7;
+  padding: 0;
+  margin: 0;
+  transition: opacity 200ms;
+}
+
+.artist {
+  top: 20em;
+}
+
+.track {
+  top: 23em;
+}
+
+.fonts {
+  position: absolute;
+  top: 200px;
+  right: 10px;
+  max-width: 140px;
+  max-height: 300px;
+  overflow-y: scroll;
+  background-color: green;
+  color: black;
+}
+
+#mint-input {
+  display: flex;
+  flex-direction: column;
+  border: 1px solid purple;
+}
+
+#player-container {
+  height: 100vh;
+  width: 100vw;
+}
+
+#intro-modal {
+  position: absolute;
+  background-color: black;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+/* ------------------- */
+/*        Utility      */
+/* ------------------- */
+
+/*        fonts        */
+
+.ff-0 {
+  font-family: 'AddCityboy', sans-serif;
+}
+
+.ff-1 {
+  font-family: 'Art Greco', sans-serif;
+}
+
+.ff-2 {
+  font-family: 'CapitalisTypOasis', sans-serif;
+}
+
+.ff-3 {
+  font-family: 'Argos George Contour', sans-serif;
+}
+
+.ff-4 {
+  font-family: 'Eat your heart out', sans-serif;
+}
+
+.ff-5 {
+  font-family: 'diel-Regular', sans-serif;
+}
+
+.ff-6 {
+  font-family: 'ExtraBlur', sans-serif;
+}
+
+.ff-7 {
+  font-family: 'Emilio 20', sans-serif;
+}
+
+.ff-8 {
+  font-family: 'El&Font Bubble', sans-serif;
+}
+
+.ff-9 {
+  font-family: 'KleinsThreePixel', sans-serif;
+}
+
+.ff-10 {
+  font-family: 'wassimo graffiti', sans-serif;
+}
+
+.ff-11 {
+  font-family: 'Fat Wandals PERSONAL USE', sans-serif;
+}
+
+.ff-12 {
+  font-family: 'Grid Fracture', sans-serif;
+}
+
+.ff-13 {
+  font-family: 'Gas Mask Warriors', sans-serif;
+}
+
+.ff-14 {
+  font-family: 'KleinsThreeFS', sans-serif;
+}
+
+.ff-15 {
+  font-family: 'Mionta', sans-serif;
+}
+
+.ff-16 {
+  font-family: 'Mainstream PERSONAL USE ONLY', sans-serif;
+}
+
+.ff-17 {
+  font-family: 'Movie Poster Personal Use', sans-serif;
+}
+
+.ff-18 {
+  font-family: 'Olde English', sans-serif;
+}
+
+.ff-19 {
+  font-family: 'Opiated BRK', sans-serif;
+}
+
+.ff-20 {
+  font-family: 'OptimusPrinceps', sans-serif;
+}
+
+.ff-21 {
+  font-family: 'RaseBasic', sans-serif;
+}
+
+.ff-22 {
+  font-family: 'Spire Alt', sans-serif;
+}
+
+.ff-23 {
+  font-family: 'row-Regular', sans-serif;
+}
+
+.ff-24 {
+  font-family: 'SANTOS DUMONT', sans-serif;
+}
+
+.ff-25 {
+  font-family: 'Neue Haas Grotesk Display Pro', sans-serif;
+}
+
+.ff-26 {
+  font-family: 'Sans Poster Bold JL', sans-serif;
+}
+
+.ff-27 {
+  font-family: 'Plasmatica Open', sans-serif;
+}
+
+.ff-28 {
+  font-family: 'Univox', sans-serif;
+}
+
+.ff-29 {
+  font-family: 'Spoken PERSONAL USE ONLY', sans-serif;
+}
+
+.ff-30 {
+  font-family: 'Zimbra', sans-serif;
+}
+
+.ff-31 {
+  font-family: 'SPEW', sans-serif;
+}
+
+.ff-32 {
+  font-family: 'Thorne Shaded', sans-serif;
+}
