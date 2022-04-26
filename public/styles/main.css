@@ -269,7 +269,7 @@ button {
 #intro-modal {
   position: absolute;
   background-color: black;
-  background-image: url('../assets/FLOPPY_BETA.png');
+  background-image: url('../FLOPPY_BETA.png');
   background-size: 100% 100%;
   background-repeat: none;
   top: 0;
@@ -285,7 +285,7 @@ button {
 
 #loading-spinner {
   margin-top: 25%;
-  background-image: url('../assets/Spinner-1s-200px.gif');
+  background-image: url('../Spinner-1s-200px.gif');
   width: 200px;
   height: 200px;
 }

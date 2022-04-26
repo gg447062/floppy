@@ -28,5 +28,5 @@ module.exports = {
       },
     ],
   },
-  plugins: [new NodePolyfillPlugin(), new Dotenv()],
+  plugins: [new NodePolyfillPlugin(), new Dotenv({ systemvars: true })],
 };
