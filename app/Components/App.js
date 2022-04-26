@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { CSSTransition } from 'react-transition-group';
 import { Player } from 'furioos-sdk';
 import Gallery from './Gallery';
@@ -10,25 +10,37 @@ import Minter from './Minter';
 const App = () => {
   const [showGallery, setShowGallery] = useState(false);
   const [showCrates, setShowCrates] = useState(false);
-  const [showDub, setShowDub] = useState(true);
+  const [showDub, setShowDub] = useState(false);
   const [showMinter, setShowMinter] = useState(false);
+  const [player, setPlayer] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const modalRef = useRef();
 
   const options = {
     whiteLabel: true,
     hideToolbar: true,
     hideTitle: true,
-    hidePlayButton: false,
+    hidePlayButton: true,
+  };
+
+  const startGame = () => {
+    modalRef.current.style.display = 'none';
   };
 
   useEffect(() => {
-    if (!loaded) {
-      const player = new Player(
+    if (!player) {
+      const _player = new Player(
         process.env.FURIOOS_SDK_LINK,
         'player-container',
         options
       );
-      setLoaded(true);
+      _player.onLoad(() => {
+        _player.start();
+      });
+      _player.onAppStart(() => {
+        setLoaded(true);
+      });
+      setPlayer(_player);
     }
   });
 
@@ -72,6 +84,14 @@ const App = () => {
         <Minter showMinter={setShowMinter} />
       </CSSTransition>
       <div id="player-container"></div>
+      <div id="intro-modal" ref={modalRef}>
+        <h1 className="ff-0">Welcome to Floppy</h1>
+        {loaded ? (
+          <button onClick={startGame}>Start</button>
+        ) : (
+          <p>Loading...</p>
+        )}
+      </div>
     </div>
   );
 };

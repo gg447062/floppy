@@ -3,8 +3,7 @@ import { useMoralis } from 'react-moralis';
 import Moralis from 'moralis/';
 import Recorder from './Recorder';
 
-const Header = (props) => {
-  const { showGallery, showCrates, showDub } = props;
+const Header = ({ showGallery, showCrates, showDub }) => {
   const [src, setSource] = useState('');
   const { user, authenticate, logout, isAuthenticated, isAuthenticating } =
     useMoralis();
@@ -32,18 +31,18 @@ const Header = (props) => {
         Gallery
       </button>
       <button
-        onClick={() => {
-          showCrates(true);
-        }}
+      // onClick={() => {
+      //   showCrates(true);
+      // }}
       >
         Crates
       </button>
       <div id="record" className="container">
-        <Recorder setSource={setSource} />
+        {/* <Recorder setSource={setSource} /> */}
         <button
-          onClick={() => {
-            showDub(true);
-          }}
+        // onClick={() => {
+        //   showDub(true);
+        // }}
         >
           Press dub plate
         </button>
