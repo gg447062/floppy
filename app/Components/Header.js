@@ -24,9 +24,9 @@ const Header = ({ showGallery, showCrates, showDub }) => {
         </button>
       )}
       <button
-        onClick={() => {
-          showGallery(true);
-        }}
+      // onClick={() => {
+      //   showGallery(true);
+      // }}
       >
         Gallery
       </button>
