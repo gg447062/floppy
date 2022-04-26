@@ -85,11 +85,12 @@ const App = () => {
       </CSSTransition>
       <div id="player-container"></div>
       <div id="intro-modal" ref={modalRef}>
-        <h1 className="ff-0">Welcome to Floppy</h1>
         {loaded ? (
-          <button onClick={startGame}>Start</button>
+          <button onClick={startGame} id="start-button" className="ff-0">
+            START
+          </button>
         ) : (
-          <p>Loading...</p>
+          <div id="loading-spinner" />
         )}
       </div>
     </div>

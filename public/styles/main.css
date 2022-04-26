@@ -269,6 +269,9 @@ button {
 #intro-modal {
   position: absolute;
   background-color: black;
+  background-image: url('../assets/FLOPPY_BETA.png');
+  background-size: 100% 100%;
+  background-repeat: none;
   top: 0;
   left: 0;
   height: 100vh;
@@ -278,6 +281,23 @@ button {
   justify-content: center;
   align-items: center;
   flex-direction: column;
+}
+
+#loading-spinner {
+  margin-top: 25%;
+  background-image: url('../assets/Spinner-1s-200px.gif');
+  width: 200px;
+  height: 200px;
+}
+
+#start-button {
+  margin-top: 25%;
+  background-color: transparent;
+  border: none;
+  font-size: 60px;
+  padding: 10px;
+  color: white;
+  text-shadow: 0px 0px 10px green;
 }
 
 /* ------------------- */

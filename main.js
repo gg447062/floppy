@@ -1,9 +1,6 @@
-/* eslint-disable no-console */
-
-const chalk = require('chalk');
-const app = require('./server');
+const express = require('express');
+const app = express();
+app.use('/', express.static(__dirname + '/public'));
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT, () => {
-  console.log(chalk.yellow(`listening on port ${PORT}`));
-});
+app.listen(PORT);
