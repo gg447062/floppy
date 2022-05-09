@@ -30,7 +30,8 @@ const App = () => {
   useEffect(() => {
     if (!player) {
       const _player = new Player(
-        process.env.FURIOOS_SDK_LINK,
+        // process.env.FURIOOS_SDK_LINK,
+        '8QW89fMEFJakJKRga',
         'player-container',
         options
       );
