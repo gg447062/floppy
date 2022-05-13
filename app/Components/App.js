@@ -23,18 +23,15 @@ const App = () => {
     hidePlayButton: true,
   };
 
+  const z = 'xsSRkW8x7GgTk2EXE';
+
   const startGame = () => {
     modalRef.current.style.display = 'none';
   };
 
   useEffect(() => {
     if (!player) {
-      const _player = new Player(
-        // process.env.FURIOOS_SDK_LINK,
-        '8QW89fMEFJakJKRga',
-        'player-container',
-        options
-      );
+      const _player = new Player(z, 'player-container', options);
       _player.onLoad(() => {
         _player.start();
       });
