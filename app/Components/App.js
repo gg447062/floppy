@@ -30,23 +30,29 @@ const App = () => {
 
   const z =
     process.env.NODE_ENV === 'development'
-      ? 'N4mpvM6XckG3GQtT7'
+      ? 'igvJ3gqNaqGFanYaK'
       : 'xsSRkW8x7GgTk2EXE';
 
   const enterGame = () => {
     modalRef.current.style.display = 'none';
     video1Ref.current.play();
+    video1Ref.current.onended = (e) => {
+      nextVideo();
+    };
     setTimeout(() => {
       setSkipReady(true);
     }, 30000);
   };
 
-  const pauseAndHide = (v1, b, v2 = null) => {
+  const pauseAndHide = (v1, b, v2 = null, div = null) => {
     v1.pause();
     v1.style.display = 'none';
     b.style.display = 'none';
     if (v2) {
       v2.play();
+    }
+    if (div) {
+      div.style.display = 'none';
     }
   };
 
@@ -60,7 +66,12 @@ const App = () => {
   };
 
   const startGame = () => {
-    pauseAndHide(video2Ref.current, document.getElementById('start-button'));
+    pauseAndHide(
+      video2Ref.current,
+      document.getElementById('start-button'),
+      null,
+      document.getElementsByClassName('video-wrapper')[0]
+    );
   };
 
   useEffect(() => {
@@ -69,13 +80,8 @@ const App = () => {
       _player.onStreamStart(() => {
         setLoaded(true);
       });
-
       setPlayer(_player);
     }
-
-    video1Ref.current.onended = () => {
-      nextVideo();
-    };
   }, []);
 
   return (
@@ -124,19 +130,21 @@ const App = () => {
         </button>
       </div>
       {/* <audio src="assets/The_Breakdown.mp3" /> */}
-      <video
-        className={'intro-video'}
-        id="video1"
-        src={`${baseURL}/floppy-game-intro-720.mp4`}
-        ref={video1Ref}
-      />
-      <video
-        className={'intro-video'}
-        id="video2"
-        src={`${baseURL}/floppy-basseface-intro-720.mp4`}
-        ref={video2Ref}
-        loop={true}
-      />
+      <div className="video-wrapper">
+        <video
+          className={'intro-video'}
+          id="video1"
+          src={`${baseURL}/floppy-game-intro-720.mp4`}
+          ref={video1Ref}
+        />
+        <video
+          className={'intro-video'}
+          id="video2"
+          src={`${baseURL}/floppy-basseface-intro-720.mp4`}
+          ref={video2Ref}
+          loop={true}
+        />
+      </div>
       {skipReady && (
         <button id={'skip-button'} onClick={nextVideo}>
           <img
