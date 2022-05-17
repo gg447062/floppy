@@ -26,7 +26,7 @@ const App = () => {
     hidePlayButton: true,
   };
 
-  const videoBaseURL = 'https://dg3mov3znt8u.cloudfront.net';
+  const baseURL = 'https://dg3mov3znt8u.cloudfront.net';
 
   const z =
     process.env.NODE_ENV === 'development'
@@ -60,7 +60,7 @@ const App = () => {
   };
 
   const startGame = () => {
-    pauseAndHide(video2Ref.current, document.getElementById('skip-button'));
+    pauseAndHide(video2Ref.current, document.getElementById('start-button'));
   };
 
   useEffect(() => {
@@ -127,13 +127,13 @@ const App = () => {
       <video
         className={'intro-video'}
         id="video1"
-        src={`${videoBaseURL}/floppy-game-intro-720.mp4`}
+        src={`${baseURL}/floppy-game-intro-720.mp4`}
         ref={video1Ref}
       />
       <video
         className={'intro-video'}
         id="video2"
-        src={`${videoBaseURL}/floppy-basseface-intro-720.mp4`}
+        src={`${baseURL}/floppy-basseface-intro-720.mp4`}
         ref={video2Ref}
         loop={true}
       />
@@ -141,13 +141,16 @@ const App = () => {
         <button id={'skip-button'} onClick={nextVideo}>
           <img
             alt="skip tutorial button"
-            src="assets/skip-tutorial-button.png"
+            src={`${baseURL}/skip-tutorial-button.png`}
           />
         </button>
       )}
       {loaded && (
         <button id="start-button" onClick={startGame}>
-          <img alt="start game button" src="assets/start-game-button.png" />
+          <img
+            alt="start game button"
+            src={`${baseURL}/start-game-button.png`}
+          />
         </button>
       )}
     </div>
