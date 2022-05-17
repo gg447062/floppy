@@ -14,7 +14,10 @@ const App = () => {
   const [showMinter, setShowMinter] = useState(false);
   const [player, setPlayer] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const [skipReady, setSkipReady] = useState(false);
   const modalRef = useRef();
+  const video1Ref = useRef();
+  const video2Ref = useRef();
 
   const options = {
     whiteLabel: true,
@@ -23,28 +26,61 @@ const App = () => {
     hidePlayButton: true,
   };
 
-  const z = 'xsSRkW8x7GgTk2EXE';
+  const videoBaseURL = 'https://dg3mov3znt8u.cloudfront.net';
+
+  const z =
+    process.env.NODE_ENV === 'development'
+      ? 'N4mpvM6XckG3GQtT7'
+      : 'xsSRkW8x7GgTk2EXE';
+
+  const enterGame = () => {
+    modalRef.current.style.display = 'none';
+    video1Ref.current.play();
+    setTimeout(() => {
+      setSkipReady(true);
+    }, 30000);
+  };
+
+  const pauseAndHide = (v1, b, v2 = null) => {
+    v1.pause();
+    v1.style.display = 'none';
+    b.style.display = 'none';
+    if (v2) {
+      v2.play();
+    }
+  };
+
+  const nextVideo = () => {
+    pauseAndHide(
+      video1Ref.current,
+      document.getElementById('skip-button'),
+      video2Ref.current
+    );
+    player.start();
+  };
 
   const startGame = () => {
-    modalRef.current.style.display = 'none';
+    pauseAndHide(video2Ref.current, document.getElementById('skip-button'));
   };
 
   useEffect(() => {
     if (!player) {
       const _player = new Player(z, 'player-container', options);
-      _player.onLoad(() => {
-        _player.start();
-      });
-      _player.onAppStart(() => {
+      _player.onStreamStart(() => {
         setLoaded(true);
       });
+
       setPlayer(_player);
     }
-  });
+
+    video1Ref.current.onended = () => {
+      nextVideo();
+    };
+  }, []);
 
   return (
     <div>
-      <Header
+      {/* <Header
         showGallery={setShowGallery}
         showCrates={setShowCrates}
         showDub={setShowDub}
@@ -80,17 +116,40 @@ const App = () => {
         unmountOnExit
       >
         <Minter showMinter={setShowMinter} />
-      </CSSTransition>
+      </CSSTransition> */}
       <div id="player-container"></div>
       <div id="intro-modal" ref={modalRef}>
-        {loaded ? (
-          <button onClick={startGame} id="start-button" className="ff-0">
-            START
-          </button>
-        ) : (
-          <div id="loading-spinner" />
-        )}
+        <button id="enter-button" onClick={enterGame}>
+          ENTER
+        </button>
       </div>
+      {/* <audio src="assets/The_Breakdown.mp3" /> */}
+      <video
+        className={'intro-video'}
+        id="video1"
+        src={`${videoBaseURL}/floppy-game-intro-720.mp4`}
+        ref={video1Ref}
+      />
+      <video
+        className={'intro-video'}
+        id="video2"
+        src={`${videoBaseURL}/floppy-basseface-intro-720.mp4`}
+        ref={video2Ref}
+        loop={true}
+      />
+      {skipReady && (
+        <button id={'skip-button'} onClick={nextVideo}>
+          <img
+            alt="skip tutorial button"
+            src="assets/skip-tutorial-button.png"
+          />
+        </button>
+      )}
+      {loaded && (
+        <button id="start-button" onClick={startGame}>
+          <img alt="start game button" src="assets/start-game-button.png" />
+        </button>
+      )}
     </div>
   );
 };
