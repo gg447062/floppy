@@ -6,10 +6,12 @@ const CenterLabel = ({ chooseStamp }) => {
   const filter = useSelector((state) => state.editor.filter);
 
   const drawCenterLabel = (e) => {
-    cl.ctx.clearRect(0, 0, cl.canvas.width, cl.canvas.height);
+    // cl.ctx.clearRect(0, 0, cl.canvas.width, cl.canvas.height);
+    const image = new Image(500, 500);
+    image.src = 'assets/RECORD_CENTERLABEL/centerlabel.png';
     cl.ctx.filter = filter;
-    console.log(e.target);
-    cl.ctx.drawImage(e.target, 0, 0, 522, 522);
+
+    cl.ctx.drawImage(image, 0, 0, 500, 500);
   };
 
   return (

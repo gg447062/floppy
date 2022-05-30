@@ -16,7 +16,7 @@ const Templates = () => {
 
     bg.ctx.filter = filter;
     if (e.target.id !== 'cover-13') {
-      const bgImg = new Image(522, 522);
+      const bgImg = new Image(500, 500);
       bgImg.src = `${baseString}_Cover.png`;
 
       bgImg.onload = () => {
@@ -24,7 +24,7 @@ const Templates = () => {
       };
     }
 
-    const textureImg = new Image(522, 522);
+    const textureImg = new Image(500, 500);
     textureImg.src = `${baseString}_Cover_Texture.png`;
 
     textureImg.onload = () => {

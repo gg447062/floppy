@@ -20,7 +20,7 @@ const ImageEditor = (props) => {
   const { showDub, showMinter } = props;
 
   const drawInitialBg = (ctx1, ctx2) => {
-    const clTextureImg = new Image(522, 522);
+    const clTextureImg = new Image(500, 500);
     clTextureImg.src = 'assets/RECORD_CENTERLABEL/centerlabel_texture.png';
     clTextureImg.onload = () => {
       ctx1.filter = 'none';
@@ -33,7 +33,7 @@ const ImageEditor = (props) => {
       );
     };
 
-    const centerImg = new Image(522, 522);
+    const centerImg = new Image(500, 500);
     centerImg.src = 'assets/RECORD_CENTERLABEL/record.png';
     centerImg.onload = () => {
       ctx2.filter = 'none';
