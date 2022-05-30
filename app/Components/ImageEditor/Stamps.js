@@ -1,4 +1,5 @@
 import React from 'react';
+import { assetBaseURL } from '../../utils';
 
 const Stamps = ({ chooseStamp }) => {
   return (
@@ -6,37 +7,37 @@ const Stamps = ({ chooseStamp }) => {
       <img
         id="bassface_stamp"
         className="stamp"
-        src="assets/STAMPS/bassface-stamp.png"
+        src={`${assetBaseURL}/STAMPS/bassface-stamp.png`}
         onClick={chooseStamp}
       />
       <img
         id="floppy-disk"
         className="stamp"
-        src="assets/STAMPS/floppy-disk-stamp.png"
+        src={`${assetBaseURL}/STAMPS/floppy-disk-stamp.png`}
         onClick={chooseStamp}
       />
       <img
         id="floppy-stamp"
         className="stamp"
-        src="assets/STAMPS/floppy-stamp.png"
+        src={`${assetBaseURL}/STAMPS/floppy-stamp.png`}
         onClick={chooseStamp}
       />
       <img
         id="in-n-out-stamp"
         className="stamp"
-        src="assets/STAMPS/in-n-out-stamp.png"
+        src={`${assetBaseURL}/STAMPS/in-n-out-stamp.png`}
         onClick={chooseStamp}
       />
       <img
         id="m27-stamp"
         className="stamp"
-        src="assets/STAMPS/m27-stamp.png"
+        src={`${assetBaseURL}/STAMPS/m27-stamps.png`}
         onClick={chooseStamp}
       />
       <img
         id="shake-stamp"
         className="stamp"
-        src="assets/STAMPS/m27-shake-stamp.png"
+        src={`${assetBaseURL}/STAMPS/m27-shake-stamp.png`}
         onClick={chooseStamp}
       />
     </div>

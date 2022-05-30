@@ -5,6 +5,7 @@ import { setOverlay, setBg, setFg, setCenterLabel } from '../../Redux/editor';
 import Center from './Center';
 import Left from './Left';
 import Right from './Right';
+import { assetBaseURL } from '../../utils';
 
 const ImageEditor = (props) => {
   const dispatch = useDispatch();
@@ -21,7 +22,7 @@ const ImageEditor = (props) => {
 
   const drawInitialBg = (ctx1, ctx2) => {
     const clTextureImg = new Image(500, 500);
-    clTextureImg.src = 'assets/RECORD_CENTERLABEL/centerlabel_texture.png';
+    clTextureImg.src = `${assetBaseURL}/RECORD_CENTERLABEL/Centerlabel_Texture.png`;
     clTextureImg.onload = () => {
       ctx1.filter = 'none';
       ctx1.drawImage(
@@ -34,7 +35,7 @@ const ImageEditor = (props) => {
     };
 
     const centerImg = new Image(500, 500);
-    centerImg.src = 'assets/RECORD_CENTERLABEL/record.png';
+    centerImg.src = `${assetBaseURL}/RECORD_CENTERLABEL/Record.png`;
     centerImg.onload = () => {
       ctx2.filter = 'none';
       ctx2.drawImage(centerImg, 0, 0, centerImg.width, centerImg.height);
