@@ -38,7 +38,7 @@ const Header = ({ showGallery, showCrates, showDub }) => {
         Crates
       </button>
       <div id="record" className="container">
-        {/* <Recorder setSource={setSource} /> */}
+        <Recorder setSource={setSource} />
         <button
         // onClick={() => {
         //   showDub(true);
@@ -49,7 +49,7 @@ const Header = ({ showGallery, showCrates, showDub }) => {
       </div>
       {isAuthenticated ? <div>{user.get('ethAddress')}</div> : <div />}
 
-      {src ? <audio src={src} controls></audio> : <div />}
+      {src ? <video src={src} controls></video> : <div />}
     </div>
   );
 };

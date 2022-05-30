@@ -161,6 +161,7 @@ const App = () => {
           />
         </button>
       )}
+      <canvas id="source"></canvas>
     </div>
   );
 };

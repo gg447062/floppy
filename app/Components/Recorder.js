@@ -1,21 +1,26 @@
-import React, { useState } from 'react';
-import axios from 'axios';
+import React, { useEffect, useState } from 'react';
 import { createFFmpeg } from '@ffmpeg/ffmpeg';
+
 const ffmpeg = createFFmpeg({
   log: true,
 });
 
-const Recorder = (props) => {
+const Recorder = ({ setSource }) => {
   const [recorder, setRecorder] = useState(null);
   const [recordedChunks, setRecordedChunks] = useState([]);
-  const { setSource } = props;
 
-  const record = () => {
+  const gdmOpts = {
+    video: true,
+    audio: true,
+  };
+
+  const record = async () => {
+    const stream = await startCapture(gdmOpts);
     const button = document.getElementById('start');
     button.style.borderColor = 'red';
     button.style.color = 'red';
-    const source = document.getElementById('source');
-    const stream = source.captureStream();
+    // const source = document.getElementById('source');
+    // const stream = sourceCanvas.canvas.captureStream();
     setSource('');
     setRecordedChunks([]);
     const _recorder = new MediaRecorder(stream);
@@ -23,6 +28,17 @@ const Recorder = (props) => {
     _recorder.onstop = handleData;
     _recorder.start();
     setRecorder(_recorder);
+  };
+
+  const startCapture = async (options) => {
+    let captureStream = null;
+    try {
+      captureStream = await navigator.mediaDevices.getDisplayMedia(options);
+    } catch (error) {
+      console.error('Error:', error);
+    }
+
+    return captureStream;
   };
 
   const handleAvailableData = (event) => {
