@@ -10,39 +10,39 @@ import Minter from './Minter';
 const App = () => {
   const [showGallery, setShowGallery] = useState(false);
   const [showCrates, setShowCrates] = useState(false);
-  const [showDub, setShowDub] = useState(false);
+  const [showDub, setShowDub] = useState(true);
   const [showMinter, setShowMinter] = useState(false);
   const [player, setPlayer] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const modalRef = useRef();
 
-  const options = {
-    whiteLabel: true,
-    hideToolbar: true,
-    hideTitle: true,
-    hidePlayButton: true,
-  };
+  // const options = {
+  //   whiteLabel: true,
+  //   hideToolbar: true,
+  //   hideTitle: true,
+  //   hidePlayButton: true,
+  // };
 
-  const startGame = () => {
-    modalRef.current.style.display = 'none';
-  };
+  // const startGame = () => {
+  //   modalRef.current.style.display = 'none';
+  // };
 
-  useEffect(() => {
-    if (!player) {
-      const _player = new Player(
-        process.env.FURIOOS_SDK_LINK,
-        'player-container',
-        options
-      );
-      _player.onLoad(() => {
-        _player.start();
-      });
-      _player.onAppStart(() => {
-        setLoaded(true);
-      });
-      setPlayer(_player);
-    }
-  });
+  // useEffect(() => {
+  //   if (!player) {
+  //     const _player = new Player(
+  //       process.env.FURIOOS_SDK_LINK,
+  //       'player-container',
+  //       options
+  //     );
+  //     _player.onLoad(() => {
+  //       _player.start();
+  //     });
+  //     _player.onAppStart(() => {
+  //       setLoaded(true);
+  //     });
+  //     setPlayer(_player);
+  //   }
+  // });
 
   return (
     <div>
@@ -83,7 +83,7 @@ const App = () => {
       >
         <Minter showMinter={setShowMinter} />
       </CSSTransition>
-      <div id="player-container"></div>
+      {/* <div id="player-container"></div>
       <div id="intro-modal" ref={modalRef}>
         <h1 className="ff-0">Welcome to Floppy</h1>
         {loaded ? (
@@ -91,7 +91,7 @@ const App = () => {
         ) : (
           <p>Loading...</p>
         )}
-      </div>
+      </div> */}
     </div>
   );
 };
