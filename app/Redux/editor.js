@@ -4,8 +4,11 @@ const SET_OVERLAY = 'SET_OVERLAY';
 const SET_LAYER = 'SET_LAYER';
 const SET_SIZE = 'SET_SIZE';
 const SET_COLOR = 'SET_COLOR';
+const SET_FONT_COLOR = 'SET_FONT_COLOR';
+const SET_FONT_SIZE = 'SET_FONT_SIZE';
 const SET_FILTER = 'SET_FILTER';
-const SET_FONT = 'SET_FONT';
+const SET_ARTIST_FONT = 'SET_ARTIST_FONT';
+const SET_TRACK_FONT = 'SET_TRACK_FONT';
 const SET_BG = 'SET_BG';
 const SET_CENTERLABEL = 'SET_CENTERLABEL';
 const SET_FG = 'SET_FG';
@@ -45,8 +48,23 @@ export const setColor = (color) => ({
   color,
 });
 
-export const setFont = (font) => ({
-  type: SET_FONT,
+export const setFontColor = (color) => ({
+  type: SET_FONT_COLOR,
+  color,
+});
+
+export const setFontSize = (size) => ({
+  type: SET_FONT_SIZE,
+  size,
+});
+
+export const setArtistFont = (font) => ({
+  type: SET_ARTIST_FONT,
+  font,
+});
+
+export const setTrackFont = (font) => ({
+  type: SET_TRACK_FONT,
   font,
 });
 
@@ -71,11 +89,15 @@ const initState = {
   stamp: null,
   template: null,
   overlay: null,
-  layer: 'template',
-  size: 0.125,
+  // layer: 'template',
+  layer: 'center-label',
+  size: 1,
   filter: null,
   color: '#000000',
-  font: {},
+  fontColor: '#000000',
+  fontSize: 20,
+  artistFont: {},
+  trackFont: {},
   bg: {},
   bgTexture: {},
   cl: {},
@@ -97,8 +119,14 @@ const editorReducer = (state = initState, action) => {
       return { ...state, size: action.size };
     case SET_COLOR:
       return { ...state, color: action.color };
-    case SET_FONT:
-      return { ...state, font: action.font };
+    case SET_FONT_COLOR:
+      return { ...state, fontColor: action.color };
+    case SET_FONT_SIZE:
+      return { ...state, fontSize: action.size };
+    case SET_ARTIST_FONT:
+      return { ...state, artistFont: action.font };
+    case SET_TRACK_FONT:
+      return { ...state, trackFont: action.font };
     case SET_FILTER:
       return { ...state, filter: action.filter };
     case SET_BG:
