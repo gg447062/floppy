@@ -12,8 +12,11 @@ const ImageEditor = (props) => {
   const stamp = useSelector((state) => state.editor.stamp);
   const overlay = useSelector((state) => state.editor.overlay);
   const size = useSelector((state) => state.editor.size);
-  const color = useSelector((state) => state.editor.color);
-  const font = useSelector((state) => state.editor.font);
+  const fontSize = useSelector((state) => state.editor.fontSize);
+  const fontColor = useSelector((state) => state.editor.fontColor);
+  const filter = useSelector((state) => state.editor.filter);
+  const artistFont = useSelector((state) => state.editor.artistFont);
+  const trackFont = useSelector((state) => state.editor.trackFont);
   const fg = useSelector((state) => state.editor.fg);
   const layer = useSelector((state) => state.editor.layer);
   const [artist, setArtist] = useState('');
@@ -78,6 +81,8 @@ const ImageEditor = (props) => {
     }
     if (layer == 'stickers') {
       overlay.style.filter = 'none';
+    } else {
+      if (overlay.style.filter !== filter) overlay.style.filter = filter;
     }
     const rect = fg.canvas.getBoundingClientRect();
     const x = e.pageX - (stamp.naturalWidth * size) / 2;
@@ -132,14 +137,17 @@ const ImageEditor = (props) => {
       <Draggable>
         <div
           id="artiste"
-          className={`artist overlay ${font.class}`}
-          style={{ color: color }}
+          className={`artist overlay ${artistFont.class}`}
+          style={{ color: fontColor, fontSize: `${fontSize}px` }}
         >
           {artist}
         </div>
       </Draggable>
       <Draggable>
-        <div className={`track overlay ${font.class}`} style={{ color: color }}>
+        <div
+          className={`track overlay ${trackFont.class}`}
+          style={{ color: fontColor, fontSize: `${fontSize}px` }}
+        >
           {track}
         </div>
       </Draggable>

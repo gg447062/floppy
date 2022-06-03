@@ -1,8 +1,9 @@
 import React from 'react';
 import Controls from './Controls';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSize } from '../../Redux/editor';
+import { setSize, setFontColor, setFontSize } from '../../Redux/editor';
 import Fonts from './Fonts';
+import { Color, Solver } from '../../utils';
 
 const Right = ({
   showDub,
@@ -15,8 +16,10 @@ const Right = ({
 }) => {
   const dispatch = useDispatch();
   const size = useSelector((state) => state.editor.size);
+  const fontSize = useSelector((state) => state.editor.fontSize);
   const layer = useSelector((state) => state.editor.layer);
-  const font = useSelector((state) => state.editor.font);
+  const artistFont = useSelector((state) => state.editor.artistFont);
+  const trackFont = useSelector((state) => state.editor.trackFont);
   const color = useSelector((state) => state.editor.color);
   const fg = useSelector((state) => state.editor.fg);
   const bg = useSelector((state) => state.editor.bg);
@@ -26,6 +29,10 @@ const Right = ({
 
   const setStampSize = (e) => {
     dispatch(setSize(e.target.value));
+  };
+
+  const setTextSize = (e) => {
+    dispatch(setFontSize(e.target.value));
   };
 
   const reset = () => {
@@ -41,8 +48,12 @@ const Right = ({
     drawInitialBg(clTexture.ctx, cl.ctx);
   };
 
-  const writeTextToCanvas = (ctx, text, posX, posY) => {
-    ctx.font = `30px ${font.name}`;
+  const writeTextToCanvas = (ctx, text, posX, posY, artist = true) => {
+    if (artist) {
+      ctx.font = `${fontSize}px ${artistFont.name}`;
+    } else {
+      ctx.font = `${fontSize}px ${trackFont.className}`;
+    }
     ctx.fillStyle = color;
     ctx.fillText(text, posX, posY);
   };
@@ -55,13 +66,26 @@ const Right = ({
     setTrack(e.target.value);
   };
 
+  const setTextColor = (e) => {
+    const val = e.target.value;
+    const r = parseInt(val.substring(1, 3), 16);
+    const g = parseInt(val.substring(3, 5), 16);
+    const b = parseInt(val.substring(5, 7), 16);
+
+    const _color = new Color(r, g, b);
+    const solver = new Solver(_color);
+    const result = solver.solve();
+
+    dispatch(setFontColor(e.target.value));
+  };
+
   const save = () => {
     const final = document.getElementById('canvas-final-mixdown');
     const finalCtx = final.getContext('2d');
 
     finalCtx.drawImage(cl.canvas, 0, 0);
     writeTextToCanvas(finalCtx, artist, 250, 250);
-    writeTextToCanvas(finalCtx, track, 250, 290);
+    writeTextToCanvas(finalCtx, track, 250, 290, false);
     finalCtx.drawImage(clTexture.canvas, 0, 0);
     finalCtx.drawImage(bg.canvas, 0, 0);
     finalCtx.drawImage(fg.canvas, 0, 0);
@@ -78,20 +102,20 @@ const Right = ({
 
   const goToMint = () => {
     save();
-    showDub(false);
-    showMinter(true);
+    // showDub(false);
+    // showMinter(true);
   };
 
   return (
-    <React.Fragment>
+    <div className="controls-wrapper">
       <Controls>
         <div className="container controls size">
           <input
             id="size-input"
             type="range"
             name="size"
-            min="0.01"
-            max="0.25"
+            min="0.5"
+            max="1"
             value={size}
             step=".01"
             onChange={setStampSize}
@@ -102,12 +126,29 @@ const Right = ({
       {layer == 'center-label' && (
         <Controls>
           <div className="container controls text">
+            <input
+              type="color"
+              style={{ width: '50px', height: '50px' }}
+              onChange={setTextColor}
+            ></input>
+            <input
+              id="size-input"
+              type="range"
+              name="font-size"
+              min="10"
+              max="35"
+              value={fontSize}
+              step="1"
+              onChange={setTextSize}
+            />
+            <label htmlFor="font-size">Font Size</label>
             <label htmlFor="artist">Artist Name</label>
             <input id="artist" name="artist" onChange={writeArtist}></input>
+            <Fonts destination={'artist'} />
             <label htmlFor="track">Track Name</label>
             <input id="track" name="track" onChange={writeTrack}></input>
+            <Fonts destination={'track'} />
           </div>
-          <Fonts />
         </Controls>
       )}
       <div className="controls permanent">
@@ -116,7 +157,7 @@ const Right = ({
         </button>
         <button onClick={goToMint}>mint</button>
       </div>
-    </React.Fragment>
+    </div>
   );
 };
 
