@@ -19,7 +19,6 @@ const Templates = () => {
     if (e.target.id !== 'cover-9') {
       const bgImg = new Image(500, 500);
       bgImg.src = `${baseString}_Cover.png`;
-
       bgImg.onload = () => {
         bg.ctx.drawImage(bgImg, 0, 0, bgImg.width, bgImg.height);
       };
@@ -34,11 +33,6 @@ const Templates = () => {
 
     dispatch(setTemplate(e.target));
   };
-
-  // const padWithZero = (val) => {
-  //   if (val < 10) return `0${val}`;
-  //   else return val;
-  // };
 
   return (
     <div className="container stamps">
