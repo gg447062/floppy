@@ -14,6 +14,11 @@ button {
   padding: 10px;
 }
 
+ul {
+  padding-left: 1em;
+  margin: 0;
+}
+
 .container {
   display: flex;
   justify-content: space-around;
@@ -155,7 +160,9 @@ button {
 #selector {
   position: absolute;
   left: 0px;
+  /* padding: 0 1em; */
   flex-direction: column;
+  color: black;
 }
 
 .stamps {
@@ -175,10 +182,21 @@ button {
 }
 
 .controls {
-  position: absolute;
   flex-direction: column;
-  height: 300px;
+  /* position: absolute; */
+  /* height: 300px; */
+  /* right: 50px; */
+}
+
+.controls-wrapper {
+  position: absolute;
   right: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 80vh;
+  color: black;
 }
 
 .color-selector {
@@ -193,7 +211,7 @@ button {
 }
 
 .stamp {
-  height: 60px;
+  height: 50px;
   border: 1px solid green;
 }
 
@@ -202,11 +220,13 @@ button {
 }
 
 .size {
-  top: 20px;
+  top: 50px;
+  max-height: 3em;
 }
 
 .text {
   top: 140px;
+  justify-content: space-around;
 }
 
 #size-input {
@@ -237,22 +257,32 @@ button {
 }
 
 .artist {
-  top: 20em;
+  top: 50vh;
 }
 
 .track {
-  top: 23em;
+  top: 60vh;
+}
+
+.fonts--wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .fonts {
-  position: absolute;
-  top: 200px;
-  right: 10px;
-  max-width: 140px;
-  max-height: 300px;
+  max-height: 3em;
+  max-width: 8em;
   overflow-y: scroll;
   background-color: green;
+  border: 1px solid black;
   color: black;
+  list-style: none;
+}
+
+.fonts li {
+  padding: 0.4em 0;
 }
 
 #mint-input {
@@ -285,6 +315,10 @@ button {
 /* ------------------- */
 
 /*        fonts        */
+
+.fs-100 {
+  font-size: 1em;
+}
 
 .ff-0 {
   font-family: 'AddCityboy', sans-serif;
