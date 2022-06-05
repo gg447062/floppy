@@ -128,7 +128,7 @@ const Right = ({
           <div className="container controls text">
             <input
               type="color"
-              style={{ width: '50px', height: '50px' }}
+              className="text-color"
               onChange={setTextColor}
             ></input>
             <input

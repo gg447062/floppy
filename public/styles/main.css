@@ -204,6 +204,11 @@ ul {
   top: 40px;
 }
 
+.text-color {
+  height: 2em;
+  width: 6em;
+}
+
 .permanent {
   height: 40px;
   right: 50px;
