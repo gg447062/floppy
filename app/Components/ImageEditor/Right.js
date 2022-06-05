@@ -1,4 +1,6 @@
 import React from 'react';
+import { useMoralis } from 'react-moralis';
+import Moralis from 'moralis/';
 import Controls from './Controls';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSize, setFontColor, setFontSize } from '../../Redux/editor';
@@ -7,6 +9,7 @@ import Fonts from './Fonts';
 import { Color, Solver } from '../../utils';
 
 const Right = ({ showDub, showMinter, drawInitialBg }) => {
+  const { isAuthenticated } = useMoralis();
   const dispatch = useDispatch();
   const size = useSelector((state) => state.editor.size);
   const fontSize = useSelector((state) => state.editor.fontSize);
@@ -75,7 +78,35 @@ const Right = ({ showDub, showMinter, drawInitialBg }) => {
     dispatch(setFontColor(e.target.value));
   };
 
-  const save = () => {
+  // will need to save audio too in the future
+
+  const saveToDatabase = async (image, name) => {
+    if (isAuthenticated) {
+      const imageFile = new Moralis.File(`${name}_cover`, image);
+      await imageFile.saveIPFS();
+      const imageHash = imageFile.hash();
+
+      const metadata = {
+        name: track,
+        artist: artist,
+        description: 'a floppy dubplate',
+        image: `/ipfs/${imageHash}`,
+      };
+
+      console.log(metadata);
+
+      const jsonFile = new Moralis.File(`${name}_metadata.json`, {
+        base64: btoa(JSON.stringify(metadata)),
+      });
+
+      await jsonFile.saveIPFS();
+      const jsonHash = jsonFile.hash();
+
+      console.log(jsonHash);
+    }
+  };
+
+  const saveAndDownload = () => {
     const final = document.getElementById('canvas-final-mixdown');
     const finalCtx = final.getContext('2d');
 
@@ -88,18 +119,13 @@ const Right = ({ showDub, showMinter, drawInitialBg }) => {
     finalCtx.drawImage(bgTexture.canvas, 0, 0);
 
     const image = final.toDataURL();
+    saveToDatabase(image, 'test');
     const a = document.createElement('a');
     a.setAttribute('href', image);
     a.download = 'test.png';
     a.click();
     a.remove();
     reset();
-  };
-
-  const goToMint = () => {
-    save();
-    // showDub(false);
-    // showMinter(true);
   };
 
   return (
@@ -151,7 +177,7 @@ const Right = ({ showDub, showMinter, drawInitialBg }) => {
         <button id="clear" onClick={reset}>
           reset
         </button>
-        <button onClick={goToMint}>mint</button>
+        <button onClick={saveAndDownload}>save</button>
       </div>
     </div>
   );
