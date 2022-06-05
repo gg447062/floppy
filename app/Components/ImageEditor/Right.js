@@ -7,6 +7,7 @@ import { setSize, setFontColor, setFontSize } from '../../Redux/editor';
 import { setArtist, setTrack } from '../../Redux/metadata';
 import Fonts from './Fonts';
 import { Color, Solver } from '../../utils';
+import { base64 } from 'ethers/lib/utils';
 
 const Right = ({ showDub, showMinter, drawInitialBg }) => {
   const { isAuthenticated } = useMoralis();
@@ -81,8 +82,11 @@ const Right = ({ showDub, showMinter, drawInitialBg }) => {
   // will need to save audio too in the future
 
   const saveToDatabase = async (image, name) => {
+    console.log(image);
     if (isAuthenticated) {
-      const imageFile = new Moralis.File(`${name}_cover`, image);
+      const imageFile = new Moralis.File(`${name}_cover.png`, {
+        base64: image,
+      });
       await imageFile.saveIPFS();
       const imageHash = imageFile.hash();
 
@@ -118,10 +122,10 @@ const Right = ({ showDub, showMinter, drawInitialBg }) => {
     finalCtx.drawImage(fg.canvas, 0, 0);
     finalCtx.drawImage(bgTexture.canvas, 0, 0);
 
-    const image = final.toDataURL();
-    saveToDatabase(image, 'test');
+    const imageURL = final.toDataURL('image/png');
+    saveToDatabase(imageURL, 'test');
     const a = document.createElement('a');
-    a.setAttribute('href', image);
+    a.setAttribute('href', imageURL);
     a.download = 'test.png';
     a.click();
     a.remove();
