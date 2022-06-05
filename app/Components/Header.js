@@ -40,9 +40,9 @@ const Header = ({ showGallery, showCrates, showDub }) => {
       <div id="record" className="container">
         {/* <Recorder setSource={setSource} /> */}
         <button
-        // onClick={() => {
-        //   showDub(true);
-        // }}
+          onClick={() => {
+            showDub(true);
+          }}
         >
           Press dub plate
         </button>
