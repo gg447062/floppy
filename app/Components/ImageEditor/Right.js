@@ -2,22 +2,17 @@ import React from 'react';
 import Controls from './Controls';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSize, setFontColor, setFontSize } from '../../Redux/editor';
+import { setArtist, setTrack } from '../../Redux/metadata';
 import Fonts from './Fonts';
 import { Color, Solver } from '../../utils';
 
-const Right = ({
-  showDub,
-  showMinter,
-  drawInitialBg,
-  setArtist,
-  setTrack,
-  artist,
-  track,
-}) => {
+const Right = ({ showDub, showMinter, drawInitialBg }) => {
   const dispatch = useDispatch();
   const size = useSelector((state) => state.editor.size);
   const fontSize = useSelector((state) => state.editor.fontSize);
   const layer = useSelector((state) => state.editor.layer);
+  const artist = useSelector((state) => state.metadata.artist);
+  const track = useSelector((state) => state.metadata.track);
   const artistFont = useSelector((state) => state.editor.artistFont);
   const trackFont = useSelector((state) => state.editor.trackFont);
   const color = useSelector((state) => state.editor.color);
@@ -58,12 +53,13 @@ const Right = ({
     ctx.fillText(text, posX, posY);
   };
 
+  // look in to debouncing these next two functions
   const writeArtist = (e) => {
-    setArtist(e.target.value);
+    dispatch(setArtist(e.target.value));
   };
 
   const writeTrack = (e) => {
-    setTrack(e.target.value);
+    dispatch(setTrack(e.target.value));
   };
 
   const setTextColor = (e) => {

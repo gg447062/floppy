@@ -19,8 +19,8 @@ const ImageEditor = (props) => {
   const trackFont = useSelector((state) => state.editor.trackFont);
   const fg = useSelector((state) => state.editor.fg);
   const layer = useSelector((state) => state.editor.layer);
-  const [artist, setArtist] = useState('');
-  const [track, setTrack] = useState('');
+  const artist = useSelector((state) => state.metadata.artist);
+  const track = useSelector((state) => state.metadata.track);
   const { showDub, showMinter } = props;
 
   const drawInitialBg = (ctx1, ctx2) => {
@@ -123,10 +123,6 @@ const ImageEditor = (props) => {
         showDub={showDub}
         showMinter={showMinter}
         drawInitialBg={drawInitialBg}
-        setArtist={setArtist}
-        setTrack={setTrack}
-        artist={artist}
-        track={track}
       />
       <img
         id="stamp-ol"
