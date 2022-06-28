@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setColor, setFilter } from '../../Redux/editor';
 import { Color, Solver } from '../../utils';
+import { assetBaseURL } from '../../utils';
 
 const Center = () => {
   const dispatch = useDispatch();
@@ -83,7 +84,13 @@ const Center = () => {
   return (
     <div className="center">
       <canvas
-        id="canvas-final-mixdown"
+        id="canvas-final-back"
+        className="canvas"
+        height="500px"
+        width="500px"
+      ></canvas>
+      <canvas
+        id="canvas-final-front"
         className="canvas"
         height="500px"
         width="500px"
@@ -126,6 +133,12 @@ const Center = () => {
         style={{ width: '50px', height: '50px' }}
         onChange={setColorFilter}
       ></input>
+      {/* <div style={{ backgroundColor: 'white' }}>
+        <img
+          src={`${assetBaseURL}/TEMPLATES/cover-1/01_Cover_Thumb.png`}
+          style={{ border: '1px solid green', width: '200px' }}
+        />
+      </div> */}
     </div>
   );
 };
