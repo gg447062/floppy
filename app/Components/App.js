@@ -6,7 +6,7 @@ import Crates from './Crates';
 import Header from './Header';
 import ImageEditor from './ImageEditor';
 import Minter from './Minter';
-import MainCanvas from './NormalMapper';
+import MainCanvas from './RecordViewer';
 
 const App = () => {
   const [showGallery, setShowGallery] = useState(false);

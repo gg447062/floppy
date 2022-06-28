@@ -3,8 +3,8 @@ import { useSelector, useDispatch } from 'react-redux';
 import Draggable from 'react-draggable';
 import { setOverlay, setBg, setFg, setCenterLabel } from '../../Redux/editor';
 import Center from './Center';
-import Left from './Left';
-import Right from './Right';
+import StampSelector from './StampSelector';
+import ControlPanel from './ControlPanel';
 import { assetBaseURL } from '../../utils';
 
 const ImageEditor = (props) => {
@@ -117,9 +117,9 @@ const ImageEditor = (props) => {
       >
         X
       </button>
+      <StampSelector />
       <Center />
-      <Left />
-      <Right
+      <ControlPanel
         showDub={showDub}
         showMinter={showMinter}
         drawInitialBg={drawInitialBg}
