@@ -45,36 +45,6 @@ const ImageEditor = (props) => {
     };
   };
 
-  const prepareCanvas = () => {
-    const _bg = document.getElementById('canvas-bg');
-    const _bgCtx = _bg.getContext('2d');
-    const _bgTexture = document.getElementById('bg-texture');
-    const _bgTextureCtx = _bgTexture.getContext('2d');
-    const _fg = document.getElementById('canvas-fg');
-    const _fgCtx = _fg.getContext('2d');
-    const _cl = document.getElementById('centerlabel');
-    const _clCtx = _cl.getContext('2d');
-    const _clTexture = document.getElementById('centerlabel-texture');
-    const _clTextureCtx = _clTexture.getContext('2d');
-    const _overlay = document.getElementById('stamp-ol');
-
-    dispatch(setOverlay(_overlay));
-    dispatch(setFg({ canvas: _fg, ctx: _fgCtx }));
-    dispatch(
-      setCenterLabel(
-        { canvas: _cl, ctx: _clCtx },
-        { canvas: _clTexture, ctx: _clTextureCtx }
-      )
-    );
-    dispatch(
-      setBg(
-        { canvas: _bg, ctx: _bgCtx },
-        { canvas: _bgTexture, ctx: _bgTextureCtx }
-      )
-    );
-    drawInitialBg(_clTextureCtx, _clCtx);
-  };
-
   const moveOverlay = (e) => {
     if (!stamp) {
       return;
@@ -104,6 +74,36 @@ const ImageEditor = (props) => {
   };
 
   useEffect(() => {
+    const prepareCanvas = () => {
+      const _bg = document.getElementById('canvas-bg');
+      const _bgCtx = _bg.getContext('2d');
+      const _bgTexture = document.getElementById('bg-texture');
+      const _bgTextureCtx = _bgTexture.getContext('2d');
+      const _fg = document.getElementById('canvas-fg');
+      const _fgCtx = _fg.getContext('2d');
+      const _cl = document.getElementById('centerlabel');
+      const _clCtx = _cl.getContext('2d');
+      const _clTexture = document.getElementById('centerlabel-texture');
+      const _clTextureCtx = _clTexture.getContext('2d');
+      const _overlay = document.getElementById('stamp-ol');
+
+      dispatch(setOverlay(_overlay));
+      dispatch(setFg({ canvas: _fg, ctx: _fgCtx }));
+      dispatch(
+        setCenterLabel(
+          { canvas: _cl, ctx: _clCtx },
+          { canvas: _clTexture, ctx: _clTextureCtx }
+        )
+      );
+      dispatch(
+        setBg(
+          { canvas: _bg, ctx: _bgCtx },
+          { canvas: _bgTexture, ctx: _bgTextureCtx }
+        )
+      );
+      drawInitialBg(_clTextureCtx, _clCtx);
+    };
+
     prepareCanvas();
   }, []);
 
