@@ -6,6 +6,7 @@ import Crates from './Crates';
 import Header from './Header';
 import ImageEditor from './ImageEditor';
 import Minter from './Minter';
+import MainCanvas from './NormalMapper';
 
 const App = () => {
   const [showGallery, setShowGallery] = useState(false);
@@ -45,8 +46,8 @@ const App = () => {
   // });
 
   return (
-    <div>
-      <Header
+    <div style={{ height: '100vh' }}>
+      {/* <Header
         showGallery={setShowGallery}
         showCrates={setShowCrates}
         showDub={setShowDub}
@@ -82,7 +83,7 @@ const App = () => {
         unmountOnExit
       >
         <Minter showMinter={setShowMinter} />
-      </CSSTransition>
+      </CSSTransition> */}
       {/* <div id="player-container"></div>
       <div id="intro-modal" ref={modalRef}>
         <h1 className="ff-0">Welcome to Floppy</h1>
@@ -92,6 +93,7 @@ const App = () => {
           <p>Loading...</p>
         )}
       </div> */}
+      <MainCanvas />
     </div>
   );
 };
