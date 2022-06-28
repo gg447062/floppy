@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMoralis } from 'react-moralis';
+import { useMoralis, useNewMoralisObject } from 'react-moralis';
 import Moralis from 'moralis/';
 import Controls from './Controls';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,10 +7,10 @@ import { setSize, setFontColor, setFontSize } from '../../Redux/editor';
 import { setArtist, setTrack } from '../../Redux/metadata';
 import Fonts from './Fonts';
 import { Color, Solver } from '../../utils';
-import { base64 } from 'ethers/lib/utils';
 
 const Right = ({ showDub, showMinter, drawInitialBg }) => {
   const { isAuthenticated } = useMoralis();
+  const { save } = useNewMoralisObject('Dubplate');
   const dispatch = useDispatch();
   const size = useSelector((state) => state.editor.size);
   const fontSize = useSelector((state) => state.editor.fontSize);
@@ -79,25 +79,41 @@ const Right = ({ showDub, showMinter, drawInitialBg }) => {
     dispatch(setFontColor(e.target.value));
   };
 
+  const saveObject = (data) => {
+    save(data, {
+      onSuccess: (dubplate) => {
+        console.log(dubplate.id);
+      },
+      onError: (error) => {
+        console.log(error);
+      },
+    });
+  };
+
   // will need to save audio too in the future
 
-  const saveToDatabase = async (image, name) => {
-    console.log(image);
+  const saveToDatabase = async (front, back, name) => {
+    console.log(front);
     if (isAuthenticated) {
-      const imageFile = new Moralis.File(`${name}_cover.png`, {
-        base64: image,
+      const frontImage = new Moralis.File(`${name}_front.png`, {
+        base64: front,
       });
-      await imageFile.saveIPFS();
-      const imageHash = imageFile.hash();
+      await frontImage.saveIPFS();
+      const frontHash = frontImage.hash();
+
+      const back = new Moralis.File(`${name}_back.png`, {
+        base64: front,
+      });
+      await back.saveIPFS();
+      const backHash = back.hash();
 
       const metadata = {
         name: track,
         artist: artist,
         description: 'a floppy dubplate',
-        image: `/ipfs/${imageHash}`,
+        front: frontHash,
+        back: backHash,
       };
-
-      console.log(metadata);
 
       const jsonFile = new Moralis.File(`${name}_metadata.json`, {
         base64: btoa(JSON.stringify(metadata)),
@@ -106,28 +122,44 @@ const Right = ({ showDub, showMinter, drawInitialBg }) => {
       await jsonFile.saveIPFS();
       const jsonHash = jsonFile.hash();
 
-      console.log(jsonHash);
+      saveObject({
+        artist: artist,
+        track: track,
+        metadata: metadata,
+        metadataHash: jsonHash,
+      });
     }
   };
 
   const saveAndDownload = () => {
-    const final = document.getElementById('canvas-final-mixdown');
-    const finalCtx = final.getContext('2d');
+    const finalBack = document.getElementById('canvas-final-back');
+    const finalBackCtx = finalBack.getContext('2d');
+    const finalFront = document.getElementById('canvas-final-front');
+    const finalFrontCtx = finalFront.getContext('2d');
 
-    finalCtx.drawImage(cl.canvas, 0, 0);
-    writeTextToCanvas(finalCtx, artist, 250, 250);
-    writeTextToCanvas(finalCtx, track, 250, 290, false);
-    finalCtx.drawImage(clTexture.canvas, 0, 0);
-    finalCtx.drawImage(bg.canvas, 0, 0);
-    finalCtx.drawImage(fg.canvas, 0, 0);
-    finalCtx.drawImage(bgTexture.canvas, 0, 0);
+    finalFrontCtx.drawImage(cl.canvas, 0, 0);
+    writeTextToCanvas(finalFrontCtx, artist, 250, 250);
+    writeTextToCanvas(finalFrontCtx, track, 250, 290, false);
+    finalFrontCtx.drawImage(clTexture.canvas, 0, 0);
+    finalFrontCtx.drawImage(bg.canvas, 0, 0);
+    finalFrontCtx.drawImage(fg.canvas, 0, 0);
+    finalFrontCtx.drawImage(bgTexture.canvas, 0, 0);
 
-    const imageURL = final.toDataURL('image/png');
-    saveToDatabase(imageURL, 'test');
+    const frontImgURL = finalFront.toDataURL('image/png');
     const a = document.createElement('a');
-    a.setAttribute('href', imageURL);
-    a.download = 'test.png';
+    a.setAttribute('href', frontImgURL);
+    a.download = 'test_front.png';
     a.click();
+
+    finalBackCtx.drawImage(bg.canvas, 0, 0);
+    finalBackCtx.drawImage(bgTexture.canvas, 0, 0);
+    const finalImgURL = finalBack.toDataURL('image/png');
+
+    saveToDatabase(frontImgURL, backImgURL, 'test');
+    a.setAttribute('href', finalImgURL);
+    a.download = 'test_back.png';
+    a.click();
+
     a.remove();
     reset();
   };
