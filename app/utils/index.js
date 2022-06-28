@@ -326,3 +326,5 @@ export const fontNames = [
 
 // export const assetBaseURL = 'https://dg3mov3znt8u.cloudfront.net/upload';
 export const assetBaseURL = 'assets';
+
+export const moralisGateway = 'https://gateway.moralisipfs.com/ipfs/';
