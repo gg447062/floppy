@@ -2,9 +2,10 @@ import React, { Suspense, useRef } from 'react';
 import { Canvas, useFrame, useLoader } from '@react-three/fiber';
 import { TextureLoader } from 'three/src/loaders/TextureLoader';
 
-const Record = () => {
-  const map = useLoader(TextureLoader, 'assets/test_26.png');
-  const normalMap = useLoader(TextureLoader, 'assets/NormalMap.png');
+const Record = ({ image }) => {
+  const map = useLoader(TextureLoader, image);
+  // const map = useLoader(TextureLoader, 'assets/test_26.png');
+  // const normalMap = useLoader(TextureLoader, 'assets/NormalMap.png');
   const meshy = useRef();
 
   useFrame(({ clock }) => {
@@ -27,14 +28,14 @@ const Record = () => {
   );
 };
 
-const MainCanvas = () => {
+const MainCanvas = ({ image }) => {
   return (
     <Canvas>
       <color attach="background" args={['black']} />
       <Suspense fallback={null}>
         <ambientLight intensity={0.4} />
         <directionalLight intenstiy={2} position={[0, 5, 0]} />
-        <Record />
+        <Record image={image} />
       </Suspense>
     </Canvas>
   );

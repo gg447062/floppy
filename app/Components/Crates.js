@@ -1,14 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useMoralisQuery } from 'react-moralis';
+import { moralisGateway } from '../utils';
 
-const songs = [
-  { name: 'song1', length: 3 },
-  { name: 'song2', length: 3 },
-  { name: 'song3', length: 3 },
-  { name: 'song4', length: 3 },
-  { name: 'song5', length: 3 },
-];
+export default function Crates(props) {
+  const { data, error, isLoading } = useMoralisQuery('Dubplate');
+  const [dubplates, setDubplates] = useState([]);
+  const [current, setCurrent] = useState(0);
 
-const Crates = (props) => {
+  useEffect(() => {
+    if (data) {
+      const _dubplates = data.map((el) => el.attributes);
+      setDubplates(_dubplates);
+    }
+  }, [data]);
+  console.log(dubplates[current]?.metadata);
   return (
     <div id="crates" className="modal container">
       <button
@@ -19,20 +24,14 @@ const Crates = (props) => {
         X
       </button>
       <h1>Floppy Crates</h1>
-      <table>
-        <tbody>
-          {songs.map((song, index) => {
-            return (
-              <tr key={index}>
-                <td>{song.name}</td>
-                <td>{song.length}</td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      {error && <div>error...</div>}
+      {isLoading && <div>loading...</div>}
+      {dubplates[current] && (
+        <div>
+          <h1>{dubplates[current]?.artist}</h1>
+          <img src={`${moralisGateway}/${dubplates[current].metadata.image}`} />
+        </div>
+      )}
     </div>
   );
-};
-
-export default Crates;
+}
