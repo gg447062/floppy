@@ -12,6 +12,8 @@ const SET_TRACK_FONT = 'SET_TRACK_FONT';
 const SET_BG = 'SET_BG';
 const SET_CENTERLABEL = 'SET_CENTERLABEL';
 const SET_FG = 'SET_FG';
+const SET_FRONT = 'SET_FRONT';
+const SET_BACK = 'SET_BACK';
 
 export const setStamp = (stamp) => ({
   type: SET_STAMP,
@@ -74,7 +76,7 @@ export const setBg = (bg, bgTexture) => ({
   bgTexture,
 });
 
-export const setCenterLabel = (cl, clTexture) => ({
+export const setCl = (cl, clTexture) => ({
   type: SET_CENTERLABEL,
   cl,
   clTexture,
@@ -85,24 +87,36 @@ export const setFg = (fg) => ({
   fg,
 });
 
+export const setFront = (front) => ({
+  type: SET_FRONT,
+  front,
+});
+
+export const setBack = (back) => ({
+  type: SET_BACK,
+  back,
+});
+
 const initState = {
   stamp: null,
   template: null,
   overlay: null,
   // layer: 'template',
   layer: 'center-label',
-  size: 1,
+  size: 0.5,
   filter: null,
   color: '#000000',
   fontColor: '#000000',
   fontSize: 20,
-  artistFont: { class: 'ff-0' },
-  trackFont: { class: 'ff-0' },
+  artistFont: { class: 'ff-0', name: 'AddCityboy' },
+  trackFont: { class: 'ff-0', name: 'AddCityboy' },
   bg: {},
   bgTexture: {},
   cl: {},
   clTexture: {},
   fg: {},
+  front: {},
+  back: {},
 };
 
 const editorReducer = (state = initState, action) => {
@@ -135,6 +149,10 @@ const editorReducer = (state = initState, action) => {
       return { ...state, cl: action.cl, clTexture: action.clTexture };
     case SET_FG:
       return { ...state, fg: action.fg };
+    case SET_FRONT:
+      return { ...state, front: action.front };
+    case SET_BACK:
+      return { ...state, back: action.back };
     default:
       return state;
   }

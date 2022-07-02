@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setColor, setFilter } from '../../Redux/editor';
 import { Color, Solver } from '../../utils';
-import { assetBaseURL } from '../../utils';
 
 const Center = () => {
   const dispatch = useDispatch();
@@ -133,12 +132,6 @@ const Center = () => {
         style={{ width: '50px', height: '50px' }}
         onChange={setColorFilter}
       ></input>
-      {/* <div style={{ backgroundColor: 'white' }}>
-        <img
-          src={`${assetBaseURL}/TEMPLATES/cover-1/01_Cover_Thumb.png`}
-          style={{ border: '1px solid green', width: '200px' }}
-        />
-      </div> */}
     </div>
   );
 };

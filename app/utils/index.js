@@ -288,6 +288,13 @@ export class Solver {
   }
 }
 
+export const cleanName = (name) => {
+  if (/\s/g.test(name)) {
+    const noWhiteSpace = name.split(' ').join('_');
+    return noWhiteSpace;
+  } else return name;
+};
+
 export const fontNames = [
   'AddCityboy',
   'Art Greco',
@@ -324,7 +331,12 @@ export const fontNames = [
   'Thorne Shaded',
 ];
 
+export const getFontName = (id) => {
+  const index = id.split('-')[2];
+  return fontNames[index];
+};
+
 // export const assetBaseURL = 'https://dg3mov3znt8u.cloudfront.net/upload';
 export const assetBaseURL = 'assets';
 
-export const moralisGateway = 'https://gateway.moralisipfs.com/ipfs/';
+export const moralisGateway = 'https://gateway.moralisipfs.com';

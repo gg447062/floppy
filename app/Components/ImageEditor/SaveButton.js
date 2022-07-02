@@ -1,6 +1,8 @@
+import React, { useEffect, useState } from 'react';
 import { useMoralis, useNewMoralisObject } from 'react-moralis';
 import Moralis from 'moralis/';
 import { useSelector } from 'react-redux';
+import { cleanName, getFontName } from '../../utils';
 
 const SaveButton = ({ reset }) => {
   const { isAuthenticated } = useMoralis();
@@ -13,42 +15,63 @@ const SaveButton = ({ reset }) => {
   const fontColor = useSelector((state) => state.editor.fontColor);
   const fg = useSelector((state) => state.editor.fg);
   const bg = useSelector((state) => state.editor.bg);
-  const bgTexture = useSelector((state) => state.editor.bgTexture);
+  const bgTxt = useSelector((state) => state.editor.bgTexture);
   const cl = useSelector((state) => state.editor.cl);
-  const clTexture = useSelector((state) => state.editor.clTexture);
+  const clTxt = useSelector((state) => state.editor.clTexture);
+  const front = useSelector((state) => state.editor.front);
+  const back = useSelector((state) => state.editor.back);
 
   const writeTextToCanvas = (ctx, text, posX, posY, artist = true) => {
     if (artist) {
       ctx.font = `${fontSize}px ${artistFont.name}`;
     } else {
-      ctx.font = `${fontSize}px ${trackFont.className}`;
+      ctx.font = `${fontSize}px ${trackFont.name}`;
     }
     ctx.fillStyle = fontColor;
     ctx.fillText(text, posX, posY);
   };
 
   const drawFinalImages = () => {
-    const finalBack = document.getElementById('canvas-final-back');
-    const finalBackCtx = finalBack.getContext('2d');
-    const finalFront = document.getElementById('canvas-final-front');
-    const finalFrontCtx = finalFront.getContext('2d');
+    front.ctx.drawImage(cl.canvas, 0, 0);
+    writeTextToCanvas(front.ctx, artist, 250, 250);
+    writeTextToCanvas(front.ctx, track, 250, 290, false);
+    front.ctx.drawImage(clTxt.canvas, 0, 0);
+    front.ctx.drawImage(bg.canvas, 0, 0);
+    front.ctx.drawImage(fg.canvas, 0, 0);
+    front.ctx.drawImage(bgTxt.canvas, 0, 0);
+    const frontImgURL = front.canvas.toDataURL('image/png');
 
-    finalFrontCtx.drawImage(cl.canvas, 0, 0);
-    writeTextToCanvas(finalFrontCtx, artist, 250, 250);
-    writeTextToCanvas(finalFrontCtx, track, 250, 290, false);
-    finalFrontCtx.drawImage(clTexture.canvas, 0, 0);
-    finalFrontCtx.drawImage(bg.canvas, 0, 0);
-    finalFrontCtx.drawImage(fg.canvas, 0, 0);
-    finalFrontCtx.drawImage(bgTexture.canvas, 0, 0);
-    const frontImgURL = finalFront.toDataURL('image/png');
-
-    finalBackCtx.drawImage(bg.canvas, 0, 0);
-    finalBackCtx.drawImage(bgTexture.canvas, 0, 0);
-    const backImgURL = finalBack.toDataURL('image/png');
+    back.ctx.save();
+    back.ctx.scale(-1, 1);
+    back.ctx.drawImage(cl.canvas, 0, 0, cl.canvas.width * -1, cl.canvas.height);
+    back.ctx.drawImage(
+      clTxt.canvas,
+      0,
+      0,
+      clTxt.canvas.width * -1,
+      clTxt.canvas.height
+    );
+    back.ctx.drawImage(bg.canvas, 0, 0, bg.canvas.width * -1, bg.canvas.height);
+    back.ctx.drawImage(
+      bgTxt.canvas,
+      0,
+      0,
+      bgTxt.canvas.width * -1,
+      bgTxt.canvas.height
+    );
+    back.ctx.restore();
+    const backImgURL = back.canvas.toDataURL('image/png');
 
     return { frontImgURL, backImgURL };
   };
 
+  const clearAndReset = () => {
+    front.ctx.clearRect(0, 0, front.canvas.width, front.canvas.height);
+    back.ctx.clearRect(0, 0, back.canvas.width, back.canvas.height);
+    reset();
+  };
+
+  // this and saveToDatabase should be moved to another component
   const saveObject = (data) => {
     save(data, {
       onSuccess: (dubplate) => {
@@ -92,21 +115,22 @@ const SaveButton = ({ reset }) => {
       await jsonFile.saveIPFS();
       const jsonHash = jsonFile.hash();
 
-      const objectId = saveObject({
+      const objectId = await saveObject({
         artist: artist,
         track: track,
         metadata: metadata,
         metadataHash: jsonHash,
       });
-
-      console.log(objectId);
     }
   };
 
   const saveAndDownload = () => {
     const { frontImgURL, backImgURL } = drawFinalImages();
-    saveToDatabase(frontImgURL, backImgURL, 'test');
-
+    saveToDatabase(
+      frontImgURL,
+      backImgURL,
+      `${cleanName(artist)}_${cleanName(track)}`
+    );
     const a = document.createElement('a');
 
     a.setAttribute('href', frontImgURL);
@@ -118,7 +142,7 @@ const SaveButton = ({ reset }) => {
     a.click();
 
     a.remove();
-    reset();
+    clearAndReset();
   };
 
   return <button onClick={saveAndDownload}>save</button>;

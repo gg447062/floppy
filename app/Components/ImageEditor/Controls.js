@@ -46,8 +46,8 @@ const Controls = () => {
           id="size-input"
           type="range"
           name="size"
-          min="0.5"
-          max="1"
+          min="0.25"
+          max="0.75"
           value={size}
           step=".01"
           onChange={setStampSize}

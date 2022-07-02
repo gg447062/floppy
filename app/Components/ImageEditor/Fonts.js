@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import { setArtistFont, setTrackFont } from '../../Redux/editor';
-import { fontNames } from '../../utils';
+import { getFontName } from '../../utils';
 
 const Fonts = ({ destination }) => {
   const dispatch = useDispatch();
@@ -11,14 +11,14 @@ const Fonts = ({ destination }) => {
       dispatch(
         setArtistFont({
           class: e.target.className,
-          name: fontNames[e.target.id],
+          name: getFontName(e.target.id),
         })
       );
     } else {
       dispatch(
         setTrackFont({
           class: e.target.className,
-          name: fontNames[e.target.id],
+          name: getFontName(e.target.id),
         })
       );
     }

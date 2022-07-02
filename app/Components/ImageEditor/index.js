@@ -1,7 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Draggable from 'react-draggable';
-import { setOverlay, setBg, setFg, setCenterLabel } from '../../Redux/editor';
+import {
+  setOverlay,
+  setBg,
+  setFg,
+  setCl,
+  setFront,
+  setBack,
+} from '../../Redux/editor';
 import Center from './Center';
 import StampSelector from './StampSelector';
 import ControlPanel from './ControlPanel';
@@ -59,6 +66,7 @@ const ImageEditor = (props) => {
     const y = e.pageY - (stamp.naturalHeight * size) / 2;
     overlay.style.top = `${y}px`;
     overlay.style.left = `${x}px`;
+
     if (
       e.pageX > rect.right ||
       e.pageX < rect.left ||
@@ -77,31 +85,31 @@ const ImageEditor = (props) => {
     const prepareCanvas = () => {
       const _bg = document.getElementById('canvas-bg');
       const _bgCtx = _bg.getContext('2d');
-      const _bgTexture = document.getElementById('bg-texture');
-      const _bgTextureCtx = _bgTexture.getContext('2d');
+      const _bgTxt = document.getElementById('bg-texture');
+      const _bgTxtCtx = _bgTxt.getContext('2d');
       const _fg = document.getElementById('canvas-fg');
       const _fgCtx = _fg.getContext('2d');
       const _cl = document.getElementById('centerlabel');
       const _clCtx = _cl.getContext('2d');
-      const _clTexture = document.getElementById('centerlabel-texture');
-      const _clTextureCtx = _clTexture.getContext('2d');
+      const _clTxt = document.getElementById('centerlabel-texture');
+      const _clTxtCtx = _clTxt.getContext('2d');
       const _overlay = document.getElementById('stamp-ol');
+      const _front = document.getElementById('canvas-final-front');
+      const _frontCtx = _front.getContext('2d');
+      const _back = document.getElementById('canvas-final-back');
+      const _backCtx = _back.getContext('2d');
 
       dispatch(setOverlay(_overlay));
       dispatch(setFg({ canvas: _fg, ctx: _fgCtx }));
       dispatch(
-        setCenterLabel(
-          { canvas: _cl, ctx: _clCtx },
-          { canvas: _clTexture, ctx: _clTextureCtx }
-        )
+        setBg({ canvas: _bg, ctx: _bgCtx }, { canvas: _bgTxt, ctx: _bgTxtCtx })
       );
       dispatch(
-        setBg(
-          { canvas: _bg, ctx: _bgCtx },
-          { canvas: _bgTexture, ctx: _bgTextureCtx }
-        )
+        setCl({ canvas: _cl, ctx: _clCtx }, { canvas: _clTxt, ctx: _clTxtCtx })
       );
-      drawInitialBg(_clTextureCtx, _clCtx);
+      dispatch(setFront({ canvas: _front, ctx: _frontCtx }));
+      dispatch(setBack({ canvas: _back, ctx: _backCtx }));
+      drawInitialBg(_clTxtCtx, _clCtx);
     };
 
     prepareCanvas();
