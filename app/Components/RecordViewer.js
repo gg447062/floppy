@@ -4,25 +4,17 @@ import { TextureLoader } from 'three/src/loaders/TextureLoader';
 
 const Record = ({ image }) => {
   const map = useLoader(TextureLoader, image);
-  // const map = useLoader(TextureLoader, 'assets/test_26.png');
-  // const normalMap = useLoader(TextureLoader, 'assets/NormalMap.png');
-  const meshy = useRef();
+
+  const recordMesh = useRef();
 
   useFrame(({ clock }) => {
-    meshy.current.rotation.y = clock.getElapsedTime() / 2;
+    recordMesh.current.rotation.y = clock.getElapsedTime() / 2;
   });
   return (
-    // <RecordModel map={map} normal={normal} />
     <group>
-      <mesh ref={meshy}>
+      <mesh ref={recordMesh}>
         <boxGeometry args={[4, 4, 0.05]} />
-
-        <meshStandardMaterial
-          attach="material"
-          transparent={true}
-          map={map}
-          normalMap={normalMap}
-        />
+        <meshStandardMaterial attach="material" transparent={true} map={map} />
       </mesh>
     </group>
   );
