@@ -1,10 +1,8 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useMoralis } from 'react-moralis';
-import Moralis from 'moralis/';
-import Recorder from './Recorder';
+// import Moralis from 'moralis/';
 
-const Header = ({ showGallery, showCrates, showDub }) => {
-  const [src, setSource] = useState('');
+const Header = ({ showEditor }) => {
   const { user, authenticate, logout, isAuthenticated, isAuthenticating } =
     useMoralis();
 
@@ -23,33 +21,16 @@ const Header = ({ showGallery, showCrates, showDub }) => {
           Logout
         </button>
       )}
-      <button
-        onClick={() => {
-          showGallery(true);
-        }}
-      >
-        Gallery
-      </button>
-      <button
-      // onClick={() => {
-      //   showCrates(true);
-      // }}
-      >
-        Crates
-      </button>
       <div id="record" className="container">
-        {/* <Recorder setSource={setSource} /> */}
         <button
           onClick={() => {
-            showDub(true);
+            showEditor(true);
           }}
         >
           Press dub plate
         </button>
       </div>
       {isAuthenticated ? <div>{user.get('ethAddress')}</div> : <div />}
-
-      {src ? <audio src={src} controls></audio> : <div />}
     </div>
   );
 };

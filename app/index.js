@@ -1,6 +1,5 @@
 import App from './Components/App';
 import React from 'react';
-// import ReactDOM from 'react-dom';
 import { createRoot } from 'react-dom/client';
 import { MoralisProvider } from 'react-moralis';
 import store from './store';
