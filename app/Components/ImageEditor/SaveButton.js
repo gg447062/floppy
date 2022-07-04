@@ -126,22 +126,19 @@ const SaveButton = ({ reset }) => {
 
   const saveAndDownload = () => {
     const { frontImgURL, backImgURL } = drawFinalImages();
+
     saveToDatabase(
       frontImgURL,
       backImgURL,
       `${cleanName(artist)}_${cleanName(track)}`
     );
-    const a = document.createElement('a');
 
+    const a = document.createElement('a');
     a.setAttribute('href', frontImgURL);
     a.download = 'test_front.png';
     a.click();
-
-    a.setAttribute('href', backImgURL);
-    a.download = 'test_back.png';
-    a.click();
-
     a.remove();
+
     clearAndReset();
   };
 

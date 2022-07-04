@@ -7,7 +7,8 @@ export default function Crates() {
   const { data, error, isLoading } = useMoralisQuery('Dubplate');
   const [dubplates, setDubplates] = useState([]);
   const [index, setIndex] = useState(0);
-  const [imgURL, setImgURL] = useState(null);
+  const [frontURL, setFrontURL] = useState(null);
+  const [backURL, setBackURL] = useState(null);
 
   useEffect(() => {
     if (data) {
@@ -17,15 +18,30 @@ export default function Crates() {
   }, [data]);
 
   useEffect(() => {
-    const fetchImage = async () => {
-      const url = dubplates[index].metadata.image;
+    const fetchImage = async (url, callback) => {
       const { data } = await axios.get(`/image/${url}`);
-      setImgURL(`data:image/jpeg;base64, ${data}`);
+      callback(`data:image/jpeg;base64, ${data}`);
     };
+
     if (dubplates[index]) {
-      fetchImage();
+      fetchImage(dubplates[index].metadata.front, setFrontURL);
+      fetchImage(dubplates[index].metadata.back, setBackURL);
     }
   }, [dubplates[index]]);
+
+  const next = () => {
+    const nextIndex = (index + 1) % dubplates.length;
+    setIndex(nextIndex);
+  };
+
+  const previous = () => {
+    const prevIndex = index - 1;
+    if (prevIndex < 0) {
+      setIndex(dubplates.length - 1);
+    } else {
+      setIndex(index - 1);
+    }
+  };
 
   return (
     <div
@@ -40,14 +56,13 @@ export default function Crates() {
       }}
     >
       <div
-        onClick={() => {
-          setIndex(index + 1);
-        }}
+        onClick={next}
         style={{ position: 'absolute', right: '1em', top: '4em', zIndex: 1000 }}
       >
         Next
       </div>
       <div
+        onClick={previous}
         style={{ position: 'absolute', left: '1em', top: '4em', zIndex: 1000 }}
       >
         Previous
@@ -55,7 +70,9 @@ export default function Crates() {
       {error && <div>error...</div>}
       {isLoading && <div>loading...</div>}
       {dubplates[index] && (
-        <div style={{ height: '90vh', width: '100vw' }}>
+        <div
+          style={{ height: '80vh', width: '40vw', border: '1px solid green' }}
+        >
           <div
             style={{
               width: '100%',
@@ -71,7 +88,7 @@ export default function Crates() {
             <div>{dubplates[index]?.artist}</div>
             <div>{dubplates[index]?.track}</div>
           </div>
-          {imgURL && <MainCanvas image={imgURL} />}
+          {backURL && <MainCanvas front={frontURL} back={backURL} />}
         </div>
       )}
     </div>
