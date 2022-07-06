@@ -14,7 +14,7 @@ import StampSelector from './StampSelector';
 import ControlPanel from './ControlPanel';
 import { assetBaseURL } from '../../utils';
 
-const ImageEditor = (props) => {
+const ImageEditor = ({ setShowUpload, setShowEditor }) => {
   const dispatch = useDispatch();
   const stamp = useSelector((state) => state.editor.stamp);
   const overlay = useSelector((state) => state.editor.overlay);
@@ -28,7 +28,6 @@ const ImageEditor = (props) => {
   const layer = useSelector((state) => state.editor.layer);
   const artist = useSelector((state) => state.metadata.artist);
   const track = useSelector((state) => state.metadata.track);
-  const { showDub, showMinter } = props;
 
   const drawInitialBg = (ctx1, ctx2) => {
     const clTextureImg = new Image(500, 500);
@@ -128,8 +127,8 @@ const ImageEditor = (props) => {
       <StampSelector />
       <Center />
       <ControlPanel
-        showDub={showDub}
-        showMinter={showMinter}
+        setShowUpload={setShowUpload}
+        setShowEditor={setShowEditor}
         drawInitialBg={drawInitialBg}
       />
       <img

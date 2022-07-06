@@ -1,12 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import { useMoralis, useNewMoralisObject } from 'react-moralis';
-import Moralis from 'moralis/';
-import { useSelector } from 'react-redux';
-import { cleanName, getFontName } from '../../utils';
+import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { setFrontURL, setBackURL } from '../../Redux/metadata';
 
-const SaveButton = ({ reset }) => {
-  const { isAuthenticated } = useMoralis();
-  const { save } = useNewMoralisObject('Dubplate');
+const SaveButton = ({ clearCanvas, setShowUpload, setShowEditor }) => {
+  const dispatch = useDispatch();
   const fontSize = useSelector((state) => state.editor.fontSize);
   const artist = useSelector((state) => state.metadata.artist);
   const track = useSelector((state) => state.metadata.track);
@@ -62,84 +59,28 @@ const SaveButton = ({ reset }) => {
     back.ctx.restore();
     const backImgURL = back.canvas.toDataURL('image/png');
 
-    return { frontImgURL, backImgURL };
+    dispatch(setFrontURL(frontImgURL));
+    dispatch(setBackURL(backImgURL));
   };
 
   const clearAndReset = () => {
     front.ctx.clearRect(0, 0, front.canvas.width, front.canvas.height);
     back.ctx.clearRect(0, 0, back.canvas.width, back.canvas.height);
-    reset();
-  };
-
-  // this and saveToDatabase should be moved to another component
-  const saveObject = (data) => {
-    save(data, {
-      onSuccess: (dubplate) => {
-        return dubplate.id;
-      },
-      onError: (error) => {
-        console.log(error);
-        return error.message;
-      },
-    });
-  };
-
-  // will need to save audio too in the future
-
-  const saveToDatabase = async (front, back, name) => {
-    if (isAuthenticated) {
-      const frontImage = new Moralis.File(`${name}_front.png`, {
-        base64: front,
-      });
-      await frontImage.saveIPFS();
-      const frontHash = frontImage.hash();
-
-      const backImage = new Moralis.File(`${name}_back.png`, {
-        base64: back,
-      });
-      await backImage.saveIPFS();
-      const backHash = backImage.hash();
-
-      const metadata = {
-        name: track,
-        artist: artist,
-        description: 'a floppy dubplate',
-        front: frontHash,
-        back: backHash,
-      };
-
-      const jsonFile = new Moralis.File(`${name}_metadata.json`, {
-        base64: btoa(JSON.stringify(metadata)),
-      });
-
-      await jsonFile.saveIPFS();
-      const jsonHash = jsonFile.hash();
-
-      const objectId = await saveObject({
-        artist: artist,
-        track: track,
-        metadata: metadata,
-        metadataHash: jsonHash,
-      });
-    }
+    clearCanvas();
   };
 
   const saveAndDownload = () => {
-    const { frontImgURL, backImgURL } = drawFinalImages();
+    drawFinalImages();
 
-    saveToDatabase(
-      frontImgURL,
-      backImgURL,
-      `${cleanName(artist)}_${cleanName(track)}`
-    );
-
-    const a = document.createElement('a');
-    a.setAttribute('href', frontImgURL);
-    a.download = 'test_front.png';
-    a.click();
-    a.remove();
+    // const a = document.createElement('a');
+    // a.setAttribute('href', frontImgURL);
+    // a.download = 'test_front.png';
+    // a.click();
+    // a.remove();
 
     clearAndReset();
+    setShowEditor(false);
+    setShowUpload(true);
   };
 
   return <button onClick={saveAndDownload}>save</button>;
