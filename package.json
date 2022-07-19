@@ -4,12 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build-dev": "webpack --watch --mode=development",
     "start": "node main.js",
-    "start:dev": "npm run build-dev & npm run start-server",
-    "start:server": "nodemon --experimental-wasm-threads main.js",
-    "start-server": "nodemon main.js ",
-    "seed": "node seed.js",
+    "build": "webpack --mode production",
     "start-dev": "webpack serve --mode development"
   },
   "repository": {
