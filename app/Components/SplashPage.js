@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { useMoralis } from 'react-moralis';
 import { wallets } from '../utils';
 
+const baseURL = 'https://dg3mov3znt8u.cloudfront.net';
+
 const checkWhitelisted = (address, start) => {
   const ok = wallets.filter((el) => el.toLowerCase() === address.toLowerCase());
   if (ok.length > 0) {
@@ -60,10 +62,14 @@ export default function SplashPage({
       </div>
       <video
         id="intro-video"
-        src="Floppy_Splash_Page.mp4"
+        src={`${baseURL}/Floppy_Splash_Page.mp4`}
         ref={introVidRef}
       ></video>
-      <video id="loading-video" src="F081.mp4" ref={loadingVidRef}></video>
+      <video
+        id="loading-video"
+        src={`${baseURL}/F081.mp4`}
+        ref={loadingVidRef}
+      ></video>
       <div id="intro-button-wrapper" ref={buttonWrapperRef}>
         <img
           className="intro-button"
