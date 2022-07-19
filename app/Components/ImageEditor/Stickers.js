@@ -1,4 +1,5 @@
 import React from 'react';
+import { assetBaseURL } from '../../utils';
 
 const Stickers = ({ chooseStamp }) => {
   return (
@@ -8,7 +9,7 @@ const Stickers = ({ chooseStamp }) => {
           <img
             id={`sticker_${i + 1}`}
             className="stamp"
-            src={`assets/STICKERS/sticker_${i + 1}.png`}
+            src={`${assetBaseURL}/STICKERS/STICKER_${i + 1}.png`}
             onClick={chooseStamp}
             key={i}
           />

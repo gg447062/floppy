@@ -327,3 +327,13 @@
   font-style: normal;
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'pix Chicago';
+  src: url('/pixChicago.woff2') format('woff2'),
+    url('/pixChicago.woff') format('woff'),
+    url('/pixChicago.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}

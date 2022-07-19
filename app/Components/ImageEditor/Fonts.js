@@ -1,25 +1,42 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setFont } from '../../Redux/editor';
-import { fontNames } from '../../utils';
+import { setArtistFont, setTrackFont } from '../../Redux/editor';
+import { getFontName } from '../../utils';
 
-const Fonts = () => {
+const Fonts = ({ destination }) => {
   const dispatch = useDispatch();
 
   const selectFont = (e) => {
-    dispatch(
-      setFont({ class: e.target.className, name: fontNames[e.target.id] })
-    );
+    if (destination === 'artist') {
+      dispatch(
+        setArtistFont({
+          class: e.target.className,
+          name: getFontName(e.target.id),
+        })
+      );
+    } else {
+      dispatch(
+        setTrackFont({
+          class: e.target.className,
+          name: getFontName(e.target.id),
+        })
+      );
+    }
   };
 
   return (
-    <div className="container fonts">
+    <div className="fonts--wrapper">
       <div>Select Font</div>
-      <ul>
-        <li>---</li>
+      <ul className="fonts">
+        {/* <li>---</li> */}
         {[...Array(33)].map((_, i) => {
           return (
-            <li id={i} className={`ff-${i}`} key={i} onClick={selectFont}>
+            <li
+              id={`${destination}-font-${i}`}
+              className={`ff-${i} fs-100`}
+              key={i}
+              onClick={selectFont}
+            >
               Sample
             </li>
           );

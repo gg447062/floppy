@@ -7,6 +7,10 @@ body {
   background-color: black;
 }
 
+iframe {
+  border: none;
+}
+
 button {
   background-color: black;
   border: 1px solid green;
@@ -14,12 +18,9 @@ button {
   padding: 10px;
 }
 
-button:hover {
-  cursor: pointer;
-}
-
-iframe {
-  border: none;
+ul {
+  padding-left: 1em;
+  margin: 0;
 }
 
 .container {
@@ -163,7 +164,9 @@ iframe {
 #selector {
   position: absolute;
   left: 0px;
+  /* padding: 0 1em; */
   flex-direction: column;
+  color: black;
 }
 
 .stamps {
@@ -183,15 +186,31 @@ iframe {
 }
 
 .controls {
-  position: absolute;
   flex-direction: column;
-  height: 300px;
+  /* position: absolute; */
+  /* height: 300px; */
+  /* right: 50px; */
+}
+
+.controls-wrapper {
+  position: absolute;
   right: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 80vh;
+  color: black;
 }
 
 .color-selector {
   position: absolute;
   top: 40px;
+}
+
+.text-color {
+  height: 2em;
+  width: 6em;
 }
 
 .permanent {
@@ -201,7 +220,7 @@ iframe {
 }
 
 .stamp {
-  height: 60px;
+  height: 50px;
   border: 1px solid green;
 }
 
@@ -210,11 +229,13 @@ iframe {
 }
 
 .size {
-  top: 20px;
+  top: 50px;
+  max-height: 3em;
 }
 
 .text {
   top: 140px;
+  justify-content: space-around;
 }
 
 #size-input {
@@ -245,22 +266,32 @@ iframe {
 }
 
 .artist {
-  top: 20em;
+  top: 50vh;
 }
 
 .track {
-  top: 23em;
+  top: 60vh;
+}
+
+.fonts--wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
 }
 
 .fonts {
-  position: absolute;
-  top: 200px;
-  right: 10px;
-  max-width: 140px;
-  max-height: 300px;
+  max-height: 3em;
+  max-width: 8em;
   overflow-y: scroll;
   background-color: green;
+  border: 1px solid black;
   color: black;
+  list-style: none;
+}
+
+.fonts li {
+  padding: 0.4em 0;
 }
 
 #mint-input {
@@ -276,90 +307,82 @@ iframe {
 
 #intro-modal {
   position: absolute;
-  background-color: black;
-  background-image: url('https://floppy-assets.s3.us-east-2.amazonaws.com/FLOPPY_BETA.png');
-  background-size: 100% 100%;
-  background-repeat: none;
   top: 0;
   left: 0;
   height: 100vh;
   width: 100vw;
-  z-index: 1000;
   display: flex;
   justify-content: center;
   align-items: center;
-  flex-direction: column;
+  background-color: black;
 }
 
-.video-wrapper {
-  height: 100vh;
-  width: 100vw;
+#intro-video,
+#loading-video {
   position: absolute;
   top: 0;
-  left: 0;
-  overflow: hidden;
-}
-
-.intro-video {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-/* #video1 {
-  z-index: 100;
-}
-
-#video2 {
-  z-index: 50;
-} */
-
-#enter-button {
-  margin-top: 25%;
-  background-color: transparent;
-  border: none;
-  font-size: 60px;
-  padding: 10px;
-  color: white;
-  text-shadow: 0px 0px 10px green;
-}
-
-#skip-button {
-  position: absolute;
-  right: 15em;
-  bottom: 1em;
-  z-index: 1000;
-  border: none;
-  background-color: transparent;
-}
-
-#skip-button img {
-  width: auto;
-  height: 3em;
-}
-
-#start-button {
-  position: absolute;
-  width: auto;
-  height: 2em;
   left: 50%;
   transform: translate(-50%, 0);
-  bottom: 5em;
+  height: 100vh;
+  max-height: 100vh;
+  max-width: 100%;
+}
+
+#intro-video {
+  z-index: 5;
+}
+
+#loading-video {
+  z-index: 1;
+}
+
+#intro-button-wrapper {
+  position: absolute;
   z-index: 1000;
-  border: none;
-  background-color: transparent;
+  top: 75%;
+  left: 50%;
+  transform: translate(-50%, 0);
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  row-gap: 0.8em;
 }
 
-#start-button img {
-  width: auto;
-  height: 6em;
+.intro-button:not(:nth-child(2)) {
+  max-height: 2.3em;
 }
 
+.intro-button:nth-child(2) {
+  max-height: 1.8em;
+}
+
+.intro-button:hover {
+  cursor: pointer;
+}
+
+#enter {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 40;
+  font-family: 'pix Chicago', sans-serif;
+  font-size: 3em;
+  color: white;
+  text-shadow: 0 0 10px white, 0 0 20px white, 0 0 40px blue, 0 0 60px white,
+    0 0 80px blue;
+  cursor: pointer;
+}
 /* ------------------- */
 /*        Utility      */
 /* ------------------- */
 
 /*        fonts        */
+
+.fs-100 {
+  font-size: 1em;
+}
 
 .ff-0 {
   font-family: 'AddCityboy', sans-serif;

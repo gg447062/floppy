@@ -76,14 +76,20 @@ const Center = () => {
     if (layer == 'template' && template) {
       bg.ctx.clearRect(0, 0, bg.canvas.width, bg.canvas.height);
       bg.ctx.filter = filterCSS;
-      bg.ctx.drawImage(template, 0, 0, 522, 522);
+      bg.ctx.drawImage(template, 0, 0, 500, 500);
     }
   };
 
   return (
     <div className="center">
       <canvas
-        id="canvas-final-mixdown"
+        id="canvas-final-back"
+        className="canvas"
+        height="500px"
+        width="500px"
+      ></canvas>
+      <canvas
+        id="canvas-final-front"
         className="canvas"
         height="500px"
         width="500px"
