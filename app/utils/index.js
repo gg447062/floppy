@@ -52,6 +52,7 @@ const wallets = [
   '0xfeCC5C3b38fbfe8b0Da0Ace60875D33c8351Ee85',
   '0x0E696712DaDEd627f370Ec9Bbf9F7931cf19863D',
   '0x1d14d9e297dfbce003f5a8ebcf8cba7faee70b91',
+  '0x89f606eec3fc99ed4ce78bbf4e378bacaa0b458f',
 ];
 
 export {
