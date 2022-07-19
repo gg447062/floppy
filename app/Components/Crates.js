@@ -18,7 +18,6 @@ function ControlsTop({ dubplate, previous, next }) {
         disply: 'flex',
         flexDirection: 'column',
         width: '100%',
-        // maxHeight: '30%',
         backgroundColor: 'pink',
         padding: '1em',
         border: '1px solid black',
@@ -216,7 +215,6 @@ export default function Crates() {
               alignItems: 'center',
               border: '1px solid green',
               backgroundColor: 'green',
-              // padding: '2em',
               boxSizing: 'border-box',
             }}
           >
