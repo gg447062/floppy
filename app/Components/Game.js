@@ -50,6 +50,7 @@ const Game = () => {
         setLoaded(true);
       });
       setPlayer(_player);
+      loadingVidRef.current.style.display = 'block';
     }
   }, []);
 

@@ -5,6 +5,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: black;
+  overflow: hidden;
 }
 
 iframe {
@@ -323,7 +324,7 @@ ul {
   top: 0;
   left: 50%;
   transform: translate(-50%, 0);
-  height: 100vh;
+
   max-height: 100vh;
   max-width: 100%;
 }
@@ -334,6 +335,7 @@ ul {
 
 #loading-video {
   z-index: 1;
+  display: none;
 }
 
 #intro-button-wrapper {
@@ -349,12 +351,8 @@ ul {
   row-gap: 0.8em;
 }
 
-.intro-button:not(:nth-child(2)) {
-  max-height: 2.3em;
-}
-
-.intro-button:nth-child(2) {
-  max-height: 1.8em;
+.intro-button {
+  max-height: 2em;
 }
 
 .intro-button:hover {
