@@ -5,9 +5,10 @@ import { wallets } from '../utils';
 
 const baseURL = 'https://dg3mov3znt8u.cloudfront.net';
 
-const checkWhitelisted = (address, start) => {
+const checkWhitelisted = (address, start, set) => {
   const ok = wallets.filter((el) => el.toLowerCase() === address.toLowerCase());
   if (ok.length > 0) {
+    set(address.toLowerCase());
     start();
   } else {
     alert('not in whitelist!');
@@ -20,6 +21,7 @@ export default function SplashPage({
   buttonWrapperRef,
   modalRef,
   startLoadingGame,
+  setAddress,
 }) {
   const navigate = useNavigate();
   const { user, authenticate, isAuthenticated } = useMoralis();
@@ -28,10 +30,10 @@ export default function SplashPage({
     if (!isAuthenticated) {
       await authenticate();
       const address = user.get('ethAddress');
-      checkWhitelisted(address, startLoadingGame);
+      checkWhitelisted(address, startLoadingGame, setAddress);
     } else {
       const address = user.get('ethAddress');
-      checkWhitelisted(address, startLoadingGame);
+      checkWhitelisted(address, startLoadingGame, setAddress);
     }
   }
 

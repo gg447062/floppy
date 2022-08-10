@@ -7,6 +7,7 @@ import SplashPage from './SplashPage';
 const Game = () => {
   const [showEditor, setShowEditor] = useState(false);
   const [showUpload, setShowUpload] = useState(false);
+  const [address, setAddress] = useState(null);
   const [player, setPlayer] = useState(null);
   const [loaded, setLoaded] = useState(false);
   const modalRef = useRef();
@@ -49,6 +50,10 @@ const Game = () => {
       _player.onStreamStart(() => {
         setLoaded(true);
       });
+      _player.onAppStart(() => {
+        console.log('SDK client FIRED: App started');
+        _player.sendSDKMessage({ address: address });
+      });
       setPlayer(_player);
       loadingVidRef.current.style.display = 'block';
     }
@@ -79,6 +84,7 @@ const Game = () => {
         buttonWrapperRef={buttonWrapperRef}
         modalRef={modalRef}
         startLoadingGame={startLoadingGame}
+        setAddress={setAddress}
       />
     </div>
   );
