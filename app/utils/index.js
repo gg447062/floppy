@@ -8,7 +8,8 @@ const cleanName = (name) => {
   } else return name;
 };
 
-const assetBaseURL = 'https://dg3mov3znt8u.cloudfront.net/upload';
+const assetBaseURL = '/asset-image';
+// const assetBaseURL = 'https://dg3mov3znt8u.cloudfront.net/upload';
 // const assetBaseURL = 'assets';
 const moralisGateway = 'https://gateway.moralisipfs.com/ipfs';
 
