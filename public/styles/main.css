@@ -4,6 +4,8 @@
 
 body {
   width: 100vw;
+  height: 100vh;
+  max-height: 100%;
   font-family: Arial, Helvetica, sans-serif;
   color: black;
   margin: 0;
@@ -403,6 +405,7 @@ ul {
   align-items: center;
   column-gap: 4em;
   background-color: var(--bg-grey);
+  position: relative;
 }
 
 .upload-inner-wrapper {
@@ -413,6 +416,20 @@ ul {
   row-gap: 2em;
 }
 
+.message-container {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  background-color: var(--bg-grey);
+  transform: translate(-50%, -50%);
+  font-size: 2em;
+  height: 30vh;
+  width: 30vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 /* ------------------- */
 /*       Crates        */
 /* ------------------- */
@@ -420,10 +437,11 @@ ul {
 #crates {
   height: 100vh;
   width: 100vw;
+  background-color: black;
 }
 
 .crates-content-wrapper {
-  height: 100vh;
+  height: 100%;
   width: 100vw;
   display: flex;
 }
@@ -431,10 +449,11 @@ ul {
 .crates-controls-wrapper,
 .canvas-wrapper {
   width: 50%;
+  height: 100%;
+  flex-grow: 1;
 }
 
 .crates-controls-wrapper {
-  height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -457,6 +476,7 @@ ul {
   border-right-color: gray;
   border-bottom-color: rgb(109, 108, 108);
   border-left-color: rgb(226, 225, 225);
+  box-sizing: border-box;
 }
 
 .crates-border-inner,
@@ -470,11 +490,12 @@ ul {
 }
 
 .controls-top-wrapper {
-  display: 'flex';
+  display: flex;
   flex-direction: column;
   width: 100%;
   box-sizing: border-box;
   padding: 1em 0;
+  background-color: var(--bg-grey);
 }
 
 .h1-wrapper {
@@ -524,14 +545,15 @@ ul {
 .controls-bottom-wrapper {
   flex-grow: 1;
   width: 100%;
+  max-height: 70%;
   padding: 1em;
   box-sizing: border-box;
+  background-color: var(--bg-grey);
 }
 
 .playlist-wrapper {
   flex-grow: 1;
-  width: 100%;
-  max-height: 90%;
+  max-height: 70%;
   padding: 1em;
   box-sizing: border-box;
   background-color: black;
