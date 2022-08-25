@@ -1,8 +1,8 @@
 @font-face {
   font-family: 'AddCityboy';
-  src: url('../fonts/AddCityboyNormal.woff2') format('woff2'),
-    url('../fonts/AddCityboyNormal.woff') format('woff'),
-    url('../fonts/AddCityboyNormal.ttf') format('truetype');
+  src: url('../assets/fonts/AddCityboyNormal.woff2') format('woff2'),
+    url('../assets/fonts/AddCityboyNormal.woff') format('woff'),
+    url('../assets/fonts/AddCityboyNormal.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -10,9 +10,9 @@
 
 @font-face {
   font-family: 'Art Greco';
-  src: url('../fonts/ArtGreco.woff2') format('woff2'),
-    url('../fonts/ArtGreco.woff') format('woff'),
-    url('../fonts/ArtGreco.ttf') format('truetype');
+  src: url('../assets/fonts/ArtGreco.woff2') format('woff2'),
+    url('../assets/fonts/ArtGreco.woff') format('woff'),
+    url('../assets/fonts/ArtGreco.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -20,9 +20,9 @@
 
 @font-face {
   font-family: 'CapitalisTypOasis';
-  src: url('../fonts/CapitalisTypOasisMedium.woff2') format('woff2'),
-    url('../fonts/CapitalisTypOasisMedium.woff') format('woff'),
-    url('../fonts/CapitalisTypOasisMedium.ttf') format('truetype');
+  src: url('../assets/fonts/CapitalisTypOasisMedium.woff2') format('woff2'),
+    url('../assets/fonts/CapitalisTypOasisMedium.woff') format('woff'),
+    url('../assets/fonts/CapitalisTypOasisMedium.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -30,9 +30,9 @@
 
 @font-face {
   font-family: 'Argos George Contour';
-  src: url('../fonts/ArgosGeorgeContour.woff2') format('woff2'),
-    url('../fonts/ArgosGeorgeContour.woff') format('woff'),
-    url('../fonts/ArgosGeorgeContour.ttf') format('truetype');
+  src: url('../assets/fonts/ArgosGeorgeContour.woff2') format('woff2'),
+    url('../assets/fonts/ArgosGeorgeContour.woff') format('woff'),
+    url('../assets/fonts/ArgosGeorgeContour.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -40,9 +40,9 @@
 
 @font-face {
   font-family: 'Eat your heart out';
-  src: url('../fonts/Eatyourheartout.woff2') format('woff2'),
-    url('../fonts/Eatyourheartout.woff') format('woff'),
-    url('../fonts/Eatyourheartout.ttf') format('truetype');
+  src: url('../assets/fonts/Eatyourheartout.woff2') format('woff2'),
+    url('../assets/fonts/Eatyourheartout.woff') format('woff'),
+    url('../assets/fonts/Eatyourheartout.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -50,9 +50,9 @@
 
 @font-face {
   font-family: 'diel-Regular';
-  src: url('../fonts/diel-Regular.woff2') format('woff2'),
-    url('../fonts/diel-Regular.woff') format('woff'),
-    url('../fonts/diel-Regular.ttf') format('truetype');
+  src: url('../assets/fonts/diel-Regular.woff2') format('woff2'),
+    url('../assets/fonts/diel-Regular.woff') format('woff'),
+    url('../assets/fonts/diel-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -60,9 +60,9 @@
 
 @font-face {
   font-family: 'ExtraBlur';
-  src: url('../fonts/ExtraBlur.woff2') format('woff2'),
-    url('../fonts/ExtraBlur.woff') format('woff'),
-    url('../fonts/ExtraBlur.ttf') format('truetype');
+  src: url('../assets/fonts/ExtraBlur.woff2') format('woff2'),
+    url('../assets/fonts/ExtraBlur.woff') format('woff'),
+    url('../assets/fonts/ExtraBlur.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -70,9 +70,9 @@
 
 @font-face {
   font-family: 'Emilio 20';
-  src: url('../fonts/Emilio20.woff2') format('woff2'),
-    url('../fonts/Emilio20.woff') format('woff'),
-    url('../fonts/Emilio20.ttf') format('truetype');
+  src: url('../assets/fonts/Emilio20.woff2') format('woff2'),
+    url('../assets/fonts/Emilio20.woff') format('woff'),
+    url('../assets/fonts/Emilio20.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -80,9 +80,9 @@
 
 @font-face {
   font-family: 'El&Font Bubble';
-  src: url('../fonts/ElFontBubble.woff2') format('woff2'),
-    url('../fonts/ElFontBubble.woff') format('woff'),
-    url('../fonts/ElFontBubble.ttf') format('truetype');
+  src: url('../assets/fonts/ElFontBubble.woff2') format('woff2'),
+    url('../assets/fonts/ElFontBubble.woff') format('woff'),
+    url('../assets/fonts/ElFontBubble.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -90,9 +90,9 @@
 
 @font-face {
   font-family: 'KleinsThreePixel';
-  src: url('../fonts/KleinsThreePixel.woff2') format('woff2'),
-    url('../fonts/KleinsThreePixel.woff') format('woff'),
-    url('../fonts/KleinsThreePixel.ttf') format('truetype');
+  src: url('../assets/fonts/KleinsThreePixel.woff2') format('woff2'),
+    url('../assets/fonts/KleinsThreePixel.woff') format('woff'),
+    url('../assets/fonts/KleinsThreePixel.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -100,9 +100,9 @@
 
 @font-face {
   font-family: 'wassimo graffiti';
-  src: url('../fonts/wassimograffiti.woff2') format('woff2'),
-    url('../fonts/wassimograffiti.woff') format('woff'),
-    url('../fonts/wassimograffiti.ttf') format('truetype');
+  src: url('../assets/fonts/wassimograffiti.woff2') format('woff2'),
+    url('../assets/fonts/wassimograffiti.woff') format('woff'),
+    url('../assets/fonts/wassimograffiti.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -110,9 +110,9 @@
 
 @font-face {
   font-family: 'Fat Wandals PERSONAL USE';
-  src: url('../fonts/FatWandalsPERSONALUSE.woff2') format('woff2'),
-    url('../fonts/FatWandalsPERSONALUSE.woff') format('woff'),
-    url('../fonts/FatWandalsPERSONALUSE.ttf') format('truetype');
+  src: url('../assets/fonts/FatWandalsPERSONALUSE.woff2') format('woff2'),
+    url('../assets/fonts/FatWandalsPERSONALUSE.woff') format('woff'),
+    url('../assets/fonts/FatWandalsPERSONALUSE.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -120,9 +120,9 @@
 
 @font-face {
   font-family: 'Grid Fracture';
-  src: url('../fonts/Grid-Fracture-.woff2') format('woff2'),
-    url('../fonts/Grid-Fracture-.woff') format('woff'),
-    url('../fonts/Grid-Fracture-.ttf') format('truetype');
+  src: url('../assets/fonts/Grid-Fracture-.woff2') format('woff2'),
+    url('../assets/fonts/Grid-Fracture-.woff') format('woff'),
+    url('../assets/fonts/Grid-Fracture-.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -130,9 +130,9 @@
 
 @font-face {
   font-family: 'Gas Mask Warriors';
-  src: url('../fonts/GasMaskWarriors.woff2') format('woff2'),
-    url('../fonts/GasMaskWarriors.woff') format('woff'),
-    url('../fonts/GasMaskWarriors.ttf') format('truetype');
+  src: url('../assets/fonts/GasMaskWarriors.woff2') format('woff2'),
+    url('../assets/fonts/GasMaskWarriors.woff') format('woff'),
+    url('../assets/fonts/GasMaskWarriors.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -140,9 +140,9 @@
 
 @font-face {
   font-family: 'KleinsThreeFS';
-  src: url('../fonts/KleinsThreeFS.woff2') format('woff2'),
-    url('../fonts/KleinsThreeFS.woff') format('woff'),
-    url('../fonts/KleinsThreeFS.ttf') format('truetype');
+  src: url('../assets/fonts/KleinsThreeFS.woff2') format('woff2'),
+    url('../assets/fonts/KleinsThreeFS.woff') format('woff'),
+    url('../assets/fonts/KleinsThreeFS.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -150,9 +150,9 @@
 
 @font-face {
   font-family: 'Mionta';
-  src: url('../fonts/Mionta.woff2') format('woff2'),
-    url('../fonts/Mionta.woff') format('woff'),
-    url('../fonts/Mionta.ttf') format('truetype');
+  src: url('../assets/fonts/Mionta.woff2') format('woff2'),
+    url('../assets/fonts/Mionta.woff') format('woff'),
+    url('../assets/fonts/Mionta.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -160,9 +160,9 @@
 
 @font-face {
   font-family: 'Mainstream PERSONAL USE ONLY';
-  src: url('../fonts/MainstreamPERSONALUSEONLY.woff2') format('woff2'),
-    url('../fonts/MainstreamPERSONALUSEONLY.woff') format('woff'),
-    url('../fonts/MainstreamPERSONALUSEONLY.ttf') format('truetype');
+  src: url('../assets/fonts/MainstreamPERSONALUSEONLY.woff2') format('woff2'),
+    url('../assets/fonts/MainstreamPERSONALUSEONLY.woff') format('woff'),
+    url('../assets/fonts/MainstreamPERSONALUSEONLY.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -170,9 +170,9 @@
 
 @font-face {
   font-family: 'Movie Poster Personal Use';
-  src: url('../fonts/MoviePosterPersonalUse.woff2') format('woff2'),
-    url('../fonts/MoviePosterPersonalUse.woff') format('woff'),
-    url('../fonts/MoviePosterPersonalUse.ttf') format('truetype');
+  src: url('../assets/fonts/MoviePosterPersonalUse.woff2') format('woff2'),
+    url('../assets/fonts/MoviePosterPersonalUse.woff') format('woff'),
+    url('../assets/fonts/MoviePosterPersonalUse.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -180,9 +180,9 @@
 
 @font-face {
   font-family: 'Olde English';
-  src: url('../fonts/OldeEnglish-Regular.woff2') format('woff2'),
-    url('../fonts/OldeEnglish-Regular.woff') format('woff'),
-    url('../fonts/OldeEnglish-Regular.ttf') format('truetype');
+  src: url('../assets/fonts/OldeEnglish-Regular.woff2') format('woff2'),
+    url('../assets/fonts/OldeEnglish-Regular.woff') format('woff'),
+    url('../assets/fonts/OldeEnglish-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -190,9 +190,9 @@
 
 @font-face {
   font-family: 'Opiated BRK';
-  src: url('../fonts/OpiatedBRK.woff2') format('woff2'),
-    url('../fonts/OpiatedBRK.woff') format('woff'),
-    url('../fonts/OpiatedBRK.ttf') format('truetype');
+  src: url('../assets/fonts/OpiatedBRK.woff2') format('woff2'),
+    url('../assets/fonts/OpiatedBRK.woff') format('woff'),
+    url('../assets/fonts/OpiatedBRK.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -200,9 +200,9 @@
 
 @font-face {
   font-family: 'OptimusPrinceps';
-  src: url('../fonts/OptimusPrinceps.woff2') format('woff2'),
-    url('../fonts/OptimusPrinceps.woff') format('woff'),
-    url('../fonts/OptimusPrinceps.ttf') format('truetype');
+  src: url('../assets/fonts/OptimusPrinceps.woff2') format('woff2'),
+    url('../assets/fonts/OptimusPrinceps.woff') format('woff'),
+    url('../assets/fonts/OptimusPrinceps.ttf') format('truetype');
   font-weight: 500;
   font-style: normal;
   font-display: swap;
@@ -210,9 +210,9 @@
 
 @font-face {
   font-family: 'RaseBasic';
-  src: url('../fonts/RaseBasic.woff2') format('woff2'),
-    url('../fonts/RaseBasic.woff') format('woff'),
-    url('../fonts/RaseBasic.ttf') format('truetype');
+  src: url('../assets/fonts/RaseBasic.woff2') format('woff2'),
+    url('../assets/fonts/RaseBasic.woff') format('woff'),
+    url('../assets/fonts/RaseBasic.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -220,9 +220,9 @@
 
 @font-face {
   font-family: 'Spire Alt';
-  src: url('../fonts/SpireAlt.woff2') format('woff2'),
-    url('../fonts/SpireAlt.woff') format('woff'),
-    url('../fonts/SpireAlt.ttf') format('truetype');
+  src: url('../assets/fonts/SpireAlt.woff2') format('woff2'),
+    url('../assets/fonts/SpireAlt.woff') format('woff'),
+    url('../assets/fonts/SpireAlt.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -230,9 +230,9 @@
 
 @font-face {
   font-family: 'row-Regular';
-  src: url('../fonts/row-Regular.woff2') format('woff2'),
-    url('../fonts/row-Regular.woff') format('woff'),
-    url('../fonts/row-Regular.ttf') format('truetype');
+  src: url('../assets/fonts/row-Regular.woff2') format('woff2'),
+    url('../assets/fonts/row-Regular.woff') format('woff'),
+    url('../assets/fonts/row-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -240,9 +240,9 @@
 
 @font-face {
   font-family: 'SANTOS DUMONT';
-  src: url('../fonts/SANTOSDUMONT.woff2') format('woff2'),
-    url('../fonts/SANTOSDUMONT.woff') format('woff'),
-    url('../fonts/SANTOSDUMONT.ttf') format('truetype');
+  src: url('../assets/fonts/SANTOSDUMONT.woff2') format('woff2'),
+    url('../assets/fonts/SANTOSDUMONT.woff') format('woff'),
+    url('../assets/fonts/SANTOSDUMONT.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -250,9 +250,9 @@
 
 @font-face {
   font-family: 'Neue Haas Grotesk Display Pro';
-  src: url('../fonts/NeueHaasDisplay-Black.woff2') format('woff2'),
-    url('../fonts/NeueHaasDisplay-Black.woff') format('woff'),
-    url('../fonts/NeueHaasDisplay-Black.ttf') format('truetype');
+  src: url('../assets/fonts/NeueHaasDisplay-Black.woff2') format('woff2'),
+    url('../assets/fonts/NeueHaasDisplay-Black.woff') format('woff'),
+    url('../assets/fonts/NeueHaasDisplay-Black.ttf') format('truetype');
   font-weight: 900;
   font-style: normal;
   font-display: swap;
@@ -260,9 +260,9 @@
 
 @font-face {
   font-family: 'Sans Poster Bold JL';
-  src: url('../fonts/SansPosterBoldJL.woff2') format('woff2'),
-    url('../fonts/SansPosterBoldJL.woff') format('woff'),
-    url('../fonts/SansPosterBoldJL.ttf') format('truetype');
+  src: url('../assets/fonts/SansPosterBoldJL.woff2') format('woff2'),
+    url('../assets/fonts/SansPosterBoldJL.woff') format('woff'),
+    url('../assets/fonts/SansPosterBoldJL.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -270,9 +270,9 @@
 
 @font-face {
   font-family: 'Plasmatica Open';
-  src: url('../fonts/PlasmaticaOpen-Italic.woff2') format('woff2'),
-    url('../fonts/PlasmaticaOpen-Italic.woff') format('woff'),
-    url('../fonts/PlasmaticaOpen-Italic.ttf') format('truetype');
+  src: url('../assets/fonts/PlasmaticaOpen-Italic.woff2') format('woff2'),
+    url('../assets/fonts/PlasmaticaOpen-Italic.woff') format('woff'),
+    url('../assets/fonts/PlasmaticaOpen-Italic.ttf') format('truetype');
   font-weight: normal;
   font-style: italic;
   font-display: swap;
@@ -280,9 +280,9 @@
 
 @font-face {
   font-family: 'Univox';
-  src: url('../fonts/Univox-Regular.woff2') format('woff2'),
-    url('../fonts/Univox-Regular.woff') format('woff'),
-    url('../fonts/Univox-Regular.ttf') format('truetype');
+  src: url('../assets/fonts/Univox-Regular.woff2') format('woff2'),
+    url('../assets/fonts/Univox-Regular.woff') format('woff'),
+    url('../assets/fonts/Univox-Regular.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -290,9 +290,9 @@
 
 @font-face {
   font-family: 'Spoken PERSONAL USE ONLY';
-  src: url('../fonts/SpokenPERSONALUSEONLY.woff2') format('woff2'),
-    url('../fonts/SpokenPERSONALUSEONLY.woff') format('woff'),
-    url('../fonts/SpokenPERSONALUSEONLY.ttf') format('truetype');
+  src: url('../assets/fonts/SpokenPERSONALUSEONLY.woff2') format('woff2'),
+    url('../assets/fonts/SpokenPERSONALUSEONLY.woff') format('woff'),
+    url('../assets/fonts/SpokenPERSONALUSEONLY.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -300,9 +300,9 @@
 
 @font-face {
   font-family: 'Zimbra';
-  src: url('../fonts/Zimbra-Bold.woff2') format('woff2'),
-    url('../fonts/Zimbra-Bold.woff') format('woff'),
-    url('../fonts/Zimbra-Bold.ttf') format('truetype');
+  src: url('../assets/fonts/Zimbra-Bold.woff2') format('woff2'),
+    url('../assets/fonts/Zimbra-Bold.woff') format('woff'),
+    url('../assets/fonts/Zimbra-Bold.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
   font-display: swap;
@@ -310,9 +310,9 @@
 
 @font-face {
   font-family: 'SPEW';
-  src: url('../fonts/SPEW.woff2') format('woff2'),
-    url('../fonts/SPEW.woff') format('woff'),
-    url('../fonts/SPEW.ttf') format('truetype');
+  src: url('../assets/fonts/SPEW.woff2') format('woff2'),
+    url('../assets/fonts/SPEW.woff') format('woff'),
+    url('../assets/fonts/SPEW.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -320,9 +320,9 @@
 
 @font-face {
   font-family: 'Thorne Shaded';
-  src: url('../fonts/ThorneShaded.woff2') format('woff2'),
-    url('../fonts/ThorneShaded.woff') format('woff'),
-    url('../fonts/ThorneShaded.ttf') format('truetype');
+  src: url('../assets/fonts/ThorneShaded.woff2') format('woff2'),
+    url('../assets/fonts/ThorneShaded.woff') format('woff'),
+    url('../assets/fonts/ThorneShaded.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -330,9 +330,9 @@
 
 @font-face {
   font-family: 'pix Chicago';
-  src: url('../fonts/pixChicago.woff2') format('woff2'),
-    url('../fonts/pixChicago.woff') format('woff'),
-    url('../fonts/pixChicago.ttf') format('truetype');
+  src: url('/pixChicago.woff2') format('woff2'),
+    url('/pixChicago.woff') format('woff'),
+    url('/pixChicago.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
