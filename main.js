@@ -1,6 +1,6 @@
-const express = require('express');
-const app = express();
-app.use('/', express.static(__dirname + '/public'));
+const app = require('./server');
 const PORT = process.env.PORT || 3000;
 
-app.listen(PORT);
+app.listen(PORT, () => {
+  console.log(`listening on port ${PORT}`);
+});

@@ -5,8 +5,6 @@ import EditAndUpload from './EditAndUpload';
 import SplashPage from './SplashPage';
 
 const Game = () => {
-  const [showEditor, setShowEditor] = useState(false);
-  const [showUpload, setShowUpload] = useState(false);
   const [address, setAddress] = useState(null);
   const [player, setPlayer] = useState(null);
   const [loaded, setLoaded] = useState(false);

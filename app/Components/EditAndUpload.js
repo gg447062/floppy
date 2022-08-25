@@ -1,8 +1,14 @@
+import React from 'react';
 import { CSSTransition } from 'react-transition-group';
 import ImageEditor from './ImageEditor';
 import Upload from './Upload';
 
-const EditAndUpload = ({ showEditor, showUpload, setShowEditor, setShowUpload }) => {
+const EditAndUpload = ({
+  showEditor,
+  showUpload,
+  setShowEditor,
+  setShowUpload,
+}) => {
   return (
     <div>
       <CSSTransition
@@ -11,7 +17,10 @@ const EditAndUpload = ({ showEditor, showUpload, setShowEditor, setShowUpload })
         classNames="modal-left"
         unmountOnExit
       >
-        <ImageEditor showEditor={setShowEditor} />
+        <ImageEditor
+          setShowEditor={setShowEditor}
+          setShowUpload={setShowUpload}
+        />
       </CSSTransition>
       <CSSTransition
         in={showUpload}

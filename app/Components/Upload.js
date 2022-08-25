@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { useMoralis, useNewMoralisObject } from 'react-moralis';
 import { useSelector } from 'react-redux';
 import Moralis from 'moralis/';
@@ -16,6 +17,7 @@ export default function Upload({ setShowUpload }) {
   const [audioSrc, setAudioSrc] = useState(null);
   const [uploaded, setUploaded] = useState(false);
   const audioInput = useRef(null);
+  const navigate = useNavigate();
 
   const updateAudio = () => {
     setAudioSrc(URL.createObjectURL(audioInput.current.files[0]));
@@ -90,9 +92,10 @@ export default function Upload({ setShowUpload }) {
     }
   };
 
-  const saveFinal = () => {
+  const saveFinal = async () => {
     if (uploaded) {
-      saveToDatabase(frontURL, backURL, artistName, trackName);
+      await saveToDatabase(frontURL, backURL, artistName, trackName);
+      navigate('/crates');
     }
   };
 
@@ -105,27 +108,9 @@ export default function Upload({ setShowUpload }) {
   }, []);
 
   return (
-    <div
-      style={{
-        height: '100vh',
-        width: '100vw',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        columnGap: '4em',
-        backgroundColor: 'grey',
-      }}
-    >
+    <div className="upload-wrapper ff-3">
       <img src={frontURL} />
-      <div
-        style={{
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-          alignItems: 'center',
-          rowGap: '2em',
-        }}
-      >
+      <div className="upload-inner-wrapper">
         <label htmlFor="artist">Artist</label>
         <input
           id="artist"
@@ -143,7 +128,7 @@ export default function Upload({ setShowUpload }) {
 
         {audioSrc && <audio src={audioSrc} controls></audio>}
         <button onClick={saveFinal}>Save</button>
-        <div onClick={() => setShowUpload(false)}>X</div>
+        <button onClick={() => setShowUpload(false)}>X</button>
       </div>
     </div>
   );
