@@ -32,6 +32,7 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
   const drawInitialBg = (ctx1, ctx2) => {
     const clTextureImg = new Image(500, 500);
     clTextureImg.src = `${assetBaseURL}/RECORD_CENTERLABEL/Centerlabel_Texture.png`;
+    clTextureImg.setAttribute('crossorigin', 'anonymous');
     clTextureImg.onload = () => {
       ctx1.filter = 'none';
       ctx1.drawImage(
@@ -45,6 +46,7 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
 
     const centerImg = new Image(500, 500);
     centerImg.src = `${assetBaseURL}/RECORD_CENTERLABEL/Record.png`;
+    centerImg.setAttribute('crossorigin', 'anonymous');
     centerImg.onload = () => {
       ctx2.filter = 'none';
       ctx2.drawImage(centerImg, 0, 0, centerImg.width, centerImg.height);
