@@ -85,6 +85,7 @@ export default function SplashPage({
           src="crates_button.png"
           onMouseEnter={handleEnter}
           onMouseLeave={handleLeave}
+          // onClick={goToCrates}
         ></img>
         <a
           href="https://www.youtube.com/watch?v=oXloCc0wvQQ&list=PLPxSPhynpbXncHKNSbStKg2uiAADARi9P"

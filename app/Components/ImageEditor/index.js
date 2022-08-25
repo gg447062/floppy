@@ -115,7 +115,7 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
   }, []);
 
   return (
-    <div className="ie-modal container" id="dub" onMouseMove={moveOverlay}>
+    <div className="ie-modal container ff-3" id="dub" onMouseMove={moveOverlay}>
       <button
         id="dub-button"
         onClick={() => {
