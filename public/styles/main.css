@@ -1,5 +1,6 @@
 :root {
   --bg-grey: rgb(213, 211, 211);
+  --bg-grey-80: rgba(213, 211, 211, 0.8);
 }
 
 body {
@@ -11,7 +12,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--bg-grey);
-  overflow: hidden;
+  overflow-x: hidden;
 }
 
 iframe {
@@ -192,7 +193,6 @@ ul {
 }
 
 .stamps {
-  /* display: flex; */
   height: 300px;
   padding: 1em;
   flex-direction: row;
@@ -204,7 +204,6 @@ ul {
 }
 
 #colors {
-  /* display: flex; */
   flex-direction: column;
 }
 
@@ -433,6 +432,56 @@ ul {
 /* ------------------- */
 /*       Crates        */
 /* ------------------- */
+
+/*      grid view      */
+
+.grid-view {
+  background-color: var(--bg-grey);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  width: 100vw;
+  row-gap: 1em;
+  padding: 2em;
+  overflow: scroll;
+}
+
+.dubplate-grid-view {
+  position: relative;
+  width: 20vw;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5em;
+}
+
+.dubplate-grid-view img {
+  max-width: 250px;
+}
+
+.dubplate-grid-view__single-wrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-color: var(--bg-grey-80);
+  z-index: 10000;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.dubplate-grid-view__single {
+  font-size: 2.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+/*        3D view       */
 
 #crates {
   height: 100vh;
