@@ -8,10 +8,13 @@ const cleanName = (name) => {
   } else return name;
 };
 
-const assetBaseURL = '/asset-image';
-// const assetBaseURL = 'https://dg3mov3znt8u.cloudfront.net/upload';
-// const assetBaseURL = 'assets';
+// const assetBaseURL = '/asset-image'; // from server
+// const assetBaseURL = 'https://dg3mov3znt8u.cloudfront.net/upload'; // from cloudfront need to make CDN for this
+
+const assetBaseURL = 'assets'; // from local filesystem
 const moralisGateway = 'https://gateway.moralisipfs.com/ipfs';
+
+const CANVAS_HEIGHT = 650;
 
 const wallets = [
   '0xE4A2F9908F336BBD306C1c0C2eFbDDB57c52280D',
@@ -65,4 +68,5 @@ export {
   moralisGateway,
   assetBaseURL,
   wallets,
+  CANVAS_HEIGHT,
 };

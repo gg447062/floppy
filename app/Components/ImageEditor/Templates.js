@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTemplate } from '../../Redux/editor';
-import { assetBaseURL } from '../../utils';
+import { assetBaseURL, CANVAS_HEIGHT } from '../../utils';
 
 const Templates = () => {
   const dispatch = useDispatch();
@@ -17,14 +17,14 @@ const Templates = () => {
 
     bg.ctx.filter = filter;
     if (e.target.id !== 'cover-9') {
-      const bgImg = new Image(500, 500);
+      const bgImg = new Image(CANVAS_HEIGHT, CANVAS_HEIGHT);
       bgImg.src = `${baseString}_Cover.png`;
       bgImg.onload = () => {
         bg.ctx.drawImage(bgImg, 0, 0, bgImg.width, bgImg.height);
       };
     }
 
-    const textureImg = new Image(500, 500);
+    const textureImg = new Image(CANVAS_HEIGHT, CANVAS_HEIGHT);
     textureImg.src = `${baseString}_Cover_Texture.png`;
 
     textureImg.onload = () => {

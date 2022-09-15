@@ -1,17 +1,12 @@
-import React, { useEffect, useState } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { setColor, setFilter } from '../../Redux/editor';
-import { Color, Solver } from '../../utils';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { CANVAS_HEIGHT } from '../../utils';
 
-const Center = () => {
-  const dispatch = useDispatch();
+const Canvas = () => {
   const stamp = useSelector((state) => state.editor.stamp);
-  const template = useSelector((state) => state.editor.template);
-  const overlay = useSelector((state) => state.editor.overlay);
   const layer = useSelector((state) => state.editor.layer);
   const size = useSelector((state) => state.editor.size);
   const filter = useSelector((state) => state.editor.filter);
-  const bg = useSelector((state) => state.editor.bg);
   const fg = useSelector((state) => state.editor.fg);
   const cl = useSelector((state) => state.editor.cl);
   const [coords, setCoords] = useState(null);
@@ -59,81 +54,54 @@ const Center = () => {
     );
   };
 
-  const setColorFilter = (e) => {
-    const val = e.target.value;
-    const r = parseInt(val.substring(1, 3), 16);
-    const g = parseInt(val.substring(3, 5), 16);
-    const b = parseInt(val.substring(5, 7), 16);
-
-    const _color = new Color(r, g, b);
-    const solver = new Solver(_color);
-    const result = solver.solve();
-
-    const filterCSS = result.filter;
-    overlay.style.filter = filterCSS;
-    dispatch(setFilter(filterCSS));
-    dispatch(setColor(e.target.value));
-    if (layer == 'template' && template) {
-      bg.ctx.clearRect(0, 0, bg.canvas.width, bg.canvas.height);
-      bg.ctx.filter = filterCSS;
-      bg.ctx.drawImage(template, 0, 0, 500, 500);
-    }
-  };
-
   return (
-    <div className="center">
+    <div className="canvas-wrapper">
       <canvas
         id="canvas-final-back"
         className="canvas"
-        height="500px"
-        width="500px"
+        height={`${CANVAS_HEIGHT}px`}
+        width={`${CANVAS_HEIGHT}px`}
       ></canvas>
       <canvas
         id="canvas-final-front"
         className="canvas"
-        height="500px"
-        width="500px"
+        height={`${CANVAS_HEIGHT}px`}
+        width={`${CANVAS_HEIGHT}px`}
       ></canvas>
       <canvas
         id="centerlabel"
         className="canvas"
-        height="500px"
-        width="500px"
+        height={`${CANVAS_HEIGHT}px`}
+        width={`${CANVAS_HEIGHT}px`}
       ></canvas>
       <canvas
         id="centerlabel-texture"
         className="canvas"
-        height="500px"
-        width="500px"
+        height={`${CANVAS_HEIGHT}px`}
+        width={`${CANVAS_HEIGHT}px`}
       ></canvas>
       <canvas
         id="canvas-bg"
         className="canvas"
-        height="500px"
-        width="500px"
+        height={`${CANVAS_HEIGHT}px`}
+        width={`${CANVAS_HEIGHT}px`}
       ></canvas>
       <canvas
         id="canvas-fg"
         className="canvas"
-        height="500px"
-        width="500px"
+        height={`${CANVAS_HEIGHT}px`}
+        width={`${CANVAS_HEIGHT}px`}
         onMouseMove={handleMouseMove}
         onClick={draw}
       ></canvas>
       <canvas
         id="bg-texture"
         className="canvas"
-        height="500px"
-        width="500px"
+        height={`${CANVAS_HEIGHT}px`}
+        width={`${CANVAS_HEIGHT}px`}
       ></canvas>
-      <input
-        className="color-selector"
-        type="color"
-        style={{ width: '50px', height: '50px' }}
-        onChange={setColorFilter}
-      ></input>
     </div>
   );
 };
 
-export default Center;
+export default Canvas;

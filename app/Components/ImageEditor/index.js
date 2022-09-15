@@ -9,10 +9,9 @@ import {
   setFront,
   setBack,
 } from '../../Redux/editor';
-import Center from './Center';
-import StampSelector from './StampSelector';
+import Canvas from './Canvas';
 import ControlPanel from './ControlPanel';
-import { assetBaseURL } from '../../utils';
+import { assetBaseURL, CANVAS_HEIGHT } from '../../utils';
 
 const ImageEditor = ({ setShowUpload, setShowEditor }) => {
   const dispatch = useDispatch();
@@ -30,7 +29,7 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
   const track = useSelector((state) => state.metadata.track);
 
   const drawInitialBg = (ctx1, ctx2) => {
-    const clTextureImg = new Image(500, 500);
+    const clTextureImg = new Image(CANVAS_HEIGHT, CANVAS_HEIGHT);
     clTextureImg.src = `${assetBaseURL}/RECORD_CENTERLABEL/Centerlabel_Texture.png`;
     clTextureImg.setAttribute('crossorigin', 'anonymous');
     clTextureImg.onload = () => {
@@ -44,7 +43,7 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
       );
     };
 
-    const centerImg = new Image(500, 500);
+    const centerImg = new Image(CANVAS_HEIGHT, CANVAS_HEIGHT);
     centerImg.src = `${assetBaseURL}/RECORD_CENTERLABEL/Record.png`;
     centerImg.setAttribute('crossorigin', 'anonymous');
     centerImg.onload = () => {
@@ -117,7 +116,7 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
   }, []);
 
   return (
-    <div className="ie-modal container ff-3" id="dub" onMouseMove={moveOverlay}>
+    <div className="editor-wrapper ff-3" id="dub" onMouseMove={moveOverlay}>
       <button
         id="dub-button"
         onClick={() => {
@@ -126,13 +125,12 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
       >
         X
       </button>
-      <StampSelector />
-      <Center />
       <ControlPanel
         setShowUpload={setShowUpload}
         setShowEditor={setShowEditor}
         drawInitialBg={drawInitialBg}
       />
+      <Canvas />
       <img
         id="stamp-ol"
         className="overlay"
