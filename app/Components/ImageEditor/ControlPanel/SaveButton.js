@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFrontURL, setBackURL } from '../../Redux/metadata';
+import { setFrontURL, setBackURL } from '../../../Redux/metadata';
 
 const SaveButton = ({ clearCanvas, setShowUpload, setShowEditor }) => {
   const dispatch = useDispatch();

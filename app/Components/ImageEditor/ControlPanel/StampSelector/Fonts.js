@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { setArtistFont, setTrackFont } from '../../Redux/editor';
-import { getFontName } from '../../utils';
+import { setArtistFont, setTrackFont } from '../../../../Redux/editor';
+import { getFontName } from '../../../../utils';
 
 const Fonts = ({ destination }) => {
   const dispatch = useDispatch();

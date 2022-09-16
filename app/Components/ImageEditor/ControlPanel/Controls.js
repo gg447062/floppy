@@ -1,5 +1,5 @@
 import React from 'react';
-import Fonts from './Fonts';
+import Fonts from './StampSelector/Fonts';
 import { useSelector, useDispatch } from 'react-redux';
 import { setSize, setFontColor, setFontSize } from '../../../Redux/editor';
 import { setArtist, setTrack } from '../../../Redux/metadata';

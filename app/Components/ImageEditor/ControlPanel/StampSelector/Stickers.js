@@ -1,5 +1,5 @@
 import React from 'react';
-import { assetBaseURL } from '../../utils';
+import { assetBaseURL } from '../../../../utils';
 
 const Stickers = ({ chooseStamp }) => {
   return (

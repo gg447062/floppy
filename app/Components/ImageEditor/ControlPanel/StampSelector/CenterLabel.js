@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { assetBaseURL } from '../../utils';
+import { assetBaseURL } from '../../../../utils';
 
 const CenterLabel = ({ chooseStamp }) => {
   const cl = useSelector((state) => state.editor.cl);
