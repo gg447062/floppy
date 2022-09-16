@@ -1,13 +1,15 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTemplate } from '../../../../Redux/editor/global';
+import { setColor } from '../../../../Redux/editor/template';
 import { assetBaseURL, CANVAS_HEIGHT } from '../../../../utils';
+import { ColorSelector } from './Controls';
 
 const Templates = () => {
   const dispatch = useDispatch();
-  const filter = useSelector((state) => state.editor.filter);
-  const bg = useSelector((state) => state.editor.bg);
-  const bgT = useSelector((state) => state.editor.bgTexture);
+  const filter = useSelector((state) => state.editor.global.filter);
+  const bg = useSelector((state) => state.editor.global.bg);
+  const bgT = useSelector((state) => state.editor.global.bgTexture);
 
   const drawBg = (e) => {
     const baseString = e.target.src.split('_')[0];
@@ -36,19 +38,22 @@ const Templates = () => {
 
   return (
     <div className="container stamps">
-      {[...Array(15)].map((_, i) => {
-        return (
-          <img
-            key={i}
-            id={`cover-${i + 1}`}
-            className={'stamp'}
-            src={`${assetBaseURL}/TEMPLATES/cover-${i + 1}/${String(
-              i + 1
-            ).padStart(2, 0)}_Cover_Thumb.png`}
-            onClick={drawBg}
-          />
-        );
-      })}
+      <div>
+        {[...Array(15)].map((_, i) => {
+          return (
+            <img
+              key={i}
+              id={`cover-${i + 1}`}
+              className={'stamp'}
+              src={`${assetBaseURL}/TEMPLATES/cover-${i + 1}/${String(
+                i + 1
+              ).padStart(2, 0)}_Cover_Thumb.png`}
+              onClick={drawBg}
+            />
+          );
+        })}
+      </div>
+      <ColorSelector action={setColor} isTemplate={true} />
     </div>
   );
 };

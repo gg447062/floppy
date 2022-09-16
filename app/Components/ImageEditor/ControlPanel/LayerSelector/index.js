@@ -6,10 +6,10 @@ import Stamps from './Stamps';
 import Stickers from './Stickers';
 import CenterLabel from './CenterLabel';
 
-const StampSelector = () => {
+const LayerSelector = () => {
   const dispatch = useDispatch();
-  const stamp = useSelector((state) => state.editor.stamp);
-  const layer = useSelector((state) => state.editor.layer);
+  const stamp = useSelector((state) => state.editor.global.stamp);
+  const layer = useSelector((state) => state.editor.global.layer);
 
   const chooseStamp = (e) => {
     if (stamp) {
@@ -45,4 +45,4 @@ const StampSelector = () => {
   );
 };
 
-export default StampSelector;
+export default LayerSelector;
