@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setTemplate } from '../../Redux/editor';
-import { assetBaseURL, CANVAS_HEIGHT } from '../../utils';
+import { setTemplate } from '../../../../Redux/editor';
+import { assetBaseURL, CANVAS_HEIGHT } from '../../../../utils';
 
 const Templates = () => {
   const dispatch = useDispatch();

@@ -1,9 +1,9 @@
 import React from 'react';
 import Fonts from './Fonts';
 import { useSelector, useDispatch } from 'react-redux';
-import { setSize, setFontColor, setFontSize } from '../../Redux/editor';
-import { setArtist, setTrack } from '../../Redux/metadata';
-import { Color, Solver } from '../../utils';
+import { setSize, setFontColor, setFontSize } from '../../../Redux/editor';
+import { setArtist, setTrack } from '../../../Redux/metadata';
+import { Color, Solver } from '../../../utils';
 
 const Controls = () => {
   const dispatch = useDispatch();

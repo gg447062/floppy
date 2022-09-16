@@ -1,10 +1,10 @@
 import React from 'react';
 import Controls from './Controls';
 import { useSelector, useDispatch } from 'react-redux';
-import { setColor, setFilter } from '../../Redux/editor';
-import { Color, Solver, CANVAS_HEIGHT } from '../../utils';
-import { setArtist, setTrack } from '../../Redux/metadata';
-import SaveButton from './SaveButton';
+import { setColor, setFilter } from '../../../Redux/editor';
+import { Color, Solver, CANVAS_HEIGHT } from '../../../utils';
+import { setArtist, setTrack } from '../../../Redux/metadata';
+import SaveButton from '../SaveButton';
 import StampSelector from './StampSelector';
 
 const ControlPanel = ({ setShowUpload, setShowEditor, drawInitialBg }) => {
