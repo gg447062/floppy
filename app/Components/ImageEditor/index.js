@@ -117,14 +117,14 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
 
   return (
     <div className="editor-wrapper ff-3" id="dub" onMouseMove={moveOverlay}>
-      <button
+      {/* <button
         id="dub-button"
         onClick={() => {
           props.showDub(false);
         }}
       >
         X
-      </button>
+      </button> */}
       <ControlPanel
         setShowUpload={setShowUpload}
         setShowEditor={setShowEditor}

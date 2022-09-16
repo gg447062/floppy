@@ -102,6 +102,7 @@ const initState = {
   template: null,
   overlay: null,
   layer: 'template',
+  //
   size: 0.5,
   filter: null,
   color: '#000000',
@@ -109,6 +110,7 @@ const initState = {
   fontSize: 20,
   artistFont: { class: 'ff-0', name: 'AddCityboy' },
   trackFont: { class: 'ff-0', name: 'AddCityboy' },
+  //
   bg: {},
   bgTexture: {},
   cl: {},

@@ -3,6 +3,8 @@
   --bg-grey-80: rgba(213, 211, 211, 0.8);
   --bg-black: #151515;
   --blue-glow: #1affff;
+  --red-text: #ed3714;
+  --blue-text: #00a8f1;
 }
 
 body {
@@ -226,6 +228,10 @@ ul {
   color: black;
 }
 
+.controls-inner-wrapper {
+  display: flex;
+}
+
 .color-selector {
   /* position: absolute; */
   /* top: 40px; */
@@ -251,8 +257,8 @@ ul {
 }
 
 .size {
-  top: 50px;
-  max-height: 3em;
+  /* top: 50px;
+  max-height: 3em; */
 }
 
 .text {
@@ -325,6 +331,10 @@ ul {
   height: 100vh;
   width: 100vw;
 }
+
+/* ------------------- */
+/*       Intro         */
+/* ------------------- */
 
 #intro-modal {
   position: absolute;
