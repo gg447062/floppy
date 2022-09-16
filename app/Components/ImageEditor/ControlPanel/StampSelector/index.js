@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setLayer, setStamp } from '../../../../Redux/editor';
+import { setLayer, setStamp } from '../../../../Redux/editor/global';
 import Templates from './Templates';
 import Stamps from './Stamps';
 import Stickers from './Stickers';

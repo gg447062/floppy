@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setTemplate } from '../../../../Redux/editor';
+import { setTemplate } from '../../../../Redux/editor/global';
 import { assetBaseURL, CANVAS_HEIGHT } from '../../../../utils';
 
 const Templates = () => {

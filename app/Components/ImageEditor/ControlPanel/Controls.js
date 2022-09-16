@@ -7,7 +7,7 @@ import {
   setFontSize,
   setColor,
   setFilter,
-} from '../../../Redux/editor';
+} from '../../../Redux/editor/global';
 import { setArtist, setTrack } from '../../../Redux/metadata';
 import { Color, Solver, CANVAS_HEIGHT } from '../../../utils';
 
