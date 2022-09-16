@@ -1,17 +1,17 @@
 import React from 'react';
-import Controls from './Controls';
+import Controls from './LayerSelector/Controls';
 import { useSelector, useDispatch } from 'react-redux';
 import { setArtist, setTrack } from '../../../Redux/metadata';
 import SaveButton from './SaveButton';
-import StampSelector from './StampSelector';
+import LayerSelector from './LayerSelector';
 
 const ControlPanel = ({ setShowUpload, setShowEditor, drawInitialBg }) => {
   const dispatch = useDispatch();
-  const fg = useSelector((state) => state.editor.fg);
-  const bg = useSelector((state) => state.editor.bg);
-  const bgTxt = useSelector((state) => state.editor.bgTexture);
-  const cl = useSelector((state) => state.editor.cl);
-  const clTxt = useSelector((state) => state.editor.clTexture);
+  const fg = useSelector((state) => state.editor.global.fg);
+  const bg = useSelector((state) => state.editor.global.bg);
+  const bgTxt = useSelector((state) => state.editor.global.bgTexture);
+  const cl = useSelector((state) => state.editor.global.cl);
+  const clTxt = useSelector((state) => state.editor.global.clTexture);
 
   const clearCanvas = () => {
     fg.ctx.clearRect(0, 0, fg.canvas.width, fg.canvas.height);
@@ -30,10 +30,8 @@ const ControlPanel = ({ setShowUpload, setShowEditor, drawInitialBg }) => {
 
   return (
     <div className="controls-wrapper">
-      <div className="controls-inner-wrapper">
-        <StampSelector />
-        <Controls />
-      </div>
+      <LayerSelector />
+
       <div className="controls permanent">
         <button id="clear" onClick={reset}>
           reset

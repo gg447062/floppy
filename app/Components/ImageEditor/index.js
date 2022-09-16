@@ -8,23 +8,35 @@ import {
   setCl,
   setFront,
   setBack,
-} from '../../Redux/editor';
+} from '../../Redux/editor/global';
 import Canvas from './Canvas';
 import ControlPanel from './ControlPanel';
 import { assetBaseURL, CANVAS_HEIGHT } from '../../utils';
 
 const ImageEditor = ({ setShowUpload, setShowEditor }) => {
   const dispatch = useDispatch();
-  const stamp = useSelector((state) => state.editor.stamp);
-  const overlay = useSelector((state) => state.editor.overlay);
-  const size = useSelector((state) => state.editor.size);
-  const fontSize = useSelector((state) => state.editor.fontSize);
-  const fontColor = useSelector((state) => state.editor.fontColor);
+  const stamp = useSelector((state) => state.editor.global.stamp);
+  const overlay = useSelector((state) => state.editor.global.overlay);
+  const size = useSelector((state) => state.editor.global.size);
   const filter = useSelector((state) => state.editor.filter);
-  const artistFont = useSelector((state) => state.editor.artistFont);
-  const trackFont = useSelector((state) => state.editor.trackFont);
-  const fg = useSelector((state) => state.editor.fg);
-  const layer = useSelector((state) => state.editor.layer);
+  const artistFont = useSelector(
+    (state) => state.editor.centerLabel.artistFont
+  );
+  const artistFontSize = useSelector(
+    (state) => state.editor.centerLabel.artistFontSize
+  );
+  const artistFontColor = useSelector(
+    (state) => state.editor.centerLabel.artistFontColor
+  );
+  const trackFont = useSelector((state) => state.editor.centerLabel.trackFont);
+  const trackFontSize = useSelector(
+    (state) => state.editor.centerLabel.trackFontSize
+  );
+  const trackFontColor = useSelector(
+    (state) => state.editor.centerLabel.trackFontColor
+  );
+  const fg = useSelector((state) => state.editor.global.fg);
+  const layer = useSelector((state) => state.editor.global.layer);
   const artist = useSelector((state) => state.metadata.artist);
   const track = useSelector((state) => state.metadata.track);
 
@@ -141,7 +153,7 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
         <div
           id="artiste"
           className={`artist overlay ${artistFont.class}`}
-          style={{ color: fontColor, fontSize: `${fontSize}px` }}
+          style={{ color: artistFontColor, fontSize: `${artistFontSize}px` }}
         >
           {artist}
         </div>
@@ -149,7 +161,7 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
       <Draggable>
         <div
           className={`track overlay ${trackFont.class}`}
-          style={{ color: fontColor, fontSize: `${fontSize}px` }}
+          style={{ color: trackFontColor, fontSize: `${trackFontSize}px` }}
         >
           {track}
         </div>

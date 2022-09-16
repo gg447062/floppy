@@ -3,12 +3,12 @@ import { useSelector } from 'react-redux';
 import { CANVAS_HEIGHT } from '../../utils';
 
 const Canvas = () => {
-  const stamp = useSelector((state) => state.editor.stamp);
-  const layer = useSelector((state) => state.editor.layer);
-  const size = useSelector((state) => state.editor.size);
-  const filter = useSelector((state) => state.editor.filter);
-  const fg = useSelector((state) => state.editor.fg);
-  const cl = useSelector((state) => state.editor.cl);
+  const stamp = useSelector((state) => state.editor.global.stamp);
+  const layer = useSelector((state) => state.editor.global.layer);
+  const size = useSelector((state) => state.editor.global.size);
+  const filter = useSelector((state) => state.editor.global.filter);
+  const fg = useSelector((state) => state.editor.global.fg);
+  const cl = useSelector((state) => state.editor.global.cl);
   const [coords, setCoords] = useState(null);
 
   const handleMouseMove = (e) => {
