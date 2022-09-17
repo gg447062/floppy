@@ -55,7 +55,7 @@ const Canvas = () => {
   };
 
   return (
-    <div className="canvas-wrapper">
+    <div className="editor-canvas-wrapper">
       <canvas
         id="canvas-final-back"
         className="canvas"
