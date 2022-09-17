@@ -1,10 +1,18 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilter } from '../../../../Redux/editor/global';
-import { Color, Solver, CANVAS_HEIGHT, getFontName } from '../../../../utils';
+import { setFilter, setSize } from '../../../../Redux/editor/global';
+import {
+  Color,
+  Solver,
+  CANVAS_HEIGHT,
+  getFontName,
+  assetBaseURL,
+} from '../../../../utils';
 
 const ColorSelector = ({
   action,
+  action2 = null,
+  value,
   isFont = false,
   isCL = false,
   isTemplate = false,
@@ -23,11 +31,11 @@ const ColorSelector = ({
 
   const drawCenterLabel = (filter) => {
     cl.ctx.clearRect(0, 0, cl.canvas.width, cl.canvas.height);
-    const image = new Image(500, 500);
+    const image = new Image(CANVAS_HEIGHT, CANVAS_HEIGHT);
     image.src = `${assetBaseURL}/RECORD_CENTERLABEL/Centerlabel.png`;
     cl.ctx.filter = filter;
     image.onload = () => {
-      cl.ctx.drawImage(image, 0, 0, 500, 500);
+      cl.ctx.drawImage(image, 0, 0, CANVAS_HEIGHT, CANVAS_HEIGHT);
     };
   };
 
@@ -49,7 +57,7 @@ const ColorSelector = ({
     overlay.style.filter = filterCSS;
     dispatch(setFilter(filterCSS));
     dispatch(action(filterCSS));
-    // dispatch(action(e.target.value));
+    dispatch(action2(e.target.value));
     if (isTemplate && template) {
       drawBg(filterCSS);
     } else if (isCL) {
@@ -70,7 +78,7 @@ const ColorSelector = ({
       className="color-selector"
       type="color"
       style={{ width: '50px', height: '50px' }}
-      // value={value}
+      value={value}
       onChange={handleChange}
     ></input>
   );
@@ -79,6 +87,7 @@ const ColorSelector = ({
 const SizeSelector = ({ action, size }) => {
   const dispatch = useDispatch();
   const setStampSize = (e) => {
+    dispatch(setSize(e.target.value));
     dispatch(action(e.target.value));
   };
 

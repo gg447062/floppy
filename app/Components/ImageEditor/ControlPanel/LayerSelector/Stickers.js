@@ -1,9 +1,11 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { assetBaseURL } from '../../../../utils';
 import { SizeSelector } from './Controls';
 import { setSize } from '../../../../Redux/editor/stickers';
 
 const Stickers = ({ chooseStamp }) => {
+  const size = useSelector((state) => state.editor.stickers.size);
   return (
     <div className="container stamps">
       <div>
@@ -19,7 +21,7 @@ const Stickers = ({ chooseStamp }) => {
           );
         })}
       </div>
-      <SizeSelector action={setSize} />
+      <SizeSelector action={setSize} size={size} />
     </div>
   );
 };

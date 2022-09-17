@@ -2,10 +2,11 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { assetBaseURL } from '../../../../utils';
 import { ColorSelector, SizeSelector } from './Controls';
-import { setFilter, setSize } from '../../../../Redux/editor/stamps';
+import { setColor, setFilter, setSize } from '../../../../Redux/editor/stamps';
 
 const Stamps = ({ chooseStamp }) => {
   const size = useSelector((state) => state.editor.stamps.size);
+  const colorValue = useSelector((state) => state.editor.stamps.color);
   return (
     <div className="container stamps">
       <div>
@@ -46,7 +47,7 @@ const Stamps = ({ chooseStamp }) => {
           onClick={chooseStamp}
         />
       </div>
-      <ColorSelector action={setFilter} />
+      <ColorSelector action={setFilter} action2={setColor} value={colorValue} />
       <SizeSelector action={setSize} size={size} />
     </div>
   );

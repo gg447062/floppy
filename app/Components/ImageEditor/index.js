@@ -18,7 +18,7 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
   const stamp = useSelector((state) => state.editor.global.stamp);
   const overlay = useSelector((state) => state.editor.global.overlay);
   const size = useSelector((state) => state.editor.global.size);
-  const filter = useSelector((state) => state.editor.filter);
+  const filter = useSelector((state) => state.editor.global.filter);
   const artistFont = useSelector((state) => state.editor.cl.artistFont);
   const artistSize = useSelector((state) => state.editor.cl.artistFontSize);
   const artistColor = useSelector((state) => state.editor.cl.artistFontColor);

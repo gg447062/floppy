@@ -1,6 +1,8 @@
-const SET_STAMP_SIZE = 'SET_STAMP_SIZE';
-const SET_STAMP_FILTER = 'SET_STAMP_FILTER';
+const SET_CL_STAMP_SIZE = 'SET_CL_STAMP_SIZE';
+const SET_CL_STAMP_FILTER = 'SET_CL_STAMP_FILTER';
+const SET_CL_STAMP_COLOR = 'SET_CL_STAMP_COLOR';
 const SET_CENTERLABEL_FILTER = 'SET_CENTERLABEL_FILTER';
+const SET_CENTERLABEL_COLOR = 'SET_CENTERLABEL_COLOR';
 const SET_ARTIST_FONT = 'SET_ARTIST_FONT';
 const SET_ARTIST_FONT_COLOR = 'SET_ARTIST_FONT_COLOR';
 const SET_ARTIST_FONT_SIZE = 'SET_ARTIST_FONT_SIZE';
@@ -9,18 +11,28 @@ const SET_TRACK_FONT_COLOR = 'SET_TRACK_FONT_COLOR';
 const SET_TRACK_FONT_SIZE = 'SET_TRACK_FONT_SIZE';
 
 export const setStampSize = (size) => ({
-  type: SET_STAMP_SIZE,
+  type: SET_CL_STAMP_SIZE,
   size,
 });
 
 export const setStampFilter = (filter) => ({
-  type: SET_STAMP_FILTER,
+  type: SET_CL_STAMP_FILTER,
   filter,
+});
+
+export const setStampColor = (color) => ({
+  type: SET_CL_STAMP_COLOR,
+  color,
 });
 
 export const setCenterLabelFilter = (filter) => ({
   type: SET_CENTERLABEL_FILTER,
   filter,
+});
+
+export const setCenterLabelColor = (color) => ({
+  type: SET_CENTERLABEL_COLOR,
+  color,
 });
 
 export const setArtistFont = (font) => ({
@@ -55,8 +67,11 @@ export const setTrackFontSize = (size) => ({
 
 const initState = {
   stampSize: 0.5,
-  stampFilter: null,
-  centerLabelFilter: null,
+  stampFilter:
+    'invert(0%) sepia(84%) saturate(7436%) hue-rotate(328deg) brightness(114%) contrast(114%)',
+  stampColor: '#000000',
+  clFilter: null,
+  clColor: '#000000',
   artistFont: { class: 'ff-0', name: 'AddCityboy' },
   artistFontColor: '#000000',
   artistFontSize: 20,
@@ -67,12 +82,16 @@ const initState = {
 
 const centerLabelReducer = (state = initState, action) => {
   switch (action.type) {
-    case SET_STAMP_SIZE:
+    case SET_CL_STAMP_SIZE:
       return { ...state, stampSize: action.size };
-    case SET_STAMP_FILTER:
+    case SET_CL_STAMP_FILTER:
       return { ...state, stampFilter: action.filter };
+    case SET_CL_STAMP_COLOR:
+      return { ...state, stampColor: action.color };
     case SET_CENTERLABEL_FILTER:
-      return { ...state, centerLabelFilter: action.filter };
+      return { ...state, clFilter: action.filter };
+    case SET_CENTERLABEL_COLOR:
+      return { ...state, clColor: action.color };
     case SET_ARTIST_FONT:
       return { ...state, artistFont: action.font };
     case SET_ARTIST_FONT_COLOR:

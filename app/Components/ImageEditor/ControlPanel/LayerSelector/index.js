@@ -1,15 +1,41 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setLayer, setStamp } from '../../../../Redux/editor/global';
+import {
+  setLayer,
+  setStamp,
+  setSize,
+  setFilter,
+} from '../../../../Redux/editor/global';
 import Templates from './Templates';
 import Stamps from './Stamps';
 import Stickers from './Stickers';
 import CenterLabel from './CenterLabel';
 
+const LayerTitle = ({ title, size, filter }) => {
+  const dispatch = useDispatch();
+  const chooseLayer = (e) => {
+    dispatch(setLayer(e.target.id));
+    dispatch(setStamp(null));
+    dispatch(setSize(size));
+    dispatch(setFilter(filter));
+  };
+  return (
+    <div id={title} onClick={chooseLayer}>
+      {title}
+    </div>
+  );
+};
+
 const LayerSelector = () => {
   const dispatch = useDispatch();
   const stamp = useSelector((state) => state.editor.global.stamp);
   const layer = useSelector((state) => state.editor.global.layer);
+  const templateFilter = useSelector((state) => state.editor.template.filter);
+  const clStampFilter = useSelector((state) => state.editor.cl.stampFilter);
+  const clStampSize = useSelector((state) => state.editor.cl.stampSize);
+  const stampSize = useSelector((state) => state.editor.stamps.size);
+  const stampFilter = useSelector((state) => state.editor.stamps.filter);
+  const stickerSize = useSelector((state) => state.editor.stickers.size);
 
   const chooseStamp = (e) => {
     if (stamp) {
@@ -19,27 +45,19 @@ const LayerSelector = () => {
     e.target.classList.add('selected');
   };
 
-  const chooseLayer = (e) => {
-    dispatch(setLayer(e.target.id));
-  };
-
   return (
     <div id="selector" className="container">
-      <div id="template" onClick={chooseLayer}>
-        Template
-      </div>
+      <LayerTitle title="template" size={0.5} filter={templateFilter} />
       {layer == 'template' && <Templates chooseStamp={chooseStamp} />}
-      <div id="center-label" onClick={chooseLayer}>
-        Center Label
-      </div>
+      <LayerTitle
+        title="center-label"
+        size={clStampSize}
+        filter={clStampFilter}
+      />
       {layer == 'center-label' && <CenterLabel chooseStamp={chooseStamp} />}
-      <div id="stamps" onClick={chooseLayer}>
-        Stamps
-      </div>
+      <LayerTitle title="stamps" size={stampSize} filter={stampFilter} />
       {layer == 'stamps' && <Stamps chooseStamp={chooseStamp} />}
-      <div id="stickers" onClick={chooseLayer}>
-        Stickers
-      </div>
+      <LayerTitle title="stickers" size={stickerSize} filter={null} />
       {layer == 'stickers' && <Stickers chooseStamp={chooseStamp} />}
     </div>
   );

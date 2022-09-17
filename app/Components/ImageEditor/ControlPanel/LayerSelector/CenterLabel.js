@@ -1,4 +1,5 @@
 import React from 'react';
+import { useSelector } from 'react-redux';
 import { assetBaseURL } from '../../../../utils';
 import {
   setStampSize,
@@ -10,6 +11,8 @@ import {
   setTrackFont,
   setTrackFontColor,
   setTrackFontSize,
+  setCenterLabelColor,
+  setStampColor,
 } from '../../../../Redux/editor/centerLabel';
 import { setArtist, setTrack } from '../../../../Redux/metadata';
 import {
@@ -20,6 +23,11 @@ import {
 } from './Controls';
 
 const CenterLabel = ({ chooseStamp }) => {
+  const clColor = useSelector((state) => state.editor.cl.clColor);
+  const stampColor = useSelector((state) => state.editor.cl.stampColor);
+  const artistColor = useSelector((state) => state.editor.cl.artistFontColor);
+  const trackColor = useSelector((state) => state.editor.cl.trackFontColor);
+
   return (
     <div className="container stamps">
       <div>
@@ -37,8 +45,17 @@ const CenterLabel = ({ chooseStamp }) => {
       </div>
       <div>
         <SizeSelector action={setStampSize} />
-        <ColorSelector action={setStampFilter} />
-        <ColorSelector action={setCenterLabelFilter} isCL={true} />
+        <ColorSelector
+          action={setStampFilter}
+          action2={setStampColor}
+          value={stampColor}
+        />
+        <ColorSelector
+          action={setCenterLabelFilter}
+          action2={setCenterLabelColor}
+          value={clColor}
+          isCL={true}
+        />
         <div>
           <TextInput
             action={setArtist}
@@ -47,13 +64,21 @@ const CenterLabel = ({ chooseStamp }) => {
           />
           <FontSelector action={setArtistFont} destination="artist" />
           <SizeSelector action={setArtistFontSize} />
-          <ColorSelector action={setArtistFontColor} isFont={true} />
+          <ColorSelector
+            action={setArtistFontColor}
+            value={artistColor}
+            isFont={true}
+          />
         </div>
         <div>
           <TextInput action={setTrack} title={'Track Name'} label={'track'} />
           <FontSelector action={setTrackFont} destination="track" />
           <SizeSelector action={setTrackFontSize} />
-          <ColorSelector action={setTrackFontColor} isFont={true} />
+          <ColorSelector
+            action={setTrackFontColor}
+            value={trackColor}
+            isFont={true}
+          />
         </div>
       </div>
     </div>

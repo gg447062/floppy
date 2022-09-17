@@ -1,7 +1,7 @@
-const SET_SIZE = 'SET_SIZE';
+const SET_STICKER_SIZE = 'SET_STICKER_SIZE';
 
 export const setSize = (size) => ({
-  type: SET_SIZE,
+  type: SET_STICKER_SIZE,
   size,
 });
 
@@ -11,7 +11,7 @@ const initState = {
 
 const stickersReducer = (state = initState, action) => {
   switch (action.type) {
-    case SET_SIZE:
+    case SET_STICKER_SIZE:
       return { ...state, size: action.size };
     default:
       return state;

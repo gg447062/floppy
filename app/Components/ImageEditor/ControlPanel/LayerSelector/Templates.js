@@ -1,15 +1,16 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTemplate } from '../../../../Redux/editor/global';
-import { setFilter } from '../../../../Redux/editor/template';
+import { setFilter, setColor } from '../../../../Redux/editor/template';
 import { assetBaseURL, CANVAS_HEIGHT } from '../../../../utils';
 import { ColorSelector } from './Controls';
 
 const Templates = () => {
   const dispatch = useDispatch();
-  const filter = useSelector((state) => state.editor.global.filter);
   const bg = useSelector((state) => state.editor.global.bg);
   const bgT = useSelector((state) => state.editor.global.bgTexture);
+  const colorValue = useSelector((state) => state.editor.template.color);
+  const filter = useSelector((state) => state.editor.template.filter);
 
   const drawBg = (e) => {
     const baseString = e.target.src.split('_')[0];
@@ -37,8 +38,8 @@ const Templates = () => {
   };
 
   return (
-    <div className="container stamps">
-      <div>
+    <div className="container">
+      <div className="">
         {[...Array(15)].map((_, i) => {
           return (
             <img
@@ -53,7 +54,12 @@ const Templates = () => {
           );
         })}
       </div>
-      <ColorSelector action={setFilter} isTemplate={true} />
+      <ColorSelector
+        action={setFilter}
+        action2={setColor}
+        value={colorValue}
+        isTemplate={true}
+      />
     </div>
   );
 };

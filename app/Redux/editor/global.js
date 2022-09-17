@@ -1,10 +1,10 @@
-const SET_STAMP = 'SET_STAMP';
+const SET_GLOBAL_STAMP = 'SET_GLOBAL_STAMP';
 const SET_TEMPLATE = 'SET_TEMPLATE';
 const SET_LAYER = 'SET_LAYER';
 const SET_OVERLAY = 'SET_OVERLAY';
-const SET_SIZE = 'SET_SIZE';
+const SET_OVERLAY_SIZE = 'SET_OVERLAY_SIZE';
 // const SET_COLOR = 'SET_COLOR';
-const SET_GLOBAL_FILTER = 'SET_GLOBAL_FILTER';
+const SET_OVERLAY_FILTER = 'SET_OVERLAY_FILTER';
 const SET_BG = 'SET_BG';
 const SET_CENTERLABEL = 'SET_CENTERLABEL';
 const SET_FG = 'SET_FG';
@@ -12,7 +12,7 @@ const SET_FRONT = 'SET_FRONT';
 const SET_BACK = 'SET_BACK';
 
 export const setStamp = (stamp) => ({
-  type: SET_STAMP,
+  type: SET_GLOBAL_STAMP,
   stamp,
 });
 
@@ -32,12 +32,12 @@ export const setOverlay = (overlay) => ({
 });
 
 export const setSize = (size) => ({
-  type: SET_SIZE,
+  type: SET_OVERLAY_SIZE,
   size,
 });
 
 export const setFilter = (filter) => ({
-  type: SET_GLOBAL_FILTER,
+  type: SET_OVERLAY_FILTER,
   filter,
 });
 
@@ -92,7 +92,7 @@ const initState = {
 
 const editorReducer = (state = initState, action) => {
   switch (action.type) {
-    case SET_STAMP:
+    case SET_GLOBAL_STAMP:
       return { ...state, stamp: action.stamp };
     case SET_TEMPLATE:
       return { ...state, template: action.template };
@@ -100,11 +100,11 @@ const editorReducer = (state = initState, action) => {
       return { ...state, layer: action.layer };
     case SET_OVERLAY:
       return { ...state, overlay: action.overlay };
-    case SET_SIZE:
+    case SET_OVERLAY_SIZE:
       return { ...state, size: action.size };
     // case SET_COLOR:
     //   return { ...state, color: action.color };
-    case SET_GLOBAL_FILTER:
+    case SET_OVERLAY_FILTER:
       return { ...state, filter: action.filter };
     case SET_BG:
       return { ...state, bg: action.bg, bgTexture: action.bgTexture };
