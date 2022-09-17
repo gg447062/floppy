@@ -1,9 +1,9 @@
 import React from 'react';
 import { assetBaseURL } from '../../../../utils';
 import {
-  setStampColor,
   setStampSize,
-  setCenterLabelColor,
+  setStampFilter,
+  setCenterLabelFilter,
   setArtistFont,
   setArtistFontColor,
   setArtistFontSize,
@@ -37,8 +37,8 @@ const CenterLabel = ({ chooseStamp }) => {
       </div>
       <div>
         <SizeSelector action={setStampSize} />
-        <ColorSelector action={setStampColor} />
-        <ColorSelector action={setCenterLabelColor} isCL={true} />
+        <ColorSelector action={setStampFilter} />
+        <ColorSelector action={setCenterLabelFilter} isCL={true} />
         <div>
           <TextInput
             action={setArtist}

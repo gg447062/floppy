@@ -1,7 +1,7 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTemplate } from '../../../../Redux/editor/global';
-import { setColor } from '../../../../Redux/editor/template';
+import { setFilter } from '../../../../Redux/editor/template';
 import { assetBaseURL, CANVAS_HEIGHT } from '../../../../utils';
 import { ColorSelector } from './Controls';
 
@@ -53,7 +53,7 @@ const Templates = () => {
           );
         })}
       </div>
-      <ColorSelector action={setColor} isTemplate={true} />
+      <ColorSelector action={setFilter} isTemplate={true} />
     </div>
   );
 };

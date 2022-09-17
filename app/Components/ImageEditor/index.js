@@ -19,22 +19,12 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
   const overlay = useSelector((state) => state.editor.global.overlay);
   const size = useSelector((state) => state.editor.global.size);
   const filter = useSelector((state) => state.editor.filter);
-  const artistFont = useSelector(
-    (state) => state.editor.centerLabel.artistFont
-  );
-  const artistFontSize = useSelector(
-    (state) => state.editor.centerLabel.artistFontSize
-  );
-  const artistFontColor = useSelector(
-    (state) => state.editor.centerLabel.artistFontColor
-  );
-  const trackFont = useSelector((state) => state.editor.centerLabel.trackFont);
-  const trackFontSize = useSelector(
-    (state) => state.editor.centerLabel.trackFontSize
-  );
-  const trackFontColor = useSelector(
-    (state) => state.editor.centerLabel.trackFontColor
-  );
+  const artistFont = useSelector((state) => state.editor.cl.artistFont);
+  const artistSize = useSelector((state) => state.editor.cl.artistFontSize);
+  const artistColor = useSelector((state) => state.editor.cl.artistFontColor);
+  const trackFont = useSelector((state) => state.editor.cl.trackFont);
+  const trackSize = useSelector((state) => state.editor.cl.trackFontSize);
+  const trackColor = useSelector((state) => state.editor.cl.trackFontColor);
   const fg = useSelector((state) => state.editor.global.fg);
   const layer = useSelector((state) => state.editor.global.layer);
   const artist = useSelector((state) => state.metadata.artist);
@@ -153,7 +143,7 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
         <div
           id="artiste"
           className={`artist overlay ${artistFont.class}`}
-          style={{ color: artistFontColor, fontSize: `${artistFontSize}px` }}
+          style={{ color: artistColor, fontSize: `${artistSize}px` }}
         >
           {artist}
         </div>
@@ -161,7 +151,7 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
       <Draggable>
         <div
           className={`track overlay ${trackFont.class}`}
-          style={{ color: trackFontColor, fontSize: `${trackFontSize}px` }}
+          style={{ color: trackColor, fontSize: `${trackSize}px` }}
         >
           {track}
         </div>

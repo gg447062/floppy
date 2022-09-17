@@ -8,7 +8,7 @@ import stickersReducer from './stickers';
 const editorReducer = combineReducers({
   global: globalReducer,
   template: templateReducer,
-  centerLabel: centerLabelReducer,
+  cl: centerLabelReducer,
   stamps: stampsReducer,
   stickers: stickersReducer,
 });

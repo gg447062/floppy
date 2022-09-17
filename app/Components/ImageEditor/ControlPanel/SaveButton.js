@@ -4,19 +4,20 @@ import { setFrontURL, setBackURL } from '../../../Redux/metadata';
 
 const SaveButton = ({ clearCanvas, setShowUpload, setShowEditor }) => {
   const dispatch = useDispatch();
-  const fontSize = useSelector((state) => state.editor.fontSize);
   const artist = useSelector((state) => state.metadata.artist);
   const track = useSelector((state) => state.metadata.track);
-  const artistFont = useSelector((state) => state.editor.artistFont);
-  const trackFont = useSelector((state) => state.editor.trackFont);
+  const artistFont = useSelector((state) => state.editor.cl.artistFont);
+  const trackFont = useSelector((state) => state.editor.cl.trackFont);
+  // ADD ARTIST AND TRACK FONT SIZE AND COLOR
+  const fontSize = useSelector((state) => state.editor.fontSize);
   const fontColor = useSelector((state) => state.editor.fontColor);
-  const fg = useSelector((state) => state.editor.fg);
-  const bg = useSelector((state) => state.editor.bg);
-  const bgTxt = useSelector((state) => state.editor.bgTexture);
-  const cl = useSelector((state) => state.editor.cl);
-  const clTxt = useSelector((state) => state.editor.clTexture);
-  const front = useSelector((state) => state.editor.front);
-  const back = useSelector((state) => state.editor.back);
+  const fg = useSelector((state) => state.editor.global.fg);
+  const bg = useSelector((state) => state.editor.global.bg);
+  const bgTxt = useSelector((state) => state.editor.global.bgTexture);
+  const cl = useSelector((state) => state.editor.global.cl);
+  const clTxt = useSelector((state) => state.editor.global.clTexture);
+  const front = useSelector((state) => state.editor.global.front);
+  const back = useSelector((state) => state.editor.global.back);
 
   const writeTextToCanvas = (ctx, text, posX, posY, artist = true) => {
     if (artist) {

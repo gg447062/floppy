@@ -48,7 +48,8 @@ const ColorSelector = ({
     const filterCSS = result.filter;
     overlay.style.filter = filterCSS;
     dispatch(setFilter(filterCSS));
-    dispatch(action(e.target.value));
+    dispatch(action(filterCSS));
+    // dispatch(action(e.target.value));
     if (isTemplate && template) {
       drawBg(filterCSS);
     } else if (isCL) {
@@ -69,6 +70,7 @@ const ColorSelector = ({
       className="color-selector"
       type="color"
       style={{ width: '50px', height: '50px' }}
+      // value={value}
       onChange={handleChange}
     ></input>
   );
