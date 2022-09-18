@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Draggable from 'react-draggable';
 import {
   setOverlay,
   setBg,
@@ -19,16 +18,8 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
   const overlay = useSelector((state) => state.editor.global.overlay);
   const size = useSelector((state) => state.editor.global.size);
   const filter = useSelector((state) => state.editor.global.filter);
-  const artistFont = useSelector((state) => state.editor.cl.artistFont);
-  const artistSize = useSelector((state) => state.editor.cl.artistFontSize);
-  const artistColor = useSelector((state) => state.editor.cl.artistFontColor);
-  const trackFont = useSelector((state) => state.editor.cl.trackFont);
-  const trackSize = useSelector((state) => state.editor.cl.trackFontSize);
-  const trackColor = useSelector((state) => state.editor.cl.trackFontColor);
   const fg = useSelector((state) => state.editor.global.fg);
   const layer = useSelector((state) => state.editor.global.layer);
-  const artist = useSelector((state) => state.metadata.artist);
-  const track = useSelector((state) => state.metadata.track);
 
   const drawInitialBg = (ctx1, ctx2) => {
     const clTextureImg = new Image(CANVAS_HEIGHT, CANVAS_HEIGHT);
@@ -139,23 +130,6 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
         src={stamp ? stamp.src : ''}
         height={stamp ? `${stamp.naturalHeight * size}px` : ''}
       ></img>
-      <Draggable>
-        <div
-          id="artiste"
-          className={`artist overlay ${artistFont.class}`}
-          style={{ color: artistColor, fontSize: `${artistSize}px` }}
-        >
-          {artist}
-        </div>
-      </Draggable>
-      <Draggable>
-        <div
-          className={`track overlay ${trackFont.class}`}
-          style={{ color: trackColor, fontSize: `${trackSize}px` }}
-        >
-          {track}
-        </div>
-      </Draggable>
     </div>
   );
 };

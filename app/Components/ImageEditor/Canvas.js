@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Draggable from 'react-draggable';
 import { useSelector } from 'react-redux';
 import { CANVAS_HEIGHT } from '../../utils';
 
@@ -9,6 +10,14 @@ const Canvas = () => {
   const filter = useSelector((state) => state.editor.global.filter);
   const fg = useSelector((state) => state.editor.global.fg);
   const cl = useSelector((state) => state.editor.global.cl);
+  const artistFont = useSelector((state) => state.editor.cl.artistFont);
+  const artistSize = useSelector((state) => state.editor.cl.artistFontSize);
+  const artistColor = useSelector((state) => state.editor.cl.artistFontColor);
+  const trackFont = useSelector((state) => state.editor.cl.trackFont);
+  const trackSize = useSelector((state) => state.editor.cl.trackFontSize);
+  const trackColor = useSelector((state) => state.editor.cl.trackFontColor);
+  const artist = useSelector((state) => state.metadata.artist);
+  const track = useSelector((state) => state.metadata.track);
   const [coords, setCoords] = useState(null);
 
   const handleMouseMove = (e) => {
@@ -100,6 +109,23 @@ const Canvas = () => {
         height={`${CANVAS_HEIGHT}px`}
         width={`${CANVAS_HEIGHT}px`}
       ></canvas>
+      <Draggable>
+        <div
+          id="artiste"
+          className={`artist overlay ${artistFont.class}`}
+          style={{ color: artistColor, fontSize: `${artistSize}px` }}
+        >
+          {artist}
+        </div>
+      </Draggable>
+      <Draggable>
+        <div
+          className={`track overlay ${trackFont.class}`}
+          style={{ color: trackColor, fontSize: `${trackSize}px` }}
+        >
+          {track}
+        </div>
+      </Draggable>
     </div>
   );
 };
