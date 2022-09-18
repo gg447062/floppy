@@ -29,8 +29,8 @@ const CenterLabel = ({ chooseStamp }) => {
   const trackColor = useSelector((state) => state.editor.cl.trackFontColor);
 
   return (
-    <div className="container stamps">
-      <div>
+    <div className="container controls-drawer">
+      <div className="assets-container">
         {[...Array(13)].map((_, i) => {
           return (
             <img
@@ -43,37 +43,49 @@ const CenterLabel = ({ chooseStamp }) => {
           );
         })}
       </div>
-      <div>
-        <SizeSelector action={setStampSize} />
-        <ColorSelector
-          action={setStampFilter}
-          action2={setStampColor}
-          value={stampColor}
-        />
-        <ColorSelector
-          action={setCenterLabelFilter}
-          action2={setCenterLabelColor}
-          value={clColor}
-          isCL={true}
-        />
+      <div className="controls-container">
         <div>
-          <TextInput
-            action={setArtist}
-            title={'Artist Name'}
-            label={'artist'}
-          />
-          <FontSelector action={setArtistFont} destination="artist" />
-          <SizeSelector action={setArtistFontSize} />
+          <div className="colorss">
+            <ColorSelector
+              action={setStampFilter}
+              action2={setStampColor}
+              value={stampColor}
+            />
+            <ColorSelector
+              action={setCenterLabelFilter}
+              action2={setCenterLabelColor}
+              value={clColor}
+              isCL={true}
+            />
+          </div>
+          <SizeSelector action={setStampSize} />
+        </div>
+        <div className="track-info-input">
+          <div className="">
+            <TextInput
+              action={setArtist}
+              title={'Artist Name'}
+              label={'artist'}
+            />
+            <div className="font-and-size">
+              <FontSelector action={setArtistFont} destination="artist" />
+              <SizeSelector action={setArtistFontSize} />
+            </div>
+          </div>
           <ColorSelector
             action={setArtistFontColor}
             value={artistColor}
             isFont={true}
           />
         </div>
-        <div>
-          <TextInput action={setTrack} title={'Track Name'} label={'track'} />
-          <FontSelector action={setTrackFont} destination="track" />
-          <SizeSelector action={setTrackFontSize} />
+        <div className="track-info-input">
+          <div>
+            <TextInput action={setTrack} title={'Track Name'} label={'track'} />
+            <div className="font-and-size">
+              <FontSelector action={setTrackFont} destination="track" />
+              <SizeSelector action={setTrackFontSize} />
+            </div>
+          </div>
           <ColorSelector
             action={setTrackFontColor}
             value={trackColor}

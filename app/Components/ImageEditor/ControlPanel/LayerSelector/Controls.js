@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { setFilter, setSize } from '../../../../Redux/editor/global';
+import { setFilter, setSize, setStamp } from '../../../../Redux/editor/global';
 import {
   Color,
   Solver,
@@ -22,6 +22,7 @@ const ColorSelector = ({
   const template = useSelector((state) => state.editor.global.template);
   const overlay = useSelector((state) => state.editor.global.overlay);
   const cl = useSelector((state) => state.editor.global.cl);
+  const dimensions = isFont ? '50px' : '100px';
 
   const drawBg = (filter) => {
     bg.ctx.clearRect(0, 0, bg.canvas.width, bg.canvas.height);
@@ -75,9 +76,9 @@ const ColorSelector = ({
 
   return (
     <input
-      className="color-selector"
+      // className="color-selector"
       type="color"
-      style={{ width: '50px', height: '50px' }}
+      style={{ width: dimensions, height: dimensions }}
       value={value}
       onChange={handleChange}
     ></input>
@@ -110,19 +111,34 @@ const SizeSelector = ({ action, size }) => {
 
 const TextInput = ({ action, title, label }) => {
   const dispatch = useDispatch();
+
+  const hideOverlay = () => {
+    dispatch(setStamp(null));
+  };
+
   const write = (e) => {
     dispatch(action(e.target.value));
   };
   return (
     <div>
       <label htmlFor={label}>{title}</label>
-      <input id={label} name={label} onChange={write}></input>
+      <input
+        id={label}
+        name={label}
+        onChange={write}
+        onClick={hideOverlay}
+      ></input>
     </div>
   );
 };
 
 const FontSelector = ({ action, destination }) => {
+  const [show, setShow] = useState(false);
   const dispatch = useDispatch();
+
+  const toggleShow = () => {
+    setShow(!show);
+  };
 
   const selectFont = (e) => {
     dispatch(
@@ -131,25 +147,28 @@ const FontSelector = ({ action, destination }) => {
         name: getFontName(e.target.id),
       })
     );
+    setShow(false);
   };
 
   return (
     <div className="fonts--wrapper">
-      <div>Select Font</div>
-      <ul className="fonts">
-        {[...Array(33)].map((_, i) => {
-          return (
-            <li
-              id={`${destination}-font-${i}`}
-              className={`ff-${i} fs-100`}
-              key={i}
-              onClick={selectFont}
-            >
-              Sample
-            </li>
-          );
-        })}
-      </ul>
+      <div onClick={toggleShow}>Font</div>
+      {show && (
+        <ul className="fonts">
+          {[...Array(33)].map((_, i) => {
+            return (
+              <li
+                id={`${destination}-font-${i}`}
+                className={`ff-${i} fs-100`}
+                key={i}
+                onClick={selectFont}
+              >
+                Sample
+              </li>
+            );
+          })}
+        </ul>
+      )}
     </div>
   );
 };

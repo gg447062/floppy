@@ -38,8 +38,8 @@ const Templates = () => {
   };
 
   return (
-    <div className="container">
-      <div className="">
+    <div className="container controls-drawer">
+      <div className="assets-container">
         {[...Array(15)].map((_, i) => {
           return (
             <img
@@ -54,12 +54,14 @@ const Templates = () => {
           );
         })}
       </div>
-      <ColorSelector
-        action={setFilter}
-        action2={setColor}
-        value={colorValue}
-        isTemplate={true}
-      />
+      <div className="controls-container">
+        <ColorSelector
+          action={setFilter}
+          action2={setColor}
+          value={colorValue}
+          isTemplate={true}
+        />
+      </div>
     </div>
   );
 };

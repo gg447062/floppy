@@ -7,8 +7,8 @@ import { setSize } from '../../../../Redux/editor/stickers';
 const Stickers = ({ chooseStamp }) => {
   const size = useSelector((state) => state.editor.stickers.size);
   return (
-    <div className="container stamps">
-      <div>
+    <div className="container controls-drawer">
+      <div className="assets-container">
         {[...Array(15)].map((_, i) => {
           return (
             <img
@@ -21,7 +21,9 @@ const Stickers = ({ chooseStamp }) => {
           );
         })}
       </div>
-      <SizeSelector action={setSize} size={size} />
+      <div className="controls-container">
+        <SizeSelector action={setSize} size={size} />
+      </div>
     </div>
   );
 };

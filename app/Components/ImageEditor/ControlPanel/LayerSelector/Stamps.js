@@ -8,8 +8,8 @@ const Stamps = ({ chooseStamp }) => {
   const size = useSelector((state) => state.editor.stamps.size);
   const colorValue = useSelector((state) => state.editor.stamps.color);
   return (
-    <div className="container stamps">
-      <div>
+    <div className="container controls-drawer">
+      <div className="assets-container">
         <img
           id="bassface_stamp"
           className="stamp"
@@ -47,8 +47,14 @@ const Stamps = ({ chooseStamp }) => {
           onClick={chooseStamp}
         />
       </div>
-      <ColorSelector action={setFilter} action2={setColor} value={colorValue} />
-      <SizeSelector action={setSize} size={size} />
+      <div className="controls-container">
+        <ColorSelector
+          action={setFilter}
+          action2={setColor}
+          value={colorValue}
+        />
+        <SizeSelector action={setSize} size={size} />
+      </div>
     </div>
   );
 };

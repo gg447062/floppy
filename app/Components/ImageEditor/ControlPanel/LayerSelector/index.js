@@ -46,7 +46,8 @@ const LayerSelector = () => {
   };
 
   return (
-    <div id="selector" className="container">
+    //id="selector"
+    <div className="container layer-selector">
       <LayerTitle title="template" size={0.5} filter={templateFilter} />
       {layer == 'template' && <Templates chooseStamp={chooseStamp} />}
       <LayerTitle

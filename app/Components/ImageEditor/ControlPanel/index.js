@@ -29,10 +29,11 @@ const ControlPanel = ({ setShowUpload, setShowEditor, drawInitialBg }) => {
   };
 
   return (
-    <div className="controls-wrapper">
+    <div className="control-panel">
+      <h2 className="ff-3">Press A Dubplate</h2>
       <LayerSelector />
 
-      <div className="controls permanent">
+      <div className="permanent">
         <button id="clear" onClick={reset}>
           reset
         </button>

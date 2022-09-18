@@ -142,7 +142,6 @@ ul {
 
 .editor-wrapper {
   display: flex;
-  /* background-color: var(--bg-grey); */
   width: 100vw;
   max-width: 100%;
   height: 100vh;
@@ -183,25 +182,21 @@ ul {
   z-index: 0;
 }
 
-#selector {
+.layer-selector {
   flex-direction: column;
   justify-content: flex-start;
   align-items: flex-start;
-  padding-left: 2em;
+  /* padding-left: 2em; */
   box-sizing: border-box;
   color: black;
   row-gap: 1em;
-}
-
-#selector div {
-  padding: 0.1em 0.5em 0.2em 0.5em;
 }
 
 #colors {
   flex-direction: column;
 }
 
-.controls-wrapper {
+.control-panel {
   display: flex;
   flex-direction: column;
   justify-content: space-around;
@@ -213,14 +208,49 @@ ul {
   color: black;
 }
 
-.color-selector {
-  /* position: absolute; */
-  /* top: 40px; */
+.controls-drawer {
+  width: 100%;
+  max-width: 100%;
+  height: 60vh;
+  display: flex;
 }
 
-.text-color {
-  height: 2em;
-  width: 6em;
+.assets-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 1em;
+  height: 100%;
+  width: 50%;
+  overflow-y: scroll;
+}
+
+.controls-container {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: flex-start;
+}
+
+.colorss {
+  display: flex;
+}
+
+.track-info-input {
+  display: flex;
+  /* width: 100%; */
+  max-width: 100%;
+}
+
+.track-info-input div:first-child {
+  display: flex;
+  flex-direction: column;
+  /* flex-grow: 1; */
+}
+
+.font-and-size {
+  display: flex;
 }
 
 .permanent {
@@ -279,11 +309,15 @@ ul {
 }
 
 .artist {
-  top: 50vh;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .track {
-  top: 60vh;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 .fonts--wrapper {
@@ -291,15 +325,19 @@ ul {
   flex-direction: column;
   align-items: flex-start;
   justify-content: center;
+  position: relative;
 }
 
 .fonts {
-  max-height: 3em;
+  position: absolute;
+  top: 3em;
+  max-height: 8em;
   max-width: 8em;
   overflow-y: scroll;
   background-color: var(--bg-grey);
   color: black;
   list-style: none;
+  z-index: 100;
 }
 
 .fonts li {
@@ -507,19 +545,18 @@ ul {
 }
 
 .crates-border,
-.stamps,
 .color-selector,
 #size-input,
 #size-input::-webkit-slider-thumb,
 .text-color,
 #centerlabel,
 .upload-wrapper,
-#selector div {
+.layer-selector div {
   border-style: solid;
   border-width: 3px;
   border-top-color: rgb(251, 250, 250);
   border-right-color: gray;
-  border-bottom-color: rgb(109, 108, 108);
+  border-bottom-color: rgb(56, 30, 30);
   border-left-color: rgb(226, 225, 225);
   box-sizing: border-box;
 }
