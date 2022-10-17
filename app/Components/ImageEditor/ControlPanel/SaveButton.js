@@ -84,7 +84,11 @@ const SaveButton = ({ clearCanvas, setShowUpload, setShowEditor }) => {
     setShowUpload(true);
   };
 
-  return <button onClick={saveAndDownload}>save</button>;
+  return (
+    <div id="save" onClick={saveAndDownload}>
+      {/* save */}
+    </div>
+  );
 };
 
 export default SaveButton;

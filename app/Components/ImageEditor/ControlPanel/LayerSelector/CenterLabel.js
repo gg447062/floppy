@@ -65,7 +65,7 @@ const CenterLabel = ({ chooseStamp }) => {
             <TextInput
               action={setArtist}
               title={'Artist Name'}
-              label={'artist'}
+              label={'artist-text'}
             />
             <div className="font-and-size">
               <FontSelector action={setArtistFont} destination="artist" />
@@ -80,7 +80,11 @@ const CenterLabel = ({ chooseStamp }) => {
         </div>
         <div className="track-info-input">
           <div>
-            <TextInput action={setTrack} title={'Track Name'} label={'track'} />
+            <TextInput
+              action={setTrack}
+              title={'Track Name'}
+              label={'track-text'}
+            />
             <div className="font-and-size">
               <FontSelector action={setTrackFont} destination="track" />
               <SizeSelector action={setTrackFontSize} />

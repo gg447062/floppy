@@ -21,7 +21,7 @@ const LayerTitle = ({ title, size, filter }) => {
   };
   return (
     <div id={title} onClick={chooseLayer}>
-      {title}
+      {/* {title} */}
     </div>
   );
 };

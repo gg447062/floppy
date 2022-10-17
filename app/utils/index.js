@@ -14,7 +14,7 @@ const cleanName = (name) => {
 const assetBaseURL = 'assets'; // from local filesystem
 const moralisGateway = 'https://gateway.moralisipfs.com/ipfs';
 
-const CANVAS_HEIGHT = window.innerHeight;
+const CANVAS_HEIGHT = window.innerWidth / 2;
 
 const wallets = [
   '0xE4A2F9908F336BBD306C1c0C2eFbDDB57c52280D',

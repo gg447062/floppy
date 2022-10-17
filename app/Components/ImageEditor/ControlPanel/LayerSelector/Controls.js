@@ -120,11 +120,10 @@ const TextInput = ({ action, title, label }) => {
     dispatch(action(e.target.value));
   };
   return (
-    <div>
-      <label htmlFor={label}>{title}</label>
+    <div id={label}>
+      {/* <label htmlFor={label}>{title}</label> */}
       <input
-        id={label}
-        name={label}
+        // name={label}
         onChange={write}
         onClick={hideOverlay}
       ></input>
@@ -152,7 +151,9 @@ const FontSelector = ({ action, destination }) => {
 
   return (
     <div className="fonts--wrapper">
-      <div onClick={toggleShow}>Font</div>
+      <div id={`${destination}`} onClick={toggleShow}>
+        {/* Font */}
+      </div>
       {show && (
         <ul className="fonts">
           {[...Array(33)].map((_, i) => {

@@ -30,13 +30,14 @@ const ControlPanel = ({ setShowUpload, setShowEditor, drawInitialBg }) => {
 
   return (
     <div className="control-panel">
-      <h2 className="ff-3">Press A Dubplate</h2>
+      {/* <h2 className="ff-3">Press A Dubplate</h2> */}
+      <div id="editor-header"></div>
       <LayerSelector />
 
       <div className="permanent">
-        <button id="clear" onClick={reset}>
-          reset
-        </button>
+        <div id="clear" onClick={reset}>
+          {/* reset */}
+        </div>
         <SaveButton
           clearCanvas={clearCanvas}
           setShowUpload={setShowUpload}
