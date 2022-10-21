@@ -436,3 +436,8 @@
   font-style: normal;
   font-display: swap;
 }
+
+@font-face {
+  font-family: 'Cytone-Regular';
+  src: url('/Cytone-Regular.otf') format('opentype');
+}

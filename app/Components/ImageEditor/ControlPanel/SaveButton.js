@@ -85,7 +85,11 @@ const SaveButton = ({ clearCanvas, setShowUpload, setShowEditor }) => {
   };
 
   return (
-    <img id="save" src="assets/bg_images/save.png" onClick={saveAndDownload} />
+    <img
+      id="save"
+      src="assets/bg_images/save_redux.png"
+      onClick={saveAndDownload}
+    />
   );
 };
 

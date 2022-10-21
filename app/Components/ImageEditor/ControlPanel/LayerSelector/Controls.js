@@ -76,7 +76,7 @@ const ColorSelector = ({
 
   return (
     <input
-      // className="color-selector"
+      className={`color-selector ${isCL ? 'cl-color' : ''}`}
       type="color"
       style={{ width: dimensions, height: dimensions }}
       value={value}
@@ -93,9 +93,9 @@ const SizeSelector = ({ action, size }) => {
   };
 
   return (
-    <div>
+    <div className="input-wrapper">
       <input
-        id="size-input"
+        className="size-input"
         type="range"
         name="size"
         min="0.25"
@@ -104,7 +104,9 @@ const SizeSelector = ({ action, size }) => {
         step=".01"
         onChange={setStampSize}
       />
-      <label htmlFor="size">Size</label>
+      <label className="size-label" htmlFor="size">
+        Size
+      </label>
     </div>
   );
 };

@@ -30,33 +30,41 @@ const CenterLabel = ({ chooseStamp }) => {
 
   return (
     <div className="container controls-drawer">
-      <div className="assets-container">
-        {[...Array(13)].map((_, i) => {
-          return (
-            <img
-              id={`cl_${i + 1}`}
-              className="stamp cl"
-              src={`${assetBaseURL}/CENTER_LABEL_ASSETS/CL_${i + 1}.png`}
-              onClick={chooseStamp}
-              key={i}
-            />
-          );
-        })}
+      <div className="assets-container-wrapper">
+        <div className="assets-container">
+          {[...Array(13)].map((_, i) => {
+            return (
+              <img
+                id={`cl_${i + 1}`}
+                className="cl_stamp stamp_invert"
+                src={`${assetBaseURL}/CENTER_LABEL_ASSETS/CL_${i + 1}.png`}
+                onClick={chooseStamp}
+                key={i}
+              />
+            );
+          })}
+        </div>
       </div>
       <div className="controls-container">
         <div>
-          <div className="colorss">
+          <div className="cl_color_selector">
             <ColorSelector
               action={setStampFilter}
               action2={setStampColor}
               value={stampColor}
             />
-            <ColorSelector
-              action={setCenterLabelFilter}
-              action2={setCenterLabelColor}
-              value={clColor}
-              isCL={true}
-            />
+            <div id="cl-color-wrapper">
+              <ColorSelector
+                action={setCenterLabelFilter}
+                action2={setCenterLabelColor}
+                value={clColor}
+                isCL={true}
+              />
+              <img
+                id="cl-color-img"
+                src="assets/bg_images/centerlabelcolor.png"
+              />
+            </div>
           </div>
           <SizeSelector action={setStampSize} />
         </div>

@@ -8,18 +8,20 @@ const Stickers = ({ chooseStamp }) => {
   const size = useSelector((state) => state.editor.stickers.size);
   return (
     <div className="container controls-drawer">
-      <div className="assets-container">
-        {[...Array(15)].map((_, i) => {
-          return (
-            <img
-              id={`sticker_${i + 1}`}
-              className="stamp"
-              src={`${assetBaseURL}/STICKERS/STICKER_${i + 1}.png`}
-              onClick={chooseStamp}
-              key={i}
-            />
-          );
-        })}
+      <div className="assets-container-wrapper">
+        <div className="assets-container">
+          {[...Array(15)].map((_, i) => {
+            return (
+              <img
+                id={`sticker_${i + 1}`}
+                className="sticker"
+                src={`${assetBaseURL}/STICKERS/STICKER_${i + 1}.png`}
+                onClick={chooseStamp}
+                key={i}
+              />
+            );
+          })}
+        </div>
       </div>
       <div className="controls-container">
         <SizeSelector action={setSize} size={size} />

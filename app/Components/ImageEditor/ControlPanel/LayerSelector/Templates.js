@@ -39,20 +39,22 @@ const Templates = () => {
 
   return (
     <div className="container controls-drawer">
-      <div className="assets-container">
-        {[...Array(15)].map((_, i) => {
-          return (
-            <img
-              key={i}
-              id={`cover-${i + 1}`}
-              className={'stamp'}
-              src={`${assetBaseURL}/TEMPLATES/cover-${i + 1}/${String(
-                i + 1
-              ).padStart(2, 0)}_Cover_Thumb.png`}
-              onClick={drawBg}
-            />
-          );
-        })}
+      <div className="assets-container-wrapper">
+        <div className="assets-container">
+          {[...Array(15)].map((_, i) => {
+            return (
+              <img
+                key={i}
+                id={`cover-${i + 1}`}
+                className={'template'}
+                src={`${assetBaseURL}/TEMPLATES/cover-${i + 1}/${String(
+                  i + 1
+                ).padStart(2, 0)}_Cover_Thumb.png`}
+                onClick={drawBg}
+              />
+            );
+          })}
+        </div>
       </div>
       <div className="controls-container">
         <ColorSelector

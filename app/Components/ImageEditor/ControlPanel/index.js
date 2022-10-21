@@ -35,7 +35,11 @@ const ControlPanel = ({ setShowUpload, setShowEditor, drawInitialBg }) => {
       <LayerSelector />
 
       <div className="permanent">
-        <img id="clear" src="assets/bg_images/reset.png" onClick={reset} />
+        <img
+          id="clear"
+          src="assets/bg_images/reset_redux.png"
+          onClick={reset}
+        />
         <SaveButton
           clearCanvas={clearCanvas}
           setShowUpload={setShowUpload}
