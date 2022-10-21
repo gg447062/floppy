@@ -31,13 +31,11 @@ const ControlPanel = ({ setShowUpload, setShowEditor, drawInitialBg }) => {
   return (
     <div className="control-panel">
       {/* <h2 className="ff-3">Press A Dubplate</h2> */}
-      <div id="editor-header"></div>
+      {/* <img id="editor-header" src="assets/bg_images/pressadubplateheader.png" /> */}
       <LayerSelector />
 
       <div className="permanent">
-        <div id="clear" onClick={reset}>
-          {/* reset */}
-        </div>
+        <img id="clear" src="assets/bg_images/reset.png" onClick={reset} />
         <SaveButton
           clearCanvas={clearCanvas}
           setShowUpload={setShowUpload}

@@ -85,9 +85,7 @@ const SaveButton = ({ clearCanvas, setShowUpload, setShowEditor }) => {
   };
 
   return (
-    <div id="save" onClick={saveAndDownload}>
-      {/* save */}
-    </div>
+    <img id="save" src="assets/bg_images/save.png" onClick={saveAndDownload} />
   );
 };
 

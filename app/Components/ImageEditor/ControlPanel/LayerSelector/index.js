@@ -13,6 +13,9 @@ import CenterLabel from './CenterLabel';
 
 const LayerTitle = ({ title, size, filter }) => {
   const dispatch = useDispatch();
+  const layer = useSelector((state) => state.editor.global.layer);
+  const state = layer == title ? 'clicked' : 'default';
+
   const chooseLayer = (e) => {
     dispatch(setLayer(e.target.id));
     dispatch(setStamp(null));
@@ -20,9 +23,11 @@ const LayerTitle = ({ title, size, filter }) => {
     dispatch(setFilter(filter));
   };
   return (
-    <div id={title} onClick={chooseLayer}>
-      {/* {title} */}
-    </div>
+    <img
+      id={title}
+      src={`assets/bg_images/Categories/${title}_${state}.png`}
+      onClick={chooseLayer}
+    />
   );
 };
 
