@@ -6,6 +6,8 @@
   --blue-glow-80: rgba(26, 255, 255, 0.8);
   --red-text: #ed3714;
   --blue-text: #00a8f1;
+  --Cytone: 'Cytone-Regular', sans-serif;
+  --glow: 0 0 10px var(--blue-glow), 0 0 5px var(--blue-glow) inset;
 }
 
 body {
@@ -356,9 +358,9 @@ ul {
 
 .color-selector {
   border: none;
-  background-color: var(--blue-glow-80);
+  background-color: var(--blue-text);
   border-radius: 5px;
-  box-shadow: 0 0 10px var(--blue-text);
+  box-shadow: var(--glow);
 }
 
 .cl-color {
@@ -392,7 +394,7 @@ ul {
 }
 
 .size-label {
-  font-family: 'Cytone-Regular', sans-serif;
+  font-family: var(--Cytone);
   font-size: 0.8em;
   color: var(--red-text);
 }
@@ -400,8 +402,9 @@ ul {
 .size-input {
   appearance: none;
   background: black;
-  border: 2px solid var(--blue-glow-80);
-  box-shadow: 0 0 10px var(--blue-text);
+  border: 2px solid var(--blue-text);
+  box-shadow: var(--glow);
+  border-radius: 0.5em;
   /* outline: none; */
 }
 
@@ -603,8 +606,10 @@ ul {
   justify-content: center;
   align-items: center;
   column-gap: 4em;
-  background-color: var(--bg-grey);
+  background-color: var(--bg-black);
   position: relative;
+  font-family: var(--Cytone);
+  color: var(--red-text);
 }
 
 .upload-inner-wrapper {
@@ -613,6 +618,17 @@ ul {
   justify-content: center;
   align-items: center;
   row-gap: 2em;
+}
+
+.upload-inner-wrapper input {
+  background-color: #151515;
+  width: 50%;
+  border: 1px solid var(--blue-text);
+  box-shadow: var(--glow);
+  border-radius: 0.5em;
+  color: inherit;
+  font-family: inherit;
+  padding: 0.5em;
 }
 
 .message-container {
@@ -627,6 +643,15 @@ ul {
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#upload-save {
+  /* font-family: inherit;
+  color: inherit;
+  font-size: 2.5em;
+  border: none; */
+  cursor: pointer;
+  height: 3em;
 }
 
 /* ------------------- */

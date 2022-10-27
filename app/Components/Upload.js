@@ -14,6 +14,7 @@ export default function Upload({ setShowUpload }) {
   const track = useSelector((state) => state.metadata.track);
   const [artistName, setArtistName] = useState('');
   const [trackName, setTrackName] = useState('');
+  const [price, setPrice] = useState('');
   const [message, setMessage] = useState('uploading...');
   const [showMessage, setShowMessage] = useState(false);
   const [audioSrc, setAudioSrc] = useState(null);
@@ -109,28 +110,39 @@ export default function Upload({ setShowUpload }) {
   }, []);
 
   return (
-    <div className="upload-wrapper ff-3">
+    <div className="upload-wrapper">
       <img src={frontURL} />
       <div className="upload-inner-wrapper">
-        <label htmlFor="artist">Artist</label>
+        <label htmlFor="artist-name">Artist</label>
         <input
-          id="artist"
+          id="artist-name"
           value={artistName}
           onChange={(e) => setArtistName(e.target.value)}
         ></input>
-        <label htmlFor="track">Track</label>
+        <label htmlFor="track-name">Track</label>
         <input
-          id="track"
+          id="track-name"
           value={trackName}
           onChange={(e) => setTrackName(e.target.value)}
         ></input>
-
+        <label htmlFor="price">Price (Eth)</label>
+        <input
+          id="price"
+          type="number"
+          min={0.1}
+          step={0.1}
+          placeholder="0.1"
+        ></input>
         <input type={'file'} onChange={updateAudio} ref={audioInput}></input>
-
         {audioSrc && <audio src={audioSrc} controls></audio>}
-        <button onClick={saveFinal} disabled={disabled}>
+        {/* <button className="upload-save" onClick={saveFinal} disabled={disabled}>
           Save
-        </button>
+        </button> */}
+        <img
+          id="upload-save"
+          src="assets/bg_images/save_redux.png"
+          onClick={saveFinal}
+        />
         <button onClick={() => setShowUpload(false)}>X</button>
       </div>
       {showMessage && (
