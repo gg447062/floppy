@@ -81,6 +81,7 @@ export default function Upload({ setShowUpload }) {
       await saveObject({
         artist: artist,
         track: track,
+        price: price,
         metadata: metadata,
         metadataHash: jsonHash,
       });
@@ -131,7 +132,8 @@ export default function Upload({ setShowUpload }) {
           type="number"
           min={0.1}
           step={0.1}
-          placeholder="0.1"
+          onChange={(e) => setPrice(e.target.value)}
+          value={price}
         ></input>
         <input type={'file'} onChange={updateAudio} ref={audioInput}></input>
         {audioSrc && <audio src={audioSrc} controls></audio>}
