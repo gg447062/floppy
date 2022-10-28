@@ -22,6 +22,49 @@ const SingleView = ({ dubplate, setViewSingle }) => {
   );
 };
 
+const GridItem = ({ dubplate, openModal, index }) => {
+  const [playing, setPlaying] = useState(false);
+  const playAudio = (e) => {
+    const value = e.target.id.split('_')[1];
+    const audio = document.getElementById(`audio_${value}`);
+    if (!playing) {
+      setPlaying(true);
+      audio.play();
+    } else {
+      setPlaying(false);
+      audio.pause();
+    }
+  };
+  return (
+    <div className="dubplate-grid-view" id={index}>
+      <p id={index}>
+        {dubplate.artist} - {dubplate.track}
+      </p>
+      <img
+        src={`${moralisGateway}/${dubplate.metadata.front}`}
+        id={index}
+        onClick={openModal}
+      />
+      <div className="dubplate-grid-audio-player">
+        <img
+          id={`playbutton_${index}`}
+          src="assets/crates_ui_assets/cratesplaybutton_sizedforpopup.png"
+          onClick={playAudio}
+        ></img>
+        <img src="assets/crates_ui_assets/audioplayerbar_sizedforpopup.png"></img>
+        <audio
+          id={`audio_${index}`}
+          src={`${moralisGateway}/${dubplate.metadata.audio}`}
+        ></audio>
+      </div>
+      <div className="dubplate-grid-view-buy">
+        <p>0.1 ETH</p>
+        <img src="assets/crates_ui_assets/buybutton_sizedforpopup.png"></img>
+      </div>
+    </div>
+  );
+};
+
 const Gallery = () => {
   const { data, error, isLoading } = useMoralisQuery('Dubplate');
   const [dubplates, setDubplates] = useState([]);
@@ -29,7 +72,6 @@ const Gallery = () => {
   const [viewSingle, setViewSingle] = useState(false);
 
   const openModal = (e) => {
-    console.log(e.target.id);
     setSingle(dubplates[e.target.id]);
     setViewSingle(true);
   };
@@ -41,31 +83,31 @@ const Gallery = () => {
     }
   }, [data]);
 
-  console.log(single, viewSingle);
   return (
-    <div className="grid-view ff-3">
-      {dubplates &&
-        dubplates.map((dubplate, i) => {
-          return (
-            <div
-              className="dubplate-grid-view"
-              id={i}
-              key={i}
-              onClick={openModal}
-            >
-              <img
-                src={`${moralisGateway}/${dubplate.metadata.front}`}
-                id={i}
+    <div className="grid-view-wrapper">
+      <img
+        src="assets/crates_ui_assets/floppycratesbanner.png"
+        height="150px"
+        width="auto"
+      ></img>
+
+      <div className="grid-view ff-3">
+        {dubplates &&
+          dubplates.map((dubplate, i) => {
+            return (
+              <GridItem
+                // id={i}
+                dubplate={dubplate}
+                openModal={openModal}
+                index={i}
+                key={i}
               />
-              <p id={i}>
-                {dubplate.artist} - {dubplate.track}
-              </p>
-            </div>
-          );
-        })}
-      {viewSingle && (
-        <SingleView dubplate={single} setViewSingle={setViewSingle} />
-      )}
+            );
+          })}
+        {viewSingle && (
+          <SingleView dubplate={single} setViewSingle={setViewSingle} />
+        )}
+      </div>
     </div>
   );
 };
