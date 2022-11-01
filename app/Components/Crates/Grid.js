@@ -1,28 +1,47 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useMoralisQuery } from 'react-moralis';
 import { moralisGateway } from '../../utils';
 
 const AudioPlayer = ({ dubplate, index, modal = false }) => {
+  const audioRef = useRef();
+  const timelineRef = useRef();
   const [src, setSrc] = useState(
     'assets/crates_ui_assets/cratesplaybutton_sizedforpopup.png'
   );
   const size = modal ? '-large' : '';
 
   const playAudio = (e) => {
-    const id = e.target.id.split('_')[1];
-    const audio = document.getElementById(`audio_${id}`);
     if (
-      audio.paused ||
-      audio.cureetTime == 0 ||
-      audio.currentTime == audio.duration
+      audioRef.current.paused ||
+      audioRef.current.cureetTime == 0 ||
+      audioRef.current.currentTime == audioRef.current.duration
     ) {
-      audio.play();
+      audioRef.current.play();
       setSrc('assets/listener_3d_assets/Pause_button.png');
     } else {
-      audio.pause();
+      audioRef.current.pause();
       setSrc('assets/crates_ui_assets/cratesplaybutton_sizedforpopup.png');
     }
   };
+
+  const scrub = (e) => {
+    audioRef.current.currentTime =
+      (e.target.value * audioRef.current.duration) / 100;
+  };
+
+  useEffect(() => {
+    const update = () => {
+      const percentagePosition =
+        (100 * audioRef.current.currentTime) / audioRef.current.duration;
+      timelineRef.current.style.backgroundSize = `${percentagePosition}% 100%`;
+      timelineRef.current.value = percentagePosition;
+    };
+
+    if (audioRef.current) {
+      audioRef.current.ontimeupdate = update;
+    }
+  });
+
   return (
     <div className={`dubplate-grid-audio-player${size}`}>
       <img
@@ -32,18 +51,24 @@ const AudioPlayer = ({ dubplate, index, modal = false }) => {
         onClick={playAudio}
       ></img>
       <div className={`audio-player-timeline-wrapper${size}`}>
+        <input
+          id={`timeline_${index}${size}`}
+          type="range"
+          className={`timeline${size}`}
+          max={100}
+          defaultValue={0}
+          onChange={scrub}
+          ref={timelineRef}
+        ></input>
         <img
-          className={`audio-player-timeline${size}`}
+          className={`audio-player-timeline-bg${size}`}
           src="assets/crates_ui_assets/audioplayerbar_sizedforpopup.png"
-        ></img>
-        <img
-          className={`audio-player-timeline-dot${size}`}
-          src="assets/crates_ui_assets/audioplayerindicator_sizedforpopup.png"
         ></img>
       </div>
       <audio
         id={`audio_${index}`}
         src={`${moralisGateway}/${dubplate.metadata.audio}`}
+        ref={audioRef}
       ></audio>
     </div>
   );
@@ -71,10 +96,10 @@ const Modal = ({ dubplate, setViewSingle, index }) => {
           <span>Track: </span> {dubplate.track}
         </p>
         <p>
-          <span>Catalog#: </span> 001
+          <span>Catalog#: </span> 001 {/* dubplate.cat */}
         </p>
         <p>
-          <span>Price: </span> 0.1 ETH
+          <span>Price: </span> 0.1 ETH {/* dubplate.price */}
         </p>
         <AudioPlayer dubplate={dubplate} index={index} modal={true} />
       </div>
@@ -93,6 +118,7 @@ const GridItem = ({ dubplate, openModal, index }) => {
         {dubplate.artist} - {dubplate.track}
       </p>
       <img
+        className="dubplate-grid-view-cover"
         src={`${moralisGateway}/${dubplate.metadata.front}`}
         id={index}
         onClick={openModal}
