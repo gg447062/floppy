@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useMoralisQuery } from 'react-moralis';
 import axios from 'axios';
 import MainCanvas from './RecordViewer';
-import { moralisGateway } from '../utils';
+import { moralisGateway } from '../../utils';
 
 function ControlsTop({ dubplate, previous, next }) {
   const player = document.getElementById('player');
@@ -61,7 +61,7 @@ function ControlsBottom({ dubplates }) {
   );
 }
 
-export default function Crates() {
+export default function Player3D() {
   const { data, error, isLoading } = useMoralisQuery('Dubplate');
   const [dubplates, setDubplates] = useState([]);
   const [index, setIndex] = useState(0);
@@ -100,8 +100,6 @@ export default function Crates() {
       setIndex(index - 1);
     }
   };
-
-  console.log(dubplates);
 
   return (
     <div id="crates" className="ff-3">

@@ -1,25 +1,26 @@
 import React, { useState, useEffect } from 'react';
 import { useMoralisQuery } from 'react-moralis';
-import { moralisGateway } from '../utils';
+import { moralisGateway } from '../../utils';
 
 const AudioPlayer = ({ dubplate, index, modal = false }) => {
-  const [playing, setPlaying] = useState(false);
   const [src, setSrc] = useState(
     'assets/crates_ui_assets/cratesplaybutton_sizedforpopup.png'
   );
   const size = modal ? '-large' : '';
 
   const playAudio = (e) => {
-    const value = e.target.id.split('_')[1];
-    const audio = document.getElementById(`audio_${value}`);
-    if (!playing) {
-      setPlaying(true);
-      setSrc('assets/listener_3d_assets/Pause_button.png');
+    const id = e.target.id.split('_')[1];
+    const audio = document.getElementById(`audio_${id}`);
+    if (
+      audio.paused ||
+      audio.cureetTime == 0 ||
+      audio.currentTime == audio.duration
+    ) {
       audio.play();
+      setSrc('assets/listener_3d_assets/Pause_button.png');
     } else {
-      setPlaying(false);
-      setSrc('assets/crates_ui_assets/cratesplaybutton_sizedforpopup.png');
       audio.pause();
+      setSrc('assets/crates_ui_assets/cratesplaybutton_sizedforpopup.png');
     }
   };
   return (
@@ -48,7 +49,7 @@ const AudioPlayer = ({ dubplate, index, modal = false }) => {
   );
 };
 
-const SingleView = ({ dubplate, setViewSingle, index }) => {
+const Modal = ({ dubplate, setViewSingle, index }) => {
   return (
     <div className="dubplate-grid-view__single-wrapper">
       <img
@@ -87,8 +88,8 @@ const SingleView = ({ dubplate, setViewSingle, index }) => {
 
 const GridItem = ({ dubplate, openModal, index }) => {
   return (
-    <div className="dubplate-grid-view" id={index}>
-      <p id={index}>
+    <div className="dubplate-grid-view">
+      <p>
         {dubplate.artist} - {dubplate.track}
       </p>
       <img
@@ -105,7 +106,7 @@ const GridItem = ({ dubplate, openModal, index }) => {
   );
 };
 
-const Gallery = () => {
+const Grid = () => {
   const { data, error, isLoading } = useMoralisQuery('Dubplate');
   const [dubplates, setDubplates] = useState([]);
   const [single, setSingle] = useState(null);
@@ -138,7 +139,6 @@ const Gallery = () => {
           dubplates.map((dubplate, i) => {
             return (
               <GridItem
-                // id={i}
                 dubplate={dubplate}
                 openModal={openModal}
                 index={i}
@@ -147,7 +147,7 @@ const Gallery = () => {
             );
           })}
         {viewSingle && (
-          <SingleView
+          <Modal
             dubplate={single}
             setViewSingle={setViewSingle}
             index={singleIdx}
@@ -158,4 +158,4 @@ const Gallery = () => {
   );
 };
 
-export default Gallery;
+export default Grid;
