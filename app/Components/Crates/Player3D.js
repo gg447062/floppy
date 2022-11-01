@@ -13,42 +13,36 @@ function ControlsTop({ dubplate, previous, next }) {
     player.pause();
   };
   return (
-    <div className="controls-top-wrapper crates-border">
-      <div className="h1-wrapper">
-        <h1 className="crates-border">Current Track</h1>
-      </div>
-      <div className="controls-top-inner-wrapper">
-        <div className="track-info crates-border-inner">
-          <div>{dubplate.artist}</div>
-          <div>--------</div>
-          <div>{dubplate.track}</div>
-        </div>
+    <div className="controls-wrapper ">
+      <div className="controls-inner-wrapper">
         <div className="button-wrapper">
-          <button className="crates-border" onClick={previous}>
+          <button className="" onClick={previous}>
             prev
           </button>
-          <button className="crates-border" onClick={play}>
+          <button className="" onClick={play}>
             play
           </button>
-          <button className="crates-border" onClick={pause}>
+          <button className="" onClick={pause}>
             pause
           </button>
-          <button className="crates-border" onClick={next}>
+          <button className="" onClick={next}>
             next
           </button>
+        </div>
+        <div className="track-info ">
+          <div>{dubplate.artist}</div>
+          <div>-</div>
+          <div>{dubplate.track}</div>
         </div>
       </div>
     </div>
   );
 }
 
-function ControlsBottom({ dubplates }) {
+function Playlist({ dubplates }) {
   return (
-    <div className="controls-bottom-wrapper crates-border">
-      <div className="h1-wrapper">
-        <h1 className="crates-border">Playlist</h1>
-      </div>
-      <div className="playlist-wrapper crates-border-inner">
+    <div className="controls-bottom-wrapper ">
+      <div className="playlist-wrapper ">
         {dubplates.map((dubplate, i) => {
           return (
             <p key={i}>
@@ -110,13 +104,13 @@ export default function Player3D() {
           <div className="canvas-wrapper">
             {backURL && <MainCanvas front={frontURL} back={backURL} />}
           </div>
-          <div className="crates-controls-wrapper">
+          <div className="crates-playlist-wrapper">
+            <Playlist dubplates={dubplates} />
             <ControlsTop
               dubplate={dubplates[index]}
               next={next}
               previous={previous}
             />
-            <ControlsBottom dubplates={dubplates} />
           </div>
           <audio
             id="player"

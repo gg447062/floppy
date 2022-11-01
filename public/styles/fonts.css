@@ -429,9 +429,9 @@
 
 @font-face {
   font-family: 'pix Chicago';
-  src: url('/pixChicago.woff2') format('woff2'),
-    url('/pixChicago.woff') format('woff'),
-    url('/pixChicago.ttf') format('truetype');
+  src: url('/assets/fonts/pixChicago.woff2') format('woff2'),
+    url('/assets/fonts/pixChicago.woff') format('woff'),
+    url('/assets/fonts/pixChicago.ttf') format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -439,5 +439,15 @@
 
 @font-face {
   font-family: 'Cytone-Regular';
-  src: url('/Cytone-Regular.otf') format('opentype');
+  src: url('/assets/fonts/Cytone-Regular.otf') format('opentype');
+}
+
+@font-face {
+  font-family: 'Malayalam-Bold';
+  src: url('/assets/fonts/MalayalamMN-Bold-02.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Malayalam';
+  src: url('/assets/fonts/MalayalamMN-01.ttf') format('truetype');
 }
