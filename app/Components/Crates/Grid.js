@@ -1,6 +1,8 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { useMoralisQuery } from 'react-moralis';
+// import { useMoralisQuery } from 'react-moralis';
 import { moralisGateway } from '../../lib/utils';
+import { fetchDubplates } from '../../lib/db';
+import { async } from '@firebase/util';
 
 const AudioPlayer = ({ dubplate, index, modal = false }) => {
   const audioRef = useRef();
@@ -133,7 +135,7 @@ const GridItem = ({ dubplate, openModal, index }) => {
 };
 
 const Grid = () => {
-  const { data, error, isLoading } = useMoralisQuery('Dubplate');
+  // const { data, error, isLoading } = useMoralisQuery('Dubplate');
   const [dubplates, setDubplates] = useState([]);
   const [single, setSingle] = useState(null);
   const [singleIdx, setSingleIdx] = useState(null);
@@ -146,11 +148,18 @@ const Grid = () => {
   };
 
   useEffect(() => {
-    if (data) {
-      const _dubplates = data.map((el) => el.attributes);
+    async function _fetchDubplates() {
+      const _dubplates = await fetchDubplates();
       setDubplates(_dubplates);
     }
-  }, [data]);
+    _fetchDubplates();
+    // if (data) {
+
+    //   const _dubplates = data.map((el) => el.attributes);
+    //   console.log(_dubplates);
+    //   setDubplates(_dubplates);
+    // }
+  }, []);
 
   return (
     <div className="grid-view-wrapper">

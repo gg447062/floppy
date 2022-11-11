@@ -4,6 +4,7 @@ import { useMoralis, useNewMoralisObject } from 'react-moralis';
 import { useSelector } from 'react-redux';
 import Moralis from 'moralis/';
 import { cleanName } from '../lib/utils';
+import { uploadDubplate, fetchDubplates } from '../lib/db';
 
 export default function Upload({ setShowUpload }) {
   const { isAuthenticated, authenticate } = useMoralis();
@@ -78,13 +79,21 @@ export default function Upload({ setShowUpload }) {
       await jsonFile.saveIPFS();
       const jsonHash = jsonFile.hash();
 
-      await saveObject({
+      await uploadDubplate({
         artist: artist,
         track: track,
         price: price,
         metadata: metadata,
         metadataHash: jsonHash,
       });
+
+      // await saveObject({
+      //   artist: artist,
+      //   track: track,
+      //   price: price,
+      //   metadata: metadata,
+      //   metadataHash: jsonHash,
+      // });
 
       setMessage('object saved successfully');
     } else {

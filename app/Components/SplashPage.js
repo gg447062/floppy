@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMoralis } from 'react-moralis';
-import { wallets } from '../utils';
+import { wallets } from '../lib/utils';
 
 const baseURL = 'https://dg3mov3znt8u.cloudfront.net';
 
