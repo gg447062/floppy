@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { useMoralis, useNewMoralisObject } from 'react-moralis';
 import { useSelector } from 'react-redux';
 import Moralis from 'moralis/';
-import { cleanName } from '../utils';
+import { cleanName } from '../lib/utils';
 
 export default function Upload({ setShowUpload }) {
   const { isAuthenticated, authenticate } = useMoralis();

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Draggable from 'react-draggable';
 import { useSelector } from 'react-redux';
-import { CANVAS_HEIGHT } from '../../utils';
+import { CANVAS_HEIGHT } from '../../lib/utils';
 
 const Canvas = () => {
   const stamp = useSelector((state) => state.editor.global.stamp);

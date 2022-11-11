@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useMoralisQuery } from 'react-moralis';
-import { moralisGateway } from '../../utils';
+import { moralisGateway } from '../../lib/utils';
 
 const AudioPlayer = ({ dubplate, index, modal = false }) => {
   const audioRef = useRef();

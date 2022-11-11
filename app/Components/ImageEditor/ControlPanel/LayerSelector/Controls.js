@@ -7,7 +7,7 @@ import {
   CANVAS_HEIGHT,
   getFontName,
   assetBaseURL,
-} from '../../../../utils';
+} from '../../../../lib/utils';
 
 const ColorSelector = ({
   action,

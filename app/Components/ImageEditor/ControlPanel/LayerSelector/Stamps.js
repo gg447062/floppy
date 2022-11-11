@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { assetBaseURL } from '../../../../utils';
+import { assetBaseURL } from '../../../../lib/utils';
 import { ColorSelector, SizeSelector } from './Controls';
 import { setColor, setFilter, setSize } from '../../../../Redux/editor/stamps';
 

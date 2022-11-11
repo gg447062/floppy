@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import { useMoralisQuery } from 'react-moralis';
 import axios from 'axios';
 import MainCanvas from './RecordViewer';
-import { moralisGateway } from '../../utils';
+import { moralisGateway } from '../../lib/utils';
 
 function AudioPlayer({ dubplate, previous, next }) {
   const audioRef = useRef();

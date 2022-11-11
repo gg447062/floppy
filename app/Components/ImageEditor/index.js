@@ -10,7 +10,7 @@ import {
 } from '../../Redux/editor/global';
 import Canvas from './Canvas';
 import ControlPanel from './ControlPanel';
-import { assetBaseURL, CANVAS_HEIGHT } from '../../utils';
+import { assetBaseURL, CANVAS_HEIGHT } from '../../lib/utils';
 
 const ImageEditor = ({ setShowUpload, setShowEditor }) => {
   const dispatch = useDispatch();

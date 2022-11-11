@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { assetBaseURL } from '../../../../utils';
+import { assetBaseURL } from '../../../../lib/utils';
 import { SizeSelector } from './Controls';
 import { setSize } from '../../../../Redux/editor/stickers';
 
