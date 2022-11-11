@@ -2,13 +2,11 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMoralis, useNewMoralisObject } from 'react-moralis';
 import { useSelector } from 'react-redux';
-import Moralis from 'moralis/';
-import { cleanName } from '../lib/utils';
-import { uploadDubplate, fetchDubplates } from '../lib/db';
+import { cleanName, saveAssetsToIPFS, saveMetadataToIPFS } from '../lib/utils';
+import { uploadDubplate } from '../lib/db';
 
 export default function Upload({ setShowUpload }) {
   const { isAuthenticated, authenticate } = useMoralis();
-  const { save } = useNewMoralisObject('Dubplate');
   const frontURL = useSelector((state) => state.metadata.frontURL);
   const backURL = useSelector((state) => state.metadata.backURL);
   const artist = useSelector((state) => state.metadata.artist);
@@ -29,76 +27,59 @@ export default function Upload({ setShowUpload }) {
     setUploaded(true);
   };
 
-  const saveObject = (data) => {
-    save(data, {
-      onSuccess: (dubplate) => {
-        return dubplate.id;
-      },
-      onError: (error) => {
-        console.log(error);
-        return error.message;
-      },
-    });
-  };
-
   const saveToDatabase = async (front, back, artist, track) => {
     if (isAuthenticated) {
-      const frontImage = new Moralis.File(`${cleanName(trackName)}_front.png`, {
-        base64: front,
+      const frontImage = {
+        path: `${cleanName(trackName)}_front.png`,
+        content: front,
+      };
+
+      const backImage = {
+        path: `${cleanName(trackName)}_back.png`,
+        content: back,
+      };
+
+      const audioFile = {
+        path: `${trackName}.mp3`,
+        content: audioInput.current.files[0],
+      };
+
+      const paths = await saveAssetsToIPFS(frontImage, backImage, audioFile);
+
+      const hashes = [];
+
+      paths.forEach((path) => {
+        hashes.push(path.path.split('ipfs/')[1]);
       });
-      await frontImage.saveIPFS();
-      const frontHash = frontImage.hash();
-
-      const backImage = new Moralis.File(`${cleanName(trackName)}_back.png`, {
-        base64: back,
-      });
-      await backImage.saveIPFS();
-      const backHash = backImage.hash();
-
-      const audioFile = new Moralis.File(
-        `${trackName}.mp3`,
-        audioInput.current.files[0]
-      );
-
-      await audioFile.saveIPFS();
-      const audioHash = audioFile.hash();
 
       const metadata = {
         name: track,
         artist: artist,
         description: 'a floppy dubplate',
-        front: frontHash,
-        back: backHash,
-        audio: audioHash,
+        front: hashes[0],
+        back: hashes[1],
+        audio: hashes[2],
       };
 
-      const jsonFile = new Moralis.File(`${name}_metadata.json`, {
-        base64: btoa(JSON.stringify(metadata)),
-      });
+      const metadataPath = await saveMetadataToIPFS(
+        btoa(JSON.stringify(metadata)),
+        `${track}_metadata.json`
+      );
 
-      await jsonFile.saveIPFS();
-      const jsonHash = jsonFile.hash();
+      const metadataHash = metadataPath.split('ipfs/')[1];
 
       await uploadDubplate({
         artist: artist,
         track: track,
         price: price,
         metadata: metadata,
-        metadataHash: jsonHash,
+        metadataHash: metadataHash,
       });
-
-      // await saveObject({
-      //   artist: artist,
-      //   track: track,
-      //   price: price,
-      //   metadata: metadata,
-      //   metadataHash: jsonHash,
-      // });
 
       setMessage('object saved successfully');
     } else {
       await authenticate();
-      saveToDatabase();
+      await saveToDatabase();
     }
   };
 

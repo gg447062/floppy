@@ -1,5 +1,6 @@
 import { Color, Solver } from './colorSolver';
 import { fontNames, getFontName } from './fonts';
+import { saveAssetsToIPFS, saveMetadataToIPFS } from './ipfs';
 
 const cleanName = (name) => {
   if (/\s/g.test(name)) {
@@ -65,6 +66,8 @@ export {
   fontNames,
   getFontName,
   cleanName,
+  saveAssetsToIPFS,
+  saveMetadataToIPFS,
   moralisGateway,
   assetBaseURL,
   wallets,
