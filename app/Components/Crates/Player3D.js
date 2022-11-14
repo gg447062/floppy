@@ -149,7 +149,7 @@ export default function Player3D() {
 
   useEffect(() => {
     const fetchImage = async (url, callback) => {
-      const { data } = await axios.get(`/image/${url}`);
+      const { data } = await axios.get(`/api/image/${url}`);
       callback(`data:image/jpeg;base64, ${data}`);
     };
 

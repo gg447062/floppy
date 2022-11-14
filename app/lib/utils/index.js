@@ -9,7 +9,7 @@ const cleanName = (name) => {
   } else return name;
 };
 
-// const assetBaseURL = '/asset-image'; // from server
+// const assetBaseURL = '/api/asset-image'; // from server
 // const assetBaseURL = 'https://dg3mov3znt8u.cloudfront.net/upload'; // from cloudfront need to make CDN for this
 
 const assetBaseURL = 'assets'; // from local filesystem
