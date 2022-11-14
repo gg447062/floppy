@@ -2,10 +2,9 @@ const axios = require('axios');
 const router = require('express').Router();
 
 // /image/:url
-router.get('/:url', async (req, res, next) => {
+router.post('/', async (req, res, next) => {
   try {
-    const fullUrl = `https://gateway.moralisipfs.com/ipfs/${req.params.url}`;
-    console.log('getting image');
+    const fullUrl = `https://gateway.moralisipfs.com/ipfs/${req.body.url}`;
     const response = await axios.get(fullUrl, {
       responseType: 'arraybuffer',
     });

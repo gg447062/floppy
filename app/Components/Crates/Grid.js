@@ -153,8 +153,6 @@ const Grid = () => {
     _fetchDubplates();
   }, []);
 
-  console.log(dubplates);
-
   return (
     <div className="grid-view-wrapper">
       <img
