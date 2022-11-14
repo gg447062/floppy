@@ -6,8 +6,9 @@
   "scripts": {
     "start": "node main.js",
     "build": "webpack --mode production",
-    "start-server": "nodemon main.js",
-    "start-dev": "webpack serve --mode development"
+    "build-watch": "webpack -w",
+    "start-server": "nodemon main.js -e html,js,css --ignore public",
+    "start-dev": "npm run build-watch & npm run start-server"
   },
   "repository": {
     "type": "git",
