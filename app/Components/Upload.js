@@ -44,15 +44,7 @@ export default function Upload({ setShowUpload }) {
         content: audioInput.current.files[0],
       };
 
-      const paths = await saveAssetsToIPFS(frontImage, backImage, audioFile);
-
-      console.log(paths);
-
-      const hashes = [];
-
-      paths.forEach((path) => {
-        hashes.push(path.path.split('ipfs/')[1]);
-      });
+      const hashes = await saveAssetsToIPFS(frontImage, backImage, audioFile);
 
       const metadata = {
         name: track,
@@ -63,12 +55,10 @@ export default function Upload({ setShowUpload }) {
         audio: hashes[2],
       };
 
-      const metadataPath = await saveMetadataToIPFS(
+      const metadataHash = await saveMetadataToIPFS(
         btoa(JSON.stringify(metadata)),
         `${track}_metadata.json`
       );
-
-      const metadataHash = metadataPath.split('ipfs/')[1];
 
       await uploadDubplate({
         artist: artist,
@@ -86,6 +76,7 @@ export default function Upload({ setShowUpload }) {
   };
 
   const saveFinal = async () => {
+    if (disabled) return;
     if (uploaded) {
       setDisabled(true);
       setShowMessage(true);
@@ -134,9 +125,6 @@ export default function Upload({ setShowUpload }) {
           ref={audioInput}
         ></input>
         {audioSrc && <audio src={audioSrc} controls></audio>}
-        {/* <button className="upload-save" onClick={saveFinal} disabled={disabled}>
-          Save
-        </button> */}
         <img
           id="upload-save"
           src="assets/bg_images/save_redux.png"

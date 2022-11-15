@@ -10,7 +10,13 @@ export const saveAssetsToIPFS = async (front, back, audio) => {
       audio,
     });
 
-    return data;
+    const hashes = [];
+
+    data.forEach((path) => {
+      hashes.push(path.path.split('ipfs/')[1]);
+    });
+
+    return hashes;
   } catch (error) {
     console.error(error);
   }
@@ -19,7 +25,8 @@ export const saveAssetsToIPFS = async (front, back, audio) => {
 export const saveMetadataToIPFS = async (content, path) => {
   try {
     const { data } = await axios.post(url2, { content, path });
-    return data;
+    const metadataHash = data.split('ipfs/')[1];
+    return metadataHash;
   } catch (error) {
     console.error(error);
   }
