@@ -1,6 +1,5 @@
 import { Color, Solver } from './colorSolver';
 import { fontNames, getFontName } from './fonts';
-import { saveAssetsToIPFS, saveMetadataToIPFS } from './ipfs';
 
 const cleanName = (name) => {
   if (/\s/g.test(name)) {
@@ -9,13 +8,21 @@ const cleanName = (name) => {
   } else return name;
 };
 
-// const assetBaseURL = '/api/asset-image'; // from server
+// const assetBaseURL = '/api/asset-image'; // proxied from server
 // const assetBaseURL = 'https://dg3mov3znt8u.cloudfront.net/upload'; // from cloudfront need to make CDN for this
 
 const assetBaseURL = 'assets'; // from local filesystem
 const moralisGateway = 'https://gateway.moralisipfs.com/ipfs';
 
 const CANVAS_HEIGHT = window.innerWidth / 2;
+
+const audioHash = 'QmWxfDN1ywqzBX465ALJK8x6zWVRrhnV9jry5D497AC9Ty';
+
+const getRandomAudio = () => {
+  const val = Math.ceil(Math.random() * 10);
+  const trackNumber = val < 10 ? `0${val}` : val;
+  return `${audioHash}/${trackNumber}.mp3`;
+};
 
 const wallets = [
   '0xE4A2F9908F336BBD306C1c0C2eFbDDB57c52280D',
@@ -66,8 +73,7 @@ export {
   fontNames,
   getFontName,
   cleanName,
-  saveAssetsToIPFS,
-  saveMetadataToIPFS,
+  getRandomAudio,
   moralisGateway,
   assetBaseURL,
   wallets,

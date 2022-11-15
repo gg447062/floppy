@@ -1,8 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMoralis, useNewMoralisObject } from 'react-moralis';
+import { useMoralis } from 'react-moralis';
 import { useSelector } from 'react-redux';
-import { cleanName, saveAssetsToIPFS, saveMetadataToIPFS } from '../lib/utils';
+import { cleanName, moralisGateway, getRandomAudio } from '../lib/utils';
+import { saveAssetsToIPFS, saveMetadataToIPFS } from '../lib/ipfs';
 import { uploadDubplate } from '../lib/db';
 
 export default function Upload({ setShowUpload }) {
@@ -16,15 +17,14 @@ export default function Upload({ setShowUpload }) {
   const [price, setPrice] = useState('');
   const [message, setMessage] = useState('uploading...');
   const [showMessage, setShowMessage] = useState(false);
+  const [audioHash, setAudioHash] = useState(null);
   const [audioSrc, setAudioSrc] = useState(null);
-  const [disabled, setDisabled] = useState(false);
-  const [uploaded, setUploaded] = useState(false);
-  const audioInput = useRef(null);
+  const [disabled, setDisabled] = useState(true);
   const navigate = useNavigate();
 
-  const updateAudio = () => {
-    setAudioSrc(URL.createObjectURL(audioInput.current.files[0]));
-    setUploaded(true);
+  const updatePrice = (e) => {
+    setPrice(e.target.value);
+    setDisabled(false);
   };
 
   const saveToDatabase = async (front, back, artist, track) => {
@@ -39,18 +39,13 @@ export default function Upload({ setShowUpload }) {
         content: back,
       };
 
-      const audioFile = {
-        path: `${trackName}.mp3`,
-        content: audioInput.current.files[0],
-      };
-
-      const hashes = await saveAssetsToIPFS(frontImage, backImage, audioFile);
+      const hashes = await saveAssetsToIPFS(frontImage, backImage);
 
       const metadata = {
         name: `${artist} - ${track}`,
         description: 'a floppy dubplate',
         image: hashes[0],
-        animation_url: hashes[2],
+        animation_url: audioHash,
       };
 
       const metadataHash = await saveMetadataToIPFS(
@@ -64,8 +59,9 @@ export default function Upload({ setShowUpload }) {
         price: price,
         front: hashes[0],
         back: hashes[1],
-        audio: hashes[2],
+        audio: audioHash,
         metadataHash: metadataHash,
+        status: 'new',
       });
 
       setMessage('object saved successfully');
@@ -77,7 +73,7 @@ export default function Upload({ setShowUpload }) {
 
   const saveFinal = async () => {
     if (disabled) return;
-    if (uploaded) {
+    else {
       setDisabled(true);
       setShowMessage(true);
       await saveToDatabase(frontURL, backURL, artistName, trackName);
@@ -89,6 +85,9 @@ export default function Upload({ setShowUpload }) {
     const onLoad = () => {
       setArtistName(artist);
       setTrackName(track);
+      const _audioHash = getRandomAudio();
+      setAudioHash(_audioHash);
+      setAudioSrc(`${moralisGateway}/${_audioHash}`);
     };
     onLoad();
   }, []);
@@ -115,14 +114,8 @@ export default function Upload({ setShowUpload }) {
           type="number"
           min={0.1}
           step={0.1}
-          onChange={(e) => setPrice(e.target.value)}
+          onChange={updatePrice}
           value={price}
-        ></input>
-        <input
-          name="file"
-          type={'file'}
-          onChange={updateAudio}
-          ref={audioInput}
         ></input>
         {audioSrc && <audio src={audioSrc} controls></audio>}
         <img

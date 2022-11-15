@@ -2,12 +2,11 @@ import axios from 'axios';
 const url1 = '/api/ipfs/assets';
 const url2 = '/api/ipfs/metadata';
 
-export const saveAssetsToIPFS = async (front, back, audio) => {
+export const saveAssetsToIPFS = async (front, back) => {
   try {
     const { data } = await axios.post(url1, {
       front,
       back,
-      audio,
     });
 
     const hashes = [];
