@@ -4,13 +4,13 @@ const url2 = '/api/ipfs/metadata';
 
 export const saveAssetsToIPFS = async (front, back, audio) => {
   try {
-    const response = await axios.post(url1, {
+    const { data } = await axios.post(url1, {
       front,
       back,
       audio,
     });
 
-    return response;
+    return data;
   } catch (error) {
     console.error(error);
   }
@@ -18,8 +18,8 @@ export const saveAssetsToIPFS = async (front, back, audio) => {
 
 export const saveMetadataToIPFS = async (content, path) => {
   try {
-    const response = await axios.post(url2, { content, path });
-    return response;
+    const { data } = await axios.post(url2, { content, path });
+    return data;
   } catch (error) {
     console.error(error);
   }

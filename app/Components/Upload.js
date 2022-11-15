@@ -46,6 +46,8 @@ export default function Upload({ setShowUpload }) {
 
       const paths = await saveAssetsToIPFS(frontImage, backImage, audioFile);
 
+      console.log(paths);
+
       const hashes = [];
 
       paths.forEach((path) => {
@@ -125,7 +127,12 @@ export default function Upload({ setShowUpload }) {
           onChange={(e) => setPrice(e.target.value)}
           value={price}
         ></input>
-        <input type={'file'} onChange={updateAudio} ref={audioInput}></input>
+        <input
+          name="file"
+          type={'file'}
+          onChange={updateAudio}
+          ref={audioInput}
+        ></input>
         {audioSrc && <audio src={audioSrc} controls></audio>}
         {/* <button className="upload-save" onClick={saveFinal} disabled={disabled}>
           Save
