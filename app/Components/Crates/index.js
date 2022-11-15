@@ -3,7 +3,7 @@ import Grid from './Grid';
 import Player3D from './Player3D';
 
 export default function Crates() {
-  const [grid, setGrid] = useState(false);
+  const [grid, setGrid] = useState(true);
   const view = grid ? '3D' : 'GRID';
   const toggle = () => {
     const _grid = !grid;
