@@ -25,8 +25,11 @@ import {
 const CenterLabel = ({ chooseStamp }) => {
   const clColor = useSelector((state) => state.editor.cl.clColor);
   const stampColor = useSelector((state) => state.editor.cl.stampColor);
+  const stampSize = useSelector((state) => state.editor.cl.stampSize);
   const artistColor = useSelector((state) => state.editor.cl.artistFontColor);
   const trackColor = useSelector((state) => state.editor.cl.trackFontColor);
+  const artistFontSize = useSelector((state) => state.editor.cl.artistFontSize);
+  const trackFontSize = useSelector((state) => state.editor.cl.trackFontSize);
 
   return (
     <div className="container controls-drawer">
@@ -66,7 +69,7 @@ const CenterLabel = ({ chooseStamp }) => {
               />
             </div>
           </div>
-          <SizeSelector action={setStampSize} />
+          <SizeSelector action={setStampSize} size={stampSize} />
         </div>
         <div className="track-info-input">
           <div className="">
@@ -77,7 +80,11 @@ const CenterLabel = ({ chooseStamp }) => {
             />
             <div className="font-and-size">
               <FontSelector action={setArtistFont} destination="artist" />
-              <SizeSelector action={setArtistFontSize} />
+              <SizeSelector
+                action={setArtistFontSize}
+                size={artistFontSize}
+                text={true}
+              />
             </div>
           </div>
           <ColorSelector
@@ -95,7 +102,11 @@ const CenterLabel = ({ chooseStamp }) => {
             />
             <div className="font-and-size">
               <FontSelector action={setTrackFont} destination="track" />
-              <SizeSelector action={setTrackFontSize} />
+              <SizeSelector
+                action={setTrackFontSize}
+                size={trackFontSize}
+                text={true}
+              />
             </div>
           </div>
           <ColorSelector

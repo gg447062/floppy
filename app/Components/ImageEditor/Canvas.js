@@ -1,9 +1,14 @@
 import React, { useState } from 'react';
 import Draggable from 'react-draggable';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import {
+  setArtistPosition,
+  setTrackPosition,
+} from '../../Redux/editor/centerLabel';
 import { CANVAS_HEIGHT } from '../../lib/utils';
 
 const Canvas = () => {
+  const dispatch = useDispatch();
   const stamp = useSelector((state) => state.editor.global.stamp);
   const layer = useSelector((state) => state.editor.global.layer);
   const size = useSelector((state) => state.editor.global.size);
@@ -19,6 +24,20 @@ const Canvas = () => {
   const artist = useSelector((state) => state.metadata.artist);
   const track = useSelector((state) => state.metadata.track);
   const [coords, setCoords] = useState(null);
+
+  const handleStop = (e, data) => {
+    const targetRect = e.target.getBoundingClientRect();
+    const canvasRect = fg.canvas.getBoundingClientRect();
+    const _x = targetRect.left - canvasRect.left;
+    const _y = targetRect.bottom - canvasRect.top - targetRect.height / 4;
+    console.log('target-y', targetRect.bottom, 'canvas-y', canvasRect.top);
+
+    if (e.target.id === 'artiste') {
+      dispatch(setArtistPosition([_x, _y]));
+    } else {
+      dispatch(setTrackPosition([_x, _y]));
+    }
+  };
 
   const handleMouseMove = (e) => {
     if (fg.canvas) {
@@ -109,7 +128,7 @@ const Canvas = () => {
         height={`${CANVAS_HEIGHT}px`}
         width={`${CANVAS_HEIGHT}px`}
       ></canvas>
-      <Draggable>
+      <Draggable onStop={handleStop}>
         <div
           id="artiste"
           className={`artist overlay ${artistFont.class}`}
@@ -118,7 +137,7 @@ const Canvas = () => {
           {artist}
         </div>
       </Draggable>
-      <Draggable>
+      <Draggable onStop={handleStop}>
         <div
           className={`track overlay ${trackFont.class}`}
           style={{ color: trackColor, fontSize: `${trackSize}px` }}

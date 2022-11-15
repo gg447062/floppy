@@ -85,12 +85,14 @@ const ColorSelector = ({
   );
 };
 
-const SizeSelector = ({ action, size }) => {
+const SizeSelector = ({ action, size, text = false }) => {
   const dispatch = useDispatch();
   const setStampSize = (e) => {
     dispatch(setSize(e.target.value));
     dispatch(action(e.target.value));
   };
+  const min = text ? '8' : '0.25';
+  const max = text ? '40' : '0.75';
 
   return (
     <div className="input-wrapper">
@@ -98,8 +100,8 @@ const SizeSelector = ({ action, size }) => {
         className="size-input"
         type="range"
         name="size"
-        min="0.25"
-        max="0.75"
+        min={min}
+        max={max}
         value={size}
         step=".01"
         onChange={setStampSize}
@@ -111,7 +113,7 @@ const SizeSelector = ({ action, size }) => {
   );
 };
 
-const TextInput = ({ action, title, label }) => {
+const TextInput = ({ action, label }) => {
   const dispatch = useDispatch();
 
   const hideOverlay = () => {
@@ -122,13 +124,8 @@ const TextInput = ({ action, title, label }) => {
     dispatch(action(e.target.value));
   };
   return (
-    <div id={label}>
-      {/* <label htmlFor={label}>{title}</label> */}
-      <input
-        // name={label}
-        onChange={write}
-        onClick={hideOverlay}
-      ></input>
+    <div className="text-input" id={label}>
+      <input onChange={write} onClick={hideOverlay}></input>
     </div>
   );
 };
@@ -144,7 +141,7 @@ const FontSelector = ({ action, destination }) => {
   const selectFont = (e) => {
     dispatch(
       action({
-        class: e.target.className,
+        class: e.target.className.split(' ')[0],
         name: getFontName(e.target.id),
       })
     );

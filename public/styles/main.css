@@ -286,6 +286,11 @@ ul {
   margin-bottom: 1em;
 }
 
+.text-input input {
+  color: var(--red-text);
+  font-family: inherit;
+}
+
 .track-info-input {
   display: flex;
   max-width: 100%;
