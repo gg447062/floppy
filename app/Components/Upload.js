@@ -47,12 +47,10 @@ export default function Upload({ setShowUpload }) {
       const hashes = await saveAssetsToIPFS(frontImage, backImage, audioFile);
 
       const metadata = {
-        name: track,
-        artist: artist,
+        name: `${artist} - ${track}`,
         description: 'a floppy dubplate',
-        front: hashes[0],
-        back: hashes[1],
-        audio: hashes[2],
+        image: hashes[0],
+        animation_url: hashes[2],
       };
 
       const metadataHash = await saveMetadataToIPFS(
@@ -64,7 +62,9 @@ export default function Upload({ setShowUpload }) {
         artist: artist,
         track: track,
         price: price,
-        metadata: metadata,
+        front: hashes[0],
+        back: hashes[1],
+        audio: hashes[2],
         metadataHash: metadataHash,
       });
 
