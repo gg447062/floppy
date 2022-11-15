@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from 'react';
-// import { useMoralisQuery } from 'react-moralis';
 import axios from 'axios';
 import MainCanvas from './RecordViewer';
 import { moralisGateway } from '../../lib/utils';
@@ -129,7 +128,6 @@ function Playlist({ dubplates, current }) {
 }
 
 export default function Player3D() {
-  // const { data, error, isLoading } = useMoralisQuery('Dubplate');
   const [dubplates, setDubplates] = useState([]);
   const [index, setIndex] = useState(0);
   const [frontURL, setFrontURL] = useState(null);
@@ -141,16 +139,11 @@ export default function Player3D() {
       setDubplates(_dubplates);
     }
     _fetchDubplates();
-    // if (data) {
-    //   const _dubplates = data.map((el) => el.attributes);
-    //   setDubplates(_dubplates);
-    // }
   }, []);
 
   useEffect(() => {
     const fetchImage = async (url, callback) => {
-      const url1 = '/api/image/';
-      const { data } = await axios.post(url1, { url });
+      const { data } = await axios.post('/api/image/', { url });
       callback(`data:image/jpeg;base64, ${data}`);
     };
 
@@ -176,12 +169,12 @@ export default function Player3D() {
 
   return (
     <div id="crates" className="">
-      {/* {error && <div>error...</div>} */}
-      {/* {isLoading && <div>loading...</div>} */}
       {dubplates[index] && (
         <div className="crates-content-wrapper">
           <div className="canvas-wrapper">
-            {backURL && <MainCanvas front={frontURL} back={backURL} />}
+            {backURL && frontURL && (
+              <MainCanvas front={frontURL} back={backURL} />
+            )}
           </div>
           <div className="crates-playlist-wrapper">
             <Playlist dubplates={dubplates} current={index} />

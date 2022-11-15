@@ -5,7 +5,6 @@ export async function uploadDubplate(data) {
   const dubplate = collection(db, 'dubplates');
   try {
     const docRef = await addDoc(dubplate, data);
-    console.log(docRef, docRef.id);
   } catch (error) {
     console.error('error uploading: ', error);
   }
