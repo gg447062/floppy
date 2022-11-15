@@ -14,7 +14,7 @@ export default function Upload({ setShowUpload }) {
   const track = useSelector((state) => state.metadata.track);
   const [artistName, setArtistName] = useState('');
   const [trackName, setTrackName] = useState('');
-  const [price, setPrice] = useState('');
+  const [price, setPrice] = useState(0);
   const [message, setMessage] = useState('uploading...');
   const [showMessage, setShowMessage] = useState(false);
   const [audioHash, setAudioHash] = useState(null);
@@ -24,7 +24,6 @@ export default function Upload({ setShowUpload }) {
 
   const updatePrice = (e) => {
     setPrice(e.target.value);
-    setDisabled(false);
   };
 
   const saveToDatabase = async (front, back, artist, track) => {
@@ -39,6 +38,7 @@ export default function Upload({ setShowUpload }) {
         content: back,
       };
 
+      // will need to fetch track from database and then save it ipfs here for nft purposes
       const hashes = await saveAssetsToIPFS(frontImage, backImage);
 
       const metadata = {
@@ -82,6 +82,17 @@ export default function Upload({ setShowUpload }) {
   };
 
   useEffect(() => {
+    if (
+      artistName.length > 0 &&
+      trackName.length > 0 &&
+      price > 0 &&
+      audioSrc
+    ) {
+      setDisabled(false);
+    }
+  }, [artistName, trackName, price, audioSrc]);
+
+  useEffect(() => {
     const onLoad = () => {
       setArtistName(artist);
       setTrackName(track);
@@ -112,7 +123,7 @@ export default function Upload({ setShowUpload }) {
         <input
           id="price"
           type="number"
-          min={0.1}
+          min={0}
           step={0.1}
           onChange={updatePrice}
           value={price}
