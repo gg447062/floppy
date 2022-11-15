@@ -3,6 +3,7 @@ const router = require('express').Router();
 
 router.post('/assets', async (req, res, next) => {
   try {
+    // audio would need to be parsed by multer - not coming through without it
     const { front, back, audio } = req.body;
 
     const options = {
@@ -36,7 +37,7 @@ router.post('/assets', async (req, res, next) => {
   }
 });
 
-router.post('metadata', async (req, res, next) => {
+router.post('/metadata', async (req, res, next) => {
   try {
     const { content, path } = req.body;
     const options = {

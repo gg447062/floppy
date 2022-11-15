@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node main.js",
     "build": "webpack --mode production",
-    "build-watch": "webpack -w",
+    "build-watch": "webpack --watch --mode development",
     "start-server": "nodemon main.js -e html,js,css --ignore public",
     "start-dev": "npm run build-watch & npm run start-server"
   },
