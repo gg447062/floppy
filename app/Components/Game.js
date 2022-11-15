@@ -1,7 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Player } from 'furioos-sdk';
-import Header from './Header';
-import EditAndUpload from './EditAndUpload';
 import SplashPage from './SplashPage';
 
 const Game = () => {

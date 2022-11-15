@@ -1,30 +1,20 @@
 import React, { useState } from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Game from './Game';
-import EditAndUpload from './EditAndUpload';
+import ImageEditor from './ImageEditor';
+import Upload from './Upload';
 import Crates from './Crates';
 import AudioTest from './AudioTest';
 
 const App = () => {
-  const [showEditor, setShowEditor] = useState(true);
-  const [showUpload, setShowUpload] = useState(false);
   return (
     <main style={{ height: '100vh' }}>
       <Router history={history}>
         <Routes>
           <Route path={'/'} element={<Game />} />
           <Route path={'/crates'} element={<Crates />} />
-          <Route
-            path={'/editor'}
-            element={
-              <EditAndUpload
-                showEditor={showEditor}
-                showUpload={showUpload}
-                setShowEditor={setShowEditor}
-                setShowUpload={setShowUpload}
-              />
-            }
-          />
+          <Route path={'/editor'} element={<ImageEditor />} />
+          <Route path={'/upload'} element={<Upload />} />
           <Route path={'/audio'} element={<AudioTest />} />
         </Routes>
       </Router>

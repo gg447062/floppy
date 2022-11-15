@@ -1,16 +1,21 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
 import { setFrontURL, setBackURL } from '../../../Redux/metadata';
 
-const SaveButton = ({ clearCanvas, setShowUpload, setShowEditor }) => {
+const SaveButton = ({ clearCanvas }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const artist = useSelector((state) => state.metadata.artist);
   const track = useSelector((state) => state.metadata.track);
+  const artistPos = useSelector((state) => state.editor.cl.artistPosition);
   const artistFont = useSelector((state) => state.editor.cl.artistFont);
+  const artistFontSize = useSelector((state) => state.editor.cl.artistFontSize);
+  const artistColor = useSelector((state) => state.editor.cl.artistFontColor);
+  const trackPos = useSelector((state) => state.editor.cl.trackPosition);
   const trackFont = useSelector((state) => state.editor.cl.trackFont);
-  // ADD ARTIST AND TRACK FONT SIZE AND COLOR
-  const fontSize = useSelector((state) => state.editor.fontSize);
-  const fontColor = useSelector((state) => state.editor.fontColor);
+  const trackFontSize = useSelector((state) => state.editor.cl.trackFontSize);
+  const trackFontColor = useSelector((state) => state.editor.cl.trackFontColor);
   const fg = useSelector((state) => state.editor.global.fg);
   const bg = useSelector((state) => state.editor.global.bg);
   const bgTxt = useSelector((state) => state.editor.global.bgTexture);
@@ -21,18 +26,19 @@ const SaveButton = ({ clearCanvas, setShowUpload, setShowEditor }) => {
 
   const writeTextToCanvas = (ctx, text, posX, posY, artist = true) => {
     if (artist) {
-      ctx.font = `${fontSize}px ${artistFont.name}`;
+      ctx.font = `${artistFontSize}px ${artistFont.name}`;
+      ctx.fillStyle = artistColor;
     } else {
-      ctx.font = `${fontSize}px ${trackFont.name}`;
+      ctx.font = `${trackFontSize}px ${trackFont.name}`;
+      ctx.fillStyle = trackFontColor;
     }
-    ctx.fillStyle = fontColor;
     ctx.fillText(text, posX, posY);
   };
 
   const drawFinalImages = () => {
     front.ctx.drawImage(cl.canvas, 0, 0);
-    writeTextToCanvas(front.ctx, artist, 250, 250);
-    writeTextToCanvas(front.ctx, track, 250, 290, false);
+    writeTextToCanvas(front.ctx, artist, artistPos[0], artistPos[1]);
+    writeTextToCanvas(front.ctx, track, trackPos[0], trackPos[1], false);
     front.ctx.drawImage(clTxt.canvas, 0, 0);
     front.ctx.drawImage(bg.canvas, 0, 0);
     front.ctx.drawImage(fg.canvas, 0, 0);
@@ -72,16 +78,8 @@ const SaveButton = ({ clearCanvas, setShowUpload, setShowEditor }) => {
 
   const saveAndDownload = () => {
     drawFinalImages();
-
-    // const a = document.createElement('a');
-    // a.setAttribute('href', frontImgURL);
-    // a.download = 'test_front.png';
-    // a.click();
-    // a.remove();
-
     clearAndReset();
-    setShowEditor(false);
-    setShowUpload(true);
+    navigate('/upload');
   };
 
   return (

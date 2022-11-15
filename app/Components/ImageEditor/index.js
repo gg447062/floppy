@@ -12,7 +12,7 @@ import Canvas from './Canvas';
 import ControlPanel from './ControlPanel';
 import { assetBaseURL, CANVAS_HEIGHT } from '../../lib/utils';
 
-const ImageEditor = ({ setShowUpload, setShowEditor }) => {
+const ImageEditor = () => {
   const dispatch = useDispatch();
   const stamp = useSelector((state) => state.editor.global.stamp);
   const overlay = useSelector((state) => state.editor.global.overlay);
@@ -110,11 +110,7 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
 
   return (
     <div className="editor-wrapper ff-3" id="dub" onMouseMove={moveOverlay}>
-      <ControlPanel
-        setShowUpload={setShowUpload}
-        setShowEditor={setShowEditor}
-        drawInitialBg={drawInitialBg}
-      />
+      <ControlPanel drawInitialBg={drawInitialBg} />
       <Canvas />
       <img
         id="stamp-ol"

@@ -5,7 +5,7 @@ import { setArtist, setTrack } from '../../../Redux/metadata';
 import SaveButton from './SaveButton';
 import LayerSelector from './LayerSelector';
 
-const ControlPanel = ({ setShowUpload, setShowEditor, drawInitialBg }) => {
+const ControlPanel = ({ drawInitialBg }) => {
   const dispatch = useDispatch();
   const fg = useSelector((state) => state.editor.global.fg);
   const bg = useSelector((state) => state.editor.global.bg);
@@ -40,11 +40,7 @@ const ControlPanel = ({ setShowUpload, setShowEditor, drawInitialBg }) => {
           src="assets/bg_images/reset_redux.png"
           onClick={reset}
         />
-        <SaveButton
-          clearCanvas={clearCanvas}
-          setShowUpload={setShowUpload}
-          setShowEditor={setShowEditor}
-        />
+        <SaveButton clearCanvas={clearCanvas} />
       </div>
     </div>
   );
