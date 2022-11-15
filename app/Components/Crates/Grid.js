@@ -67,7 +67,7 @@ const AudioPlayer = ({ dubplate, index, modal = false }) => {
       </div>
       <audio
         id={`audio_${index}`}
-        src={`${moralisGateway}/${dubplate.metadata.audio}`}
+        src={`${moralisGateway}/${dubplate.audio}`}
         ref={audioRef}
       ></audio>
     </div>
@@ -86,7 +86,7 @@ const Modal = ({ dubplate, setViewSingle, index }) => {
       ></img>
       <img
         className="dubplate-grid-view__single-cover"
-        src={`${moralisGateway}/${dubplate.metadata.front}`}
+        src={`${moralisGateway}/${dubplate.front}`}
       />
       <div className="dubplate-grid-view__single-info cytone">
         <p>
@@ -119,7 +119,7 @@ const GridItem = ({ dubplate, openModal, index }) => {
       </p>
       <img
         className="dubplate-grid-view-cover"
-        src={`${moralisGateway}/${dubplate.metadata.front}`}
+        src={`${moralisGateway}/${dubplate.front}`}
         id={index}
         onClick={openModal}
       />

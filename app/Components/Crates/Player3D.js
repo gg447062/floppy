@@ -97,7 +97,7 @@ function AudioPlayer({ dubplate, previous, next }) {
       <audio
         id="player"
         ref={audioRef}
-        src={`${moralisGateway}/${dubplate.metadata.audio}`}
+        src={`${moralisGateway}/${dubplate.audio}`}
       ></audio>
     </div>
   );
@@ -155,8 +155,8 @@ export default function Player3D() {
     };
 
     if (dubplates[index]) {
-      fetchImage(dubplates[index].metadata.front, setFrontURL);
-      fetchImage(dubplates[index].metadata.back, setBackURL);
+      fetchImage(dubplates[index].front, setFrontURL);
+      fetchImage(dubplates[index].back, setBackURL);
     }
   }, [dubplates[index]]);
 
