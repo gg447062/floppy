@@ -12,9 +12,9 @@ const container = document.getElementById('app');
 const root = createRoot(container);
 
 root.render(
-  <MoralisProvider appId={appId} serverUrl={serverURL}>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </MoralisProvider>
+  // <MoralisProvider appId={appId} serverUrl={serverURL}>
+  <Provider store={store}>
+    <App />
+  </Provider>
+  // </MoralisProvider>
 );

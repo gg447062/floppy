@@ -1,27 +1,18 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { Player } from 'furioos-sdk';
+import { useNavigate } from 'react-router-dom';
+import Player from './Player';
 import SplashPage from './SplashPage';
 
 const Game = () => {
   const [address, setAddress] = useState(null);
   const [player, setPlayer] = useState(null);
-  const [loaded, setLoaded] = useState(false);
+  const [ready, setReady] = useState(false);
+  const [launched, setLaunched] = useState(false);
   const modalRef = useRef();
   const buttonWrapperRef = useRef();
   const introVidRef = useRef();
   const loadingVidRef = useRef();
-
-  const options = {
-    whiteLabel: true,
-    hideToolbar: true,
-    hideTitle: true,
-    hidePlayButton: true,
-  };
-
-  const z =
-    process.env.NODE_ENV === 'development'
-      ? 'igvJ3gqNaqGFanYaK'
-      : 'xsSRkW8x7GgTk2EXE';
+  const navigate = useNavigate();
 
   const startGame = () => {
     loadingVidRef.current.pause();
@@ -37,51 +28,68 @@ const Game = () => {
     loadingVidRef.current.onended = () => {
       startGame();
     };
-    player.start();
+    // player.start();
   };
 
+  function onLaunch(id) {
+    console.log(`instance with id ${id} launched!`);
+  }
+
   useEffect(() => {
-    if (!player) {
-      const _player = new Player(z, 'player-container', options);
-      _player.onStreamStart(() => {
-        setLoaded(true);
-      });
-      _player.onAppStart(() => {
-        console.log('SDK client FIRED: App started');
-        _player.sendSDKMessage({ address: address });
-      });
-      setPlayer(_player);
-      loadingVidRef.current.style.display = 'block';
-    }
+    const _player = new Player(setReady, onLaunch);
+    // _player.launchInstance();
+    setPlayer(_player);
+    // loadingVidRef.current.style.display = 'block';
+
+    return () => {
+      _player.terminateInstance();
+    };
   }, []);
 
-  // useEffect(() => {
-  //   if (loaded) {
-  //     setTimeout(() => {
-  //       startGame();
-  //     }, 2000);
-  //   }
-  // }, [loaded]);
+  useEffect(() => {
+    if (launched) {
+      const interval = setInterval(() => {
+        if (ready) {
+          clearInterval(interval);
+        } else {
+          player.checkStatus();
+        }
+      }, 1000);
+
+      return () => {
+        if (interval) {
+          clearInterval(interval);
+        }
+      };
+    }
+  }, [launched]);
 
   return (
     <div>
-      {/* <Header showEditor={setShowEditor} />
-      <EditAndUpload
-        showEditor={showEditor}
-        showUpload={showUpload}
-        setShowEditor={setShowEditor}
-        setShowUpload={setShowUpload}
-      /> */}
-
+      <button
+        onClick={() => {
+          player.launchInstance();
+          setLaunched(true);
+        }}
+      >
+        start
+      </button>
       <div id="player-container"></div>
-      <SplashPage
+      <button
+        onClick={() => {
+          navigate('/crates');
+        }}
+      >
+        Crates
+      </button>
+      {/* <SplashPage
         introVidRef={introVidRef}
         loadingVidRef={loadingVidRef}
         buttonWrapperRef={buttonWrapperRef}
         modalRef={modalRef}
         startLoadingGame={startLoadingGame}
         setAddress={setAddress}
-      />
+      /> */}
     </div>
   );
 };

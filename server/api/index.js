@@ -3,6 +3,7 @@ const router = require('express').Router();
 router.use('/ipfs', require('./ipfs'));
 router.use('/image', require('./image'));
 router.use('/asset-image', require('./assetImage'));
+router.use('/play', require('./play'));
 
 router.use((req, res, next) => {
   const err = new Error('Route not found!!');
