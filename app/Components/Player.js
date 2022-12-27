@@ -3,15 +3,21 @@ import axios from 'axios';
 const apiUrl = '/api/play';
 
 const eventTypes = {
-  LAUNCH: 'launch',
-  TERMINATE: 'terminate',
+  START: 'start_instance',
+  STOP: 'stop_instance',
+  LIST_AVAILABLE: 'list_instances',
+  LIST_RESERVED: 'list_reserved_instances',
   STATUS: 'check_instance_status',
+  TERMINATE: 'terminate',
 };
 
+const regions = {0: 'us-west-2'}
+
 export default class Player {
-  constructor(onReady, onLaunch) {
+  constructor(onReady, onLaunch, region) {
     this.onReady = onReady;
     this.onLaunch = onLaunch;
+    this.region = regions[region]
   }
 
   _createIframe() {
@@ -27,12 +33,14 @@ export default class Player {
     container.appendChild(iframe);
   }
 
-  async launchInstance() {
+  async startInstance() {
     try {
-      const { data } = await axios.post(apiUrl, {
-        event_type: eventTypes.LAUNCH,
+      await axios.post(apiUrl, {
+        event_type: eventTypes.START,
+        region: this.region,
+        instances: [this.instanceID]
       });
-      this.instanceID = data['instance_name'];
+      
       this.onLaunch(this.instanceID);
       this.checkStatus();
     } catch (error) {
@@ -40,11 +48,12 @@ export default class Player {
     }
   }
 
-  async terminateInstance() {
+  async stopInstance() {
     try {
       await axios.post(apiUrl, {
-        event_type: eventTypes.TERMINATE,
-        instance_id: this.instanceID,
+        event_type: eventTypes.STOP,
+        region: this.region,
+        instances: [this.instanceID],
       });
     } catch (error) {
       console.log(error.message);
@@ -56,6 +65,7 @@ export default class Player {
       const { data } = await axios.post(apiUrl, {
         event_type: eventTypes.STATUS,
         instance_id: this.instanceID,
+        region: this.region
       });
 
       if (!this.instanceIP) {
@@ -70,6 +80,37 @@ export default class Player {
       }
     } catch (error) {
       console.log(error);
+    }
+  }
+
+  setInstanceID(instanceID) {
+    this.instanceID = instanceID
+  }
+
+  async getAvailableInstances() {
+    try {
+      const {data} = await axios.post(apiUrl, {
+        event_type: eventTypes.LIST_AVAILABLE,
+        region: this.region,
+      });
+
+      return data['Instances Available']
+
+    } catch (error) {
+      console.log(error.message);
+    }
+  }
+  async getReservedInstances() {
+    try {
+      const {data} = await axios.post(apiUrl, {
+        event_type: eventTypes.LIST_RESERVED,
+        region: this.region,
+      });
+
+      return data['Instances Available']
+
+    } catch (error) {
+      console.log(error.message);
     }
   }
 }
