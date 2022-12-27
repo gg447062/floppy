@@ -1,5 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { listenToDB } from '../lib/db';
+import { downloadWAV } from '../lib/storage';
 import Player from './Player';
 import SplashPage from './SplashPage';
 
@@ -35,34 +37,42 @@ const Game = () => {
     console.log(`instance with id ${id} launched!`);
   }
 
+  // useEffect(() => {
+  //   const _player = new Player(setReady, onLaunch);
+  //   // _player.launchInstance();
+  //   setPlayer(_player);
+  //   // loadingVidRef.current.style.display = 'block';
+
+  //   return () => {
+  //     _player.terminateInstance();
+  //   };
+  // }, []);
+
+  // useEffect(() => {
+  //   if (launched) {
+  //     const interval = setInterval(() => {
+  //       if (ready) {
+  //         clearInterval(interval);
+  //       } else {
+  //         player.checkStatus();
+  //       }
+  //     }, 1000);
+
+  //     return () => {
+  //       if (interval) {
+  //         clearInterval(interval);
+  //       }
+  //     };
+  //   }
+  // }, [launched]);
+
   useEffect(() => {
-    const _player = new Player(setReady, onLaunch);
-    // _player.launchInstance();
-    setPlayer(_player);
-    // loadingVidRef.current.style.display = 'block';
+    const unsubscribe = listenToDB(downloadWAV);
 
     return () => {
-      _player.terminateInstance();
+      unsubscribe();
     };
-  }, []);
-
-  useEffect(() => {
-    if (launched) {
-      const interval = setInterval(() => {
-        if (ready) {
-          clearInterval(interval);
-        } else {
-          player.checkStatus();
-        }
-      }, 1000);
-
-      return () => {
-        if (interval) {
-          clearInterval(interval);
-        }
-      };
-    }
-  }, [launched]);
+  });
 
   return (
     <div>
@@ -90,6 +100,10 @@ const Game = () => {
         startLoadingGame={startLoadingGame}
         setAddress={setAddress}
       /> */}
+      <audio
+        id="audio-downloader"
+        controls
+      ></audio>
     </div>
   );
 };
