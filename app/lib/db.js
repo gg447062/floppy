@@ -5,6 +5,7 @@ import {
   getDocs,
   onSnapshot,
   query,
+  where
 } from 'firebase/firestore';
 
 export async function uploadDubplate(data) {
@@ -27,21 +28,20 @@ export async function fetchDubplates() {
   return dubplates;
 }
 
-export async function listenToDB(cb) {
-  let calls = 0;
-  // const downloadsQuery = query(collection(db, 'downloads'));
-  const downloadsQuery = query(collection(db, 'downloads'));
+export async function listenForNewDownload(cb) {
+  let isFirstCall = true
+  const downloadsQuery = query(collection(db, 'uploads'), where('download', '==', true));
 
   const listener = onSnapshot(downloadsQuery, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
       if (change.type === 'added') {
-        if (calls > 0) {
-          console.log('new downloads: ', change.doc.data().name);
+        if (!isFirstCall) {
+          console.log('new download: ', change.doc.data().name, change.doc.id);
           cb(change.doc.data().pathRef);
         }
       }
     });
-    calls += 1;
+    isFirstCall = false;
   });
 
   return listener;

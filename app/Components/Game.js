@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { listenToDB } from '../lib/db';
+import { listenForNewDownload } from '../lib/db';
 import { downloadWAV } from '../lib/storage';
 import Player from './Player';
 import SplashPage from './SplashPage';
@@ -38,7 +38,7 @@ const Game = () => {
   }
 
   // useEffect(() => {
-  //   const _player = new Player(setReady, onLaunch);
+  //   const _player = new Player(setReady, onLaunch, 0);
   //   // _player.launchInstance();
   //   setPlayer(_player);
   //   // loadingVidRef.current.style.display = 'block';
@@ -67,7 +67,7 @@ const Game = () => {
   // }, [launched]);
 
   useEffect(() => {
-    const unsubscribe = listenToDB(downloadWAV);
+    const unsubscribe = listenForNewDownload(downloadWAV);
 
     return () => {
       unsubscribe();
