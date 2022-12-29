@@ -1,3 +1,4 @@
+import axios from 'axios';
 import { Color, Solver } from './colorSolver';
 import { fontNames, getFontName } from './fonts';
 
@@ -8,7 +9,7 @@ const cleanName = (name) => {
   } else return name;
 };
 
-// const assetBaseURL = '/api/asset-image'; // proxied from server
+// const assetBaseURL = '/api/image'; // proxied from server
 // const assetBaseURL = 'https://dg3mov3znt8u.cloudfront.net/upload'; // from cloudfront need to make CDN for this
 
 const assetBaseURL = 'assets'; // from local filesystem
@@ -17,6 +18,17 @@ const moralisGateway = 'https://gateway.moralisipfs.com/ipfs';
 const CANVAS_HEIGHT = window.innerWidth / 2;
 
 const audioHash = 'QmWxfDN1ywqzBX465ALJK8x6zWVRrhnV9jry5D497AC9Ty';
+
+const downloadWAV = async (url, name) => {
+  const { data } = await axios.post('/api/ipfs/fetch', { url });
+  // const audio = document.getElementById('audio-downloader');
+  // audio.setAttribute('src', `${moralisGateway}/${url}`);
+  const a = document.createElement('a')
+  a.setAttribute('href', `data:audio/wav;base64, ${data}`)
+  a.download = `${name}.wav`
+  a.click()
+  a.remove()
+}
 
 const getRandomAudio = () => {
   const val = Math.ceil(Math.random() * 10);
@@ -74,6 +86,7 @@ export {
   getFontName,
   cleanName,
   getRandomAudio,
+  downloadWAV,
   moralisGateway,
   assetBaseURL,
   wallets,

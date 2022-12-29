@@ -28,7 +28,7 @@ export async function fetchDubplates() {
   return dubplates;
 }
 
-export async function listenForNewDownload(cb) {
+export function listenForNewDownload(cb) {
   let isFirstCall = true
   const downloadsQuery = query(collection(db, 'uploads'), where('download', '==', true));
 
@@ -37,7 +37,7 @@ export async function listenForNewDownload(cb) {
       if (change.type === 'added') {
         if (!isFirstCall) {
           console.log('new download: ', change.doc.data().name, change.doc.id);
-          cb(change.doc.data().pathRef);
+          cb(change.doc.data().hash, change.doc.data().name);
         }
       }
     });
