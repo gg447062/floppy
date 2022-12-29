@@ -14,35 +14,45 @@ const eventTypes = {
 const regions = {0: 'us-west-2'}
 
 export default class Player {
-  constructor(onReady, onLaunch, region) {
-    this.onReady = onReady;
-    this.onLaunch = onLaunch;
+  constructor(onStart, region) {
+    this.onStart = onStart;
     this.region = regions[region]
+    this.createdIframe = false
+    this.instanceIP = null
+    this.instanceID = null
   }
 
-  _createIframe() {
-    const container = document.getElementById('player-container');
-    const iframe = document.createElement('iframe');
-    iframe.setAttribute('src', this.instanceIP);
-    iframe.setAttribute('id', 'ec2-player');
-    iframe.setAttribute('allow', 'autoplay; fullscreen');
+  createIframe() {
+    if (!this.createdIframe) {
+      console.log('creating iframe')
+      const container = document.getElementById('player-container');
+      const iframe = document.createElement('iframe');
+      iframe.setAttribute('src', `//${this.instanceIP}`);
+      iframe.setAttribute('id', 'ec2-player');
+      iframe.setAttribute('allow', 'autoplay; fullscreen');
 
-    iframe.style.width = '100%';
-    iframe.style.height = '100%';
-
-    container.appendChild(iframe);
+      container.appendChild(iframe);
+      this.createdIframe = true
+    }
   }
 
   async startInstance() {
+    const instances = await this.getAvailableInstances()
+    this.setInstanceID(instances[0])
+    
+    if (!this.instanceID) {
+      console.log('no available instances, try again later')
+      return
+    }
+
     try {
       await axios.post(apiUrl, {
         event_type: eventTypes.START,
         region: this.region,
         instances: [this.instanceID]
       });
-      
-      this.onLaunch(this.instanceID);
-      this.checkStatus();
+      this.checkStatus()
+      this.onStart(this.instanceID);
     } catch (error) {
       console.log(error.message);
     }
@@ -72,19 +82,22 @@ export default class Player {
         this.instanceIP = data['PublicIpAddress'];
       }
 
-      console.log(`instance status: ${data.ready}`);
-
-      if (data.ready === 'True') {
-        this._createIframe();
-        this.onReady(true);
-      }
+      return data.ready === 'True' 
     } catch (error) {
       console.log(error);
     }
   }
+  
+  setInstanceID(id) {
+    this.instanceID = id
+  }
+  
+  getIP() {
+    return this.instanceIP
+  }
 
-  setInstanceID(instanceID) {
-    this.instanceID = instanceID
+  getInstanceId() {
+    return this.instanceID
   }
 
   async getAvailableInstances() {
@@ -95,11 +108,11 @@ export default class Player {
       });
 
       return data['Instances Available']
-
     } catch (error) {
       console.log(error.message);
     }
   }
+  
   async getReservedInstances() {
     try {
       const {data} = await axios.post(apiUrl, {
@@ -108,7 +121,6 @@ export default class Player {
       });
 
       return data['Instances Available']
-
     } catch (error) {
       console.log(error.message);
     }

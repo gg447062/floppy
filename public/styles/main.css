@@ -139,6 +139,26 @@ ul {
   transition: right 800ms;
 }
 
+
+/* ------------------- */
+/*        Game         */
+/* ------------------- */
+
+#player-container {
+  position: relative;
+  background-color: #00a8f1;
+}
+
+#ec2-player {
+position: absolute;
+top: 0;
+left: 0;
+height: 100vh;
+width: 100vw;
+z-index: 100000;
+background-color: #00ff12;
+}
+
 /* ------------------- */
 /*    Image Editor     */
 /* ------------------- */

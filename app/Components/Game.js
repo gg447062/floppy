@@ -1,89 +1,95 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { listenForNewDownload } from '../lib/db';
-import { downloadWAV } from '../lib/storage';
+import { downloadWAV } from '../lib/utils';
 import Player from './Player';
 import SplashPage from './SplashPage';
 
 const Game = () => {
   const [address, setAddress] = useState(null);
   const [player, setPlayer] = useState(null);
-  const [ready, setReady] = useState(false);
-  const [launched, setLaunched] = useState(false);
+  const [started, setStarted] = useState(false);
   const modalRef = useRef();
   const buttonWrapperRef = useRef();
   const introVidRef = useRef();
   const loadingVidRef = useRef();
   const navigate = useNavigate();
 
-  const startGame = () => {
-    loadingVidRef.current.pause();
-    loadingVidRef.current.style.display = 'none';
-    modalRef.current.style.display = 'none';
-  };
+  // const startGame = () => {
+  //   loadingVidRef.current.pause();
+  //   loadingVidRef.current.style.display = 'none';
+  //   modalRef.current.style.display = 'none';
+  // };
 
-  const startLoadingGame = () => {
-    introVidRef.current.pause();
-    introVidRef.current.style.display = 'none';
-    buttonWrapperRef.current.style.display = 'none';
-    loadingVidRef.current.play();
-    loadingVidRef.current.onended = () => {
-      startGame();
-    };
-    // player.start();
-  };
+  // const startLoadingGame = () => {
+  //   introVidRef.current.pause();
+  //   introVidRef.current.style.display = 'none';
+  //   buttonWrapperRef.current.style.display = 'none';
+  //   loadingVidRef.current.play();
+  //   loadingVidRef.current.onended = () => {
+  //     startGame();
+  //   };
+  // };
 
-  function onLaunch(id) {
-    console.log(`instance with id ${id} launched!`);
+  function onStart(id) {
+    setStarted(true);
+    console.log(`instance with id ${id} started!`);
   }
 
-  // useEffect(() => {
-  //   const _player = new Player(setReady, onLaunch, 0);
-  //   // _player.launchInstance();
-  //   setPlayer(_player);
-  //   // loadingVidRef.current.style.display = 'block';
+  useEffect(() => {
+    let _player
 
-  //   return () => {
-  //     _player.terminateInstance();
-  //   };
-  // }, []);
+    async function setUpPlayer() {
+      _player = new Player(onStart, 0);
+      _player.startInstance()
+      setPlayer(_player);
+    }
+    // loadingVidRef.current.style.display = 'block';
+    setUpPlayer()
 
-  // useEffect(() => {
-  //   if (launched) {
-  //     const interval = setInterval(() => {
-  //       if (ready) {
-  //         clearInterval(interval);
-  //       } else {
-  //         player.checkStatus();
-  //       }
-  //     }, 1000);
+    return () => {
+      _player.stopInstance();
+    };
+  }, []);
 
-  //     return () => {
-  //       if (interval) {
-  //         clearInterval(interval);
-  //       }
-  //     };
-  //   }
-  // }, [launched]);
+  useEffect(() => {
+    async function startIfReady(interval) {
+      const ready = await player.checkStatus()
+      console.log('ready:', ready,)
+      if (ready) {
+        player.createIframe()
+        clearInterval(interval)
+      }
+    }
+    if (started) {
+      const interval = setInterval(() => {
+          startIfReady(interval)
+      }, 1000);
+
+      return () => {
+        if (interval) {
+          clearInterval(interval);
+        }
+      };
+    }
+  }, [started]);
 
   useEffect(() => {
     const unsubscribe = listenForNewDownload(downloadWAV);
-
     return () => {
       unsubscribe();
     };
-  });
+  },[]);
 
   return (
     <div>
-      <button
+      {/* <button
         onClick={() => {
-          player.launchInstance();
-          setLaunched(true);
+          player.startInstance();
         }}
       >
         start
-      </button>
+      </button> */}
       <div id="player-container"></div>
       <button
         onClick={() => {
@@ -100,10 +106,10 @@ const Game = () => {
         startLoadingGame={startLoadingGame}
         setAddress={setAddress}
       /> */}
-      <audio
+      {/* <audio
         id="audio-downloader"
         controls
-      ></audio>
+      ></audio> */}
     </div>
   );
 };
