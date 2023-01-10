@@ -2,6 +2,7 @@ import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { listenForNewDownload } from '../lib/db';
 import { downloadWAV } from '../lib/utils';
+import Header from './Header';
 import Player from './Player';
 import SplashPage from './SplashPage';
 
@@ -31,55 +32,55 @@ const Game = () => {
   //   };
   // };
 
-  function onStart(id) {
-    setStarted(true);
-    console.log(`instance with id ${id} started!`);
-  }
+  // function onStart(id) {
+  //   setStarted(true);
+  //   console.log(`instance with id ${id} started!`);
+  // }
 
-  useEffect(() => {
-    let _player
+  // useEffect(() => {
+  //   let _player
 
-    async function setUpPlayer() {
-      _player = new Player(onStart, 0);
-      _player.startInstance()
-      setPlayer(_player);
-    }
-    // loadingVidRef.current.style.display = 'block';
-    setUpPlayer()
+  //   async function setUpPlayer() {
+  //     _player = new Player(onStart, 0);
+  //     _player.startInstance()
+  //     setPlayer(_player);
+  //   }
+  //   // loadingVidRef.current.style.display = 'block';
+  //   setUpPlayer()
 
-    return () => {
-      _player.stopInstance();
-    };
-  }, []);
+  //   return () => {
+  //     _player.stopInstance();
+  //   };
+  // }, []);
 
-  useEffect(() => {
-    async function startIfReady(interval) {
-      const ready = await player.checkStatus()
-      console.log('ready:', ready,)
-      if (ready) {
-        player.createIframe()
-        clearInterval(interval)
-      }
-    }
-    if (started) {
-      const interval = setInterval(() => {
-          startIfReady(interval)
-      }, 1000);
+  // useEffect(() => {
+  //   async function startIfReady(interval) {
+  //     const ready = await player.checkStatus()
+  //     console.log('ready:', ready,)
+  //     if (ready) {
+  //       player.createIframe()
+  //       clearInterval(interval)
+  //     }
+  //   }
+  //   if (started) {
+  //     const interval = setInterval(() => {
+  //         startIfReady(interval)
+  //     }, 1000);
 
-      return () => {
-        if (interval) {
-          clearInterval(interval);
-        }
-      };
-    }
-  }, [started]);
+  //     return () => {
+  //       if (interval) {
+  //         clearInterval(interval);
+  //       }
+  //     };
+  //   }
+  // }, [started]);
 
-  useEffect(() => {
-    const unsubscribe = listenForNewDownload(downloadWAV);
-    return () => {
-      unsubscribe();
-    };
-  },[]);
+  // useEffect(() => {
+  //   const unsubscribe = listenForNewDownload(downloadWAV);
+  //   return () => {
+  //     unsubscribe();
+  //   };
+  // },[]);
 
   return (
     <div>
@@ -90,6 +91,7 @@ const Game = () => {
       >
         start
       </button> */}
+      <Header />
       <div id="player-container"></div>
       <button
         onClick={() => {

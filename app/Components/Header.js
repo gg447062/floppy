@@ -1,15 +1,43 @@
-import React from 'react';
-import { useMoralis } from 'react-moralis';
-// import Moralis from 'moralis/';
+import React, { useState } from 'react';
+import Web3 from "web3";
+import { signInWithCustomToken, signOut } from "firebase/auth";
+import {auth} from '../lib/firebase'
+import axios from "axios";
 
-const Header = ({ showEditor }) => {
-  const { user, authenticate, logout, isAuthenticated, isAuthenticating } =
-    useMoralis();
+const Header = () => {
+  const [isAuthenticated, setIsAuthenticated] = useState(false)
+  const [address, setAddress] = useState('')
+
+  async function authenticate (address) {
+    const {data: message} = await axios.get(`/api/login/message?address=${address}`)
+
+    const web3 = new Web3(Web3.givenProvider)
+
+    const signature = await web3.eth.personal.sign(message, address)
+
+    const {data: token }= await axios.get(`/api/login/token?address=${address}&signature=${signature}`)
+
+    await signInWithCustomToken(auth, token)
+    setIsAuthenticated(true)
+    setAddress(address)
+  } 
 
   async function login() {
-    if (!isAuthenticated) {
-      authenticate();
+    if (window?.ethereum?.isMetaMask) {
+      const accounts = await window.ethereum.request({
+        method:'eth_requestAccounts'
+      })
+
+      const ethAddress = accounts[0]
+      authenticate(ethAddress)
     }
+
+  }
+
+  async function logout() {
+    setIsAuthenticated(false)
+    setAddress('')
+    signOut(auth)
   }
 
   return (
@@ -17,20 +45,11 @@ const Header = ({ showEditor }) => {
       {!isAuthenticated ? (
         <button onClick={login}>Connect</button>
       ) : (
-        <button onClick={logout} disabled={isAuthenticating}>
+        <button onClick={logout} >
           Logout
         </button>
       )}
-      <div id="record" className="container">
-        <button
-          onClick={() => {
-            showEditor(true);
-          }}
-        >
-          Press dub plate
-        </button>
-      </div>
-      {isAuthenticated ? <div>{user.get('ethAddress')}</div> : <div />}
+      {isAuthenticated ? <div style={{color: 'green'}}>{address}</div> : <div />}
     </div>
   );
 };
