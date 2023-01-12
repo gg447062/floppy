@@ -1,21 +1,20 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { useMoralis } from 'react-moralis';
-import { useSelector } from 'react-redux';
-import { cleanName, moralisGateway, getRandomAudio } from '../lib/utils';
-import { saveAssetsToIPFS, saveMetadataToIPFS } from '../lib/ipfs';
-import { uploadDubplate } from '../lib/db';
+import React, { useState, useEffect, useRef } from "react";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { cleanName, moralisGateway, getRandomAudio } from "../lib/utils";
+import { saveAssetsToIPFS, saveMetadataToIPFS } from "../lib/ipfs";
+import { uploadDubplate } from "../lib/db";
 
 export default function Upload({ setShowUpload }) {
-  const { isAuthenticated, authenticate } = useMoralis();
+  const isAuthenticated = useSelector((state) => state.user.authenticated);
   const frontURL = useSelector((state) => state.metadata.frontURL);
   const backURL = useSelector((state) => state.metadata.backURL);
   const artist = useSelector((state) => state.metadata.artist);
   const track = useSelector((state) => state.metadata.track);
-  const [artistName, setArtistName] = useState('');
-  const [trackName, setTrackName] = useState('');
+  const [artistName, setArtistName] = useState("");
+  const [trackName, setTrackName] = useState("");
   const [price, setPrice] = useState(0);
-  const [message, setMessage] = useState('uploading...');
+  const [message, setMessage] = useState("uploading...");
   const [showMessage, setShowMessage] = useState(false);
   const [audioHash, setAudioHash] = useState(null);
   const [audioSrc, setAudioSrc] = useState(null);
@@ -43,7 +42,7 @@ export default function Upload({ setShowUpload }) {
 
       const metadata = {
         name: `${artist} - ${track}`,
-        description: 'a floppy dubplate',
+        description: "a floppy dubplate",
         image: hashes[0],
         animation_url: audioHash,
       };
@@ -61,13 +60,17 @@ export default function Upload({ setShowUpload }) {
         back: hashes[1],
         audio: audioHash,
         metadataHash: metadataHash,
-        status: 'new',
+        status: "new",
       });
 
-      setMessage('object saved successfully');
+      setMessage("object saved successfully");
     } else {
-      await authenticate();
-      await saveToDatabase();
+      setMessage("please connect walle to upload");
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false);
+        setMessage("uploading...");
+      }, 2000);
     }
   };
 
@@ -77,7 +80,7 @@ export default function Upload({ setShowUpload }) {
       setDisabled(true);
       setShowMessage(true);
       await saveToDatabase(frontURL, backURL, artistName, trackName);
-      navigate('/crates');
+      navigate("/crates");
     }
   };
 

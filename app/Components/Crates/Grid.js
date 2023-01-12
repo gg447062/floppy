@@ -1,14 +1,14 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { moralisGateway } from '../../lib/utils';
-import { fetchDubplates } from '../../lib/db';
+import React, { useState, useEffect, useRef } from "react";
+import { moralisGateway } from "../../lib/utils";
+import { fetchDubplates } from "../../lib/db";
 
 const AudioPlayer = ({ dubplate, index, modal = false }) => {
   const audioRef = useRef();
   const timelineRef = useRef();
   const [src, setSrc] = useState(
-    'assets/crates_ui_assets/cratesplaybutton_sizedforpopup.png'
+    "assets/crates_ui_assets/cratesplaybutton_sizedforpopup.png"
   );
-  const size = modal ? '-large' : '';
+  const size = modal ? "-large" : "";
 
   const playAudio = (e) => {
     if (
@@ -17,10 +17,10 @@ const AudioPlayer = ({ dubplate, index, modal = false }) => {
       audioRef.current.currentTime == audioRef.current.duration
     ) {
       audioRef.current.play();
-      setSrc('assets/listener_3d_assets/Pause_button.png');
+      setSrc("assets/listener_3d_assets/Pause_button.png");
     } else {
       audioRef.current.pause();
-      setSrc('assets/crates_ui_assets/cratesplaybutton_sizedforpopup.png');
+      setSrc("assets/crates_ui_assets/cratesplaybutton_sizedforpopup.png");
     }
   };
 
@@ -133,7 +133,6 @@ const GridItem = ({ dubplate, openModal, index }) => {
 };
 
 const Grid = () => {
-  // const { data, error, isLoading } = useMoralisQuery('Dubplate');
   const [dubplates, setDubplates] = useState([]);
   const [single, setSingle] = useState(null);
   const [singleIdx, setSingleIdx] = useState(null);
