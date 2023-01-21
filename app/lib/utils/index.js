@@ -17,23 +17,13 @@ const moralisGateway = 'https://gateway.moralisipfs.com/ipfs';
 
 const CANVAS_HEIGHT = window.innerWidth / 2;
 
-const audioHash = 'QmWxfDN1ywqzBX465ALJK8x6zWVRrhnV9jry5D497AC9Ty';
-
 const downloadWAV = async (url, name) => {
   const { data } = await axios.post('/api/ipfs/fetch', { url });
-  // const audio = document.getElementById('audio-downloader');
-  // audio.setAttribute('src', `${moralisGateway}/${url}`);
-  const a = document.createElement('a')
-  a.setAttribute('href', `data:audio/wav;base64, ${data}`)
-  a.download = `${name}.wav`
-  a.click()
-  a.remove()
-}
-
-const getRandomAudio = () => {
-  const val = Math.ceil(Math.random() * 10);
-  const trackNumber = val < 10 ? `0${val}` : val;
-  return `${audioHash}/${trackNumber}.mp3`;
+  const a = document.createElement('a');
+  a.setAttribute('href', `data:audio/wav;base64, ${data}`);
+  a.download = `${name}.wav`;
+  a.click();
+  a.remove();
 };
 
 const wallets = [
@@ -85,7 +75,6 @@ export {
   fontNames,
   getFontName,
   cleanName,
-  getRandomAudio,
   downloadWAV,
   moralisGateway,
   assetBaseURL,

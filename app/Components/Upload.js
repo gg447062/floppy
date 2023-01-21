@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { cleanName, moralisGateway, getRandomAudio } from '../lib/utils';
+import { cleanName, moralisGateway } from '../lib/utils';
 import { saveAssetsToIPFS, saveMetadataToIPFS } from '../lib/ipfs';
 import { uploadDubplate } from '../lib/db';
 
@@ -99,7 +99,8 @@ export default function Upload({ setShowUpload }) {
     const onLoad = () => {
       setArtistName(artist);
       setTrackName(track);
-      const _audioHash = getRandomAudio();
+      //////////////////////// CHANGE THIS TO FETCH FROM REDUX STORE
+      const _audioHash = '0x89';
       setAudioHash(_audioHash);
       setAudioSrc(`${moralisGateway}/${_audioHash}`);
     };
