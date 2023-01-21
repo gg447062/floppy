@@ -75,12 +75,12 @@ const Game = () => {
   //   }
   // }, [started]);
 
-  // useEffect(() => {
-  //   const unsubscribe = listenForNewDownload(downloadWAV);
-  //   return () => {
-  //     unsubscribe();
-  //   };
-  // },[]);
+  useEffect(() => {
+    const unsubscribe = listenForNewDownload(downloadWAV);
+    return () => {
+      unsubscribe();
+    };
+  }, []);
 
   return (
     <div>
