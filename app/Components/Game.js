@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { listenForNewDownload } from '../lib/db';
+import { useDispatch } from 'react-redux';
+
+import { listenForNewDownload, listenForNewUpload } from '../lib/db';
 import { downloadWAV } from '../lib/utils';
+import { setArtist, setAudioURL } from '../Redux/metadata';
 import Header from './Header';
 import Player from './Player';
 import SplashPage from './SplashPage';
@@ -14,7 +17,14 @@ const Game = () => {
   const buttonWrapperRef = useRef();
   const introVidRef = useRef();
   const loadingVidRef = useRef();
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const handleNewUpload = (url, name) => {
+    dispatch(setAudioURL(url));
+    dispatch(setArtist(name));
+    navigate('/editor');
+  };
 
   // const startGame = () => {
   //   loadingVidRef.current.pause();
@@ -77,6 +87,13 @@ const Game = () => {
 
   useEffect(() => {
     const unsubscribe = listenForNewDownload(downloadWAV);
+    return () => {
+      unsubscribe();
+    };
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = listenForNewUpload(handleNewUpload);
     return () => {
       unsubscribe();
     };

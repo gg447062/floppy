@@ -9,6 +9,7 @@ export default function Upload({ setShowUpload }) {
   const isAuthenticated = useSelector((state) => state.user.authenticated);
   const frontURL = useSelector((state) => state.metadata.frontURL);
   const backURL = useSelector((state) => state.metadata.backURL);
+  const audioURL = useSelector((state) => state.metadata.audioURL);
   const artist = useSelector((state) => state.metadata.artist);
   const track = useSelector((state) => state.metadata.track);
   const [artistName, setArtistName] = useState('');
@@ -16,7 +17,6 @@ export default function Upload({ setShowUpload }) {
   const [price, setPrice] = useState(0);
   const [message, setMessage] = useState('uploading...');
   const [showMessage, setShowMessage] = useState(false);
-  const [audioHash, setAudioHash] = useState(null);
   const [audioSrc, setAudioSrc] = useState(null);
   const [disabled, setDisabled] = useState(true);
   const navigate = useNavigate();
@@ -37,14 +37,13 @@ export default function Upload({ setShowUpload }) {
         content: back,
       };
 
-      // will need to fetch track from database and then save it ipfs here for nft purposes
       const hashes = await saveAssetsToIPFS(frontImage, backImage);
 
       const metadata = {
         name: `${artist} - ${track}`,
         description: 'a floppy dubplate',
         image: hashes[0],
-        animation_url: audioHash,
+        animation_url: audioURL,
       };
 
       const metadataHash = await saveMetadataToIPFS(
@@ -58,14 +57,14 @@ export default function Upload({ setShowUpload }) {
         price: price,
         front: hashes[0],
         back: hashes[1],
-        audio: audioHash,
+        audio: audioURL,
         metadataHash: metadataHash,
         status: 'new',
       });
 
       setMessage('object saved successfully');
     } else {
-      setMessage('please connect walle to upload');
+      setMessage('please connect wallet to upload');
       setShowMessage(true);
       setTimeout(() => {
         setShowMessage(false);
@@ -89,20 +88,17 @@ export default function Upload({ setShowUpload }) {
       artistName.length > 0 &&
       trackName.length > 0 &&
       price > 0 &&
-      audioSrc
+      audioURL.length > 0
     ) {
       setDisabled(false);
     }
-  }, [artistName, trackName, price, audioSrc]);
+  }, [artistName, trackName, price, audioURL]);
 
   useEffect(() => {
     const onLoad = () => {
       setArtistName(artist);
       setTrackName(track);
-      //////////////////////// CHANGE THIS TO FETCH FROM REDUX STORE
-      const _audioHash = '0x89';
-      setAudioHash(_audioHash);
-      setAudioSrc(`${moralisGateway}/${_audioHash}`);
+      setAudioSrc(`${moralisGateway}/${audioURL}`);
     };
     onLoad();
   }, []);
