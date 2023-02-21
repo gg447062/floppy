@@ -11,20 +11,21 @@ const eventTypes = {
   TERMINATE: 'terminate',
 };
 
-const regions = {0: 'us-west-2'}
+const regions = { 0: 'us-west-2' };
 
 export default class Player {
   constructor(onStart, region) {
     this.onStart = onStart;
-    this.region = regions[region]
-    this.createdIframe = false
-    this.instanceIP = null
-    this.instanceID = null
+    this.region = regions[region];
+    this.createdIframe = false;
+    this.started = false;
+    this.instanceIP = null;
+    this.instanceID = null;
   }
 
   createIframe() {
     if (!this.createdIframe) {
-      console.log('creating iframe')
+      console.log('creating iframe');
       const container = document.getElementById('player-container');
       const iframe = document.createElement('iframe');
       iframe.setAttribute('src', `//${this.instanceIP}`);
@@ -32,33 +33,35 @@ export default class Player {
       iframe.setAttribute('allow', 'autoplay; fullscreen');
 
       container.appendChild(iframe);
-      this.createdIframe = true
+      this.createdIframe = true;
     }
   }
 
   async startInstance() {
-    const instances = await this.getAvailableInstances()
-    this.setInstanceID(instances[0])
-    
+    const instances = await this.getAvailableInstances();
+    this.setInstanceID(instances[0]);
+
     if (!this.instanceID) {
-      console.log('no available instances, try again later')
-      return
+      console.log('no available instances, try again later');
+      return;
     }
 
     try {
       await axios.post(apiUrl, {
         event_type: eventTypes.START,
         region: this.region,
-        instances: [this.instanceID]
+        instances: [this.instanceID],
       });
-      this.checkStatus()
+      this.checkStatus();
       this.onStart(this.instanceID);
+      this.started = true;
     } catch (error) {
       console.log(error.message);
     }
   }
 
   async stopInstance() {
+    if (!this.started) return;
     try {
       await axios.post(apiUrl, {
         event_type: eventTypes.STOP,
@@ -75,52 +78,52 @@ export default class Player {
       const { data } = await axios.post(apiUrl, {
         event_type: eventTypes.STATUS,
         instance_id: this.instanceID,
-        region: this.region
+        region: this.region,
       });
 
       if (!this.instanceIP) {
         this.instanceIP = data['PublicIpAddress'];
       }
-
-      return data.ready === 'True' 
+      console.log('ready: ', data.ready);
+      return data.ready === 'True';
     } catch (error) {
       console.log(error);
     }
   }
-  
+
   setInstanceID(id) {
-    this.instanceID = id
+    this.instanceID = id;
   }
-  
+
   getIP() {
-    return this.instanceIP
+    return this.instanceIP;
   }
 
   getInstanceId() {
-    return this.instanceID
+    return this.instanceID;
   }
 
   async getAvailableInstances() {
     try {
-      const {data} = await axios.post(apiUrl, {
+      const { data } = await axios.post(apiUrl, {
         event_type: eventTypes.LIST_AVAILABLE,
         region: this.region,
       });
 
-      return data['Instances Available']
+      return data['Instances Available'];
     } catch (error) {
       console.log(error.message);
     }
   }
-  
+
   async getReservedInstances() {
     try {
-      const {data} = await axios.post(apiUrl, {
+      const { data } = await axios.post(apiUrl, {
         event_type: eventTypes.LIST_RESERVED,
         region: this.region,
       });
 
-      return data['Instances Available']
+      return data['Instances Available'];
     } catch (error) {
       console.log(error.message);
     }

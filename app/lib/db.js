@@ -29,7 +29,7 @@ export async function fetchDubplates() {
   return dubplates;
 }
 
-export function listenForNewDownload(cb) {
+export function listenForNewDownload(cb, ip) {
   const downloadsQuery = query(
     collection(db, 'uploads'),
     where('download', '==', true)
@@ -39,7 +39,8 @@ export function listenForNewDownload(cb) {
     snapshot.docChanges().forEach((change) => {
       if (
         change.type === 'added' &&
-        change.doc.data().timestamp >= Timestamp.now().toMillis()
+        change.doc.data().timestamp >= Timestamp.now().toMillis() &&
+        change.doc.data().ip === ip
       ) {
         console.log('new download: ', change.doc.data().name, change.doc.id);
         cb(change.doc.data().hash, change.doc.data().name);
@@ -50,7 +51,7 @@ export function listenForNewDownload(cb) {
   return listener;
 }
 
-export function listenForNewUpload(cb) {
+export function listenForNewUpload(cb, ip) {
   const uploadsQuery = query(
     collection(db, 'uploads'),
     where('download', '==', false)
@@ -60,7 +61,8 @@ export function listenForNewUpload(cb) {
     snapshot.docChanges().forEach((change) => {
       if (
         change.type === 'added' &&
-        change.doc.data().timestamp >= Timestamp.now().toMillis()
+        change.doc.data().timestamp >= Timestamp.now().toMillis() &&
+        change.doc.data().ip === ip
       ) {
         console.log('new upload: ', change.doc.data().name, change.doc.id);
         cb(change.doc.data().hash, change.doc.data().name);
