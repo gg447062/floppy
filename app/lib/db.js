@@ -2,6 +2,7 @@ import { db } from './firebase';
 import {
   collection,
   addDoc,
+  updateDoc,
   getDocs,
   onSnapshot,
   query,
@@ -27,6 +28,16 @@ export async function fetchDubplates() {
   });
 
   return dubplates;
+}
+
+export async function addWalletToUpload(id, address) {
+  const uploadRef = doc(db, 'uploads', id);
+
+  try {
+    await updateDoc(uploadRef, { address: address });
+  } catch (error) {
+    console.error('error uploading: ', error);
+  }
 }
 
 export function listenForNewDownload(cb, ip) {
@@ -65,7 +76,7 @@ export function listenForNewUpload(cb, ip) {
         change.doc.data().ip === ip
       ) {
         console.log('new upload: ', change.doc.data().name, change.doc.id);
-        cb(change.doc.data().hash, change.doc.data().name);
+        cb(change.doc.data().hash, change.doc.data().name, change.doc.id);
       }
     });
   });

@@ -162,6 +162,26 @@ ul {
   background-color: #00ff12;
 }
 
+.alert-upload-modal {
+  position: absolute;
+  z-index: 10000;
+  right: 1em;
+  bottom: 1em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 1em;
+  padding: 1em;
+  border: 1px solid var(--blue-glow);
+  color: var(--blue-glow);
+}
+
+.alert-upload-modal div {
+  display: flex;
+  gap: 1em;
+}
+
 /* ------------------- */
 /*    Image Editor     */
 /* ------------------- */
@@ -569,6 +589,30 @@ ul {
   justify-content: center;
   align-items: center;
   background-color: black;
+}
+
+.message-modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 8em;
+  z-index: 1001;
+  background-color: inherit;
+  color: var(--blue-glow);
+  border: 1px solid var(--blue-glow);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1em;
+}
+
+.message-modal div {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  padding: 0.25em;
+  border: 1px solid var(--blue-glow);
 }
 
 #intro-video,
