@@ -2,8 +2,6 @@ import React, { useState } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 
-// const baseURL = 'https://dg3mov3znt8u.cloudfront.net';
-
 export default function SplashPage({ introModalRef, player }) {
   const isAuthenticated = useSelector((state) => state.user.authenticated);
   const navigate = useNavigate();

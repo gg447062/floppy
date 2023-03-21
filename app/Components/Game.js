@@ -11,6 +11,7 @@ import { setTrack, setAudioURL } from '../Redux/metadata';
 import Header from './Header';
 import Player from './Player';
 import SplashPage from './SplashPage';
+import WhiteListIntro from './WhiteListIntro';
 
 const initialMessage = 'new upload, do you want to go to the image editor?';
 
@@ -106,6 +107,7 @@ const Game = () => {
 
   return (
     <div>
+      <WhiteListIntro />
       <Header />
       <div id="player-container"></div>
       <SplashPage introModalRef={introModalRef} player={player} />

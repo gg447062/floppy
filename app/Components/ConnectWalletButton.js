@@ -35,6 +35,7 @@ const ConnectWalletButton = () => {
       });
 
       const ethAddress = accounts[0];
+
       authenticate(ethAddress);
     }
   }

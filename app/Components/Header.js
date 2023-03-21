@@ -10,7 +10,7 @@ const Header = () => {
     <div id="header">
       <ConnectWalletButton />
       {isAuthenticated ? (
-        <div style={{ color: 'green' }}>{address}</div>
+        <div>{`${address.slice(0, 5)}...${address.slice(-4)}`}</div>
       ) : (
         <div />
       )}
