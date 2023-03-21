@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import Draggable from 'react-draggable';
 import {
   setOverlay,
   setBg,
@@ -8,30 +7,23 @@ import {
   setCl,
   setFront,
   setBack,
-} from '../../Redux/editor';
-import Center from './Center';
-import StampSelector from './StampSelector';
+} from '../../Redux/editor/global';
+import Canvas from './Canvas';
 import ControlPanel from './ControlPanel';
-import { assetBaseURL } from '../../utils';
+import { corsAssetURL, CANVAS_HEIGHT } from '../../lib/utils';
 
-const ImageEditor = ({ setShowUpload, setShowEditor }) => {
+const ImageEditor = () => {
   const dispatch = useDispatch();
-  const stamp = useSelector((state) => state.editor.stamp);
-  const overlay = useSelector((state) => state.editor.overlay);
-  const size = useSelector((state) => state.editor.size);
-  const fontSize = useSelector((state) => state.editor.fontSize);
-  const fontColor = useSelector((state) => state.editor.fontColor);
-  const filter = useSelector((state) => state.editor.filter);
-  const artistFont = useSelector((state) => state.editor.artistFont);
-  const trackFont = useSelector((state) => state.editor.trackFont);
-  const fg = useSelector((state) => state.editor.fg);
-  const layer = useSelector((state) => state.editor.layer);
-  const artist = useSelector((state) => state.metadata.artist);
-  const track = useSelector((state) => state.metadata.track);
+  const stamp = useSelector((state) => state.editor.global.stamp);
+  const overlay = useSelector((state) => state.editor.global.overlay);
+  const size = useSelector((state) => state.editor.global.size);
+  const filter = useSelector((state) => state.editor.global.filter);
+  const fg = useSelector((state) => state.editor.global.fg);
+  const layer = useSelector((state) => state.editor.global.layer);
 
   const drawInitialBg = (ctx1, ctx2) => {
-    const clTextureImg = new Image(500, 500);
-    clTextureImg.src = `${assetBaseURL}/RECORD_CENTERLABEL/Centerlabel_Texture.png`;
+    const clTextureImg = new Image(CANVAS_HEIGHT, CANVAS_HEIGHT);
+    clTextureImg.src = `${corsAssetURL}/RECORD_CENTERLABEL/Centerlabel_Texture.png`;
     clTextureImg.setAttribute('crossorigin', 'anonymous');
     clTextureImg.onload = () => {
       ctx1.filter = 'none';
@@ -44,8 +36,8 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
       );
     };
 
-    const centerImg = new Image(500, 500);
-    centerImg.src = `${assetBaseURL}/RECORD_CENTERLABEL/Record.png`;
+    const centerImg = new Image(CANVAS_HEIGHT, CANVAS_HEIGHT);
+    centerImg.src = `${corsAssetURL}/RECORD_CENTERLABEL/Record.png`;
     centerImg.setAttribute('crossorigin', 'anonymous');
     centerImg.onload = () => {
       ctx2.filter = 'none';
@@ -117,45 +109,15 @@ const ImageEditor = ({ setShowUpload, setShowEditor }) => {
   }, []);
 
   return (
-    <div className="ie-modal container ff-3" id="dub" onMouseMove={moveOverlay}>
-      <button
-        id="dub-button"
-        onClick={() => {
-          props.showDub(false);
-        }}
-      >
-        X
-      </button>
-      <StampSelector />
-      <Center />
-      <ControlPanel
-        setShowUpload={setShowUpload}
-        setShowEditor={setShowEditor}
-        drawInitialBg={drawInitialBg}
-      />
+    <div className="editor-wrapper ff-3" id="dub" onMouseMove={moveOverlay}>
+      <ControlPanel drawInitialBg={drawInitialBg} />
+      <Canvas />
       <img
         id="stamp-ol"
         className="overlay"
         src={stamp ? stamp.src : ''}
         height={stamp ? `${stamp.naturalHeight * size}px` : ''}
       ></img>
-      <Draggable>
-        <div
-          id="artiste"
-          className={`artist overlay ${artistFont.class}`}
-          style={{ color: fontColor, fontSize: `${fontSize}px` }}
-        >
-          {artist}
-        </div>
-      </Draggable>
-      <Draggable>
-        <div
-          className={`track overlay ${trackFont.class}`}
-          style={{ color: fontColor, fontSize: `${fontSize}px` }}
-        >
-          {track}
-        </div>
-      </Draggable>
     </div>
   );
 };

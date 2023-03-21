@@ -1,36 +1,19 @@
 import React from 'react';
-import { useMoralis } from 'react-moralis';
-// import Moralis from 'moralis/';
+import { useSelector } from 'react-redux';
+import ConnectWalletButton from './ConnectWalletButton';
 
-const Header = ({ showEditor }) => {
-  const { user, authenticate, logout, isAuthenticated, isAuthenticating } =
-    useMoralis();
-
-  async function login() {
-    if (!isAuthenticated) {
-      authenticate();
-    }
-  }
+const Header = () => {
+  const isAuthenticated = useSelector((state) => state.user.authenticated);
+  const address = useSelector((state) => state.user.address);
 
   return (
     <div id="header">
-      {!isAuthenticated ? (
-        <button onClick={login}>Connect</button>
+      <ConnectWalletButton />
+      {isAuthenticated ? (
+        <div>{`${address.slice(0, 5)}...${address.slice(-4)}`}</div>
       ) : (
-        <button onClick={logout} disabled={isAuthenticating}>
-          Logout
-        </button>
+        <div />
       )}
-      <div id="record" className="container">
-        <button
-          onClick={() => {
-            showEditor(true);
-          }}
-        >
-          Press dub plate
-        </button>
-      </div>
-      {isAuthenticated ? <div>{user.get('ethAddress')}</div> : <div />}
     </div>
   );
 };

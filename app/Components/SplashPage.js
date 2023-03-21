@@ -1,107 +1,47 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { useMoralis } from 'react-moralis';
-import { wallets } from '../utils';
 
-const baseURL = 'https://dg3mov3znt8u.cloudfront.net';
-
-const checkWhitelisted = (address, start, set) => {
-  const ok = wallets.filter((el) => el.toLowerCase() === address.toLowerCase());
-  if (ok.length > 0) {
-    set(address.toLowerCase());
-    start();
-  } else {
-    alert('not in whitelist!');
-  }
-};
-
-export default function SplashPage({
-  introVidRef,
-  loadingVidRef,
-  buttonWrapperRef,
-  modalRef,
-  startLoadingGame,
-  setAddress,
-}) {
+export default function SplashPage({ introModalRef, player }) {
+  const isAuthenticated = useSelector((state) => state.user.authenticated);
   const navigate = useNavigate();
-  const { user, authenticate, isAuthenticated } = useMoralis();
+  const [loading, setLoading] = useState(false);
+  const [showMessage, setShowMessage] = useState(false);
 
-  async function login() {
+  const hide = () => {
+    setShowMessage(false);
+  };
+
+  const load = () => {
     if (!isAuthenticated) {
-      await authenticate();
-      const address = user.get('ethAddress');
-      checkWhitelisted(address, startLoadingGame, setAddress);
-    } else {
-      const address = user.get('ethAddress');
-      checkWhitelisted(address, startLoadingGame, setAddress);
+      setShowMessage(true);
+      return;
     }
-  }
-
-  const startVideo = () => {
-    document.getElementById('enter').style.display = 'none';
-    introVidRef.current.play();
-    setTimeout(() => {
-      buttonWrapperRef.current.style.display = 'flex';
-    }, 29000);
-  };
-
-  const goToCrates = () => {
-    navigate('/crates');
-  };
-
-  const handleEnter = (e) => {
-    e.target.src = e.target.src.replace('.png', '_selected.png');
-  };
-
-  const handleLeave = (e) => {
-    e.target.src = e.target.src.replace('_selected.png', '.png');
+    player.startInstance();
+    setLoading(true);
   };
 
   return (
-    <div id="intro-modal" ref={modalRef}>
-      <div id="enter" onClick={startVideo}>
-        ENTER
-      </div>
-      <video
-        id="intro-video"
-        src={`${baseURL}/Floppy_Splash_Page.mp4`}
-        ref={introVidRef}
-      ></video>
-      <video
-        id="loading-video"
-        src={`${baseURL}/F081.mp4`}
-        ref={loadingVidRef}
-      ></video>
-      <div id="intro-button-wrapper" ref={buttonWrapperRef}>
-        <img
-          className="intro-button"
-          src="start_game.png"
-          onClick={login}
-          onMouseEnter={handleEnter}
-          onMouseLeave={handleLeave}
-        ></img>
-        <img
-          className="intro-button"
-          src="crates_button.png"
-          onMouseEnter={handleEnter}
-          onMouseLeave={handleLeave}
-          // onClick={goToCrates}
-        ></img>
-        <a
-          href="https://www.youtube.com/watch?v=oXloCc0wvQQ&list=PLPxSPhynpbXncHKNSbStKg2uiAADARi9P"
-          target={'_blank'}
-          onClick={() => {
-            introVidRef.current.pause();
-          }}
-        >
-          <img
-            className="intro-button"
-            src="tutorial_button.png"
-            onMouseEnter={handleEnter}
-            onMouseLeave={handleLeave}
-          ></img>
-        </a>
-      </div>
+    <div id="intro-modal" ref={introModalRef}>
+      {showMessage && (
+        <div className="message-modal">
+          <div onClick={hide}>x</div>
+          <p>must connect wallet to play</p>
+        </div>
+      )}
+      {!loading && (
+        <div id="intro-button-wrapper">
+          <button onClick={load}>Play</button>
+          <button
+            onClick={() => {
+              navigate('/crates');
+            }}
+          >
+            Crates
+          </button>
+        </div>
+      )}
+      {loading && <div id="loading-message">Loading...</div>}
     </div>
   );
 }

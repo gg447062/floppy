@@ -1,98 +1,81 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useMoralis, useNewMoralisObject } from 'react-moralis';
 import { useSelector } from 'react-redux';
-import Moralis from 'moralis/';
-import { cleanName } from '../utils';
+import { assetBaseURL, cleanName, moralisGateway } from '../lib/utils';
+import { saveAssetsToIPFS, saveMetadataToIPFS } from '../lib/ipfs';
+import { uploadDubplate } from '../lib/db';
 
-export default function Upload({ setShowUpload }) {
-  const { isAuthenticated, authenticate } = useMoralis();
-  const { save } = useNewMoralisObject('Dubplate');
+export default function Upload() {
+  const isAuthenticated = useSelector((state) => state.user.authenticated);
   const frontURL = useSelector((state) => state.metadata.frontURL);
   const backURL = useSelector((state) => state.metadata.backURL);
+  const audioURL = useSelector((state) => state.metadata.audioURL);
   const artist = useSelector((state) => state.metadata.artist);
   const track = useSelector((state) => state.metadata.track);
   const [artistName, setArtistName] = useState('');
   const [trackName, setTrackName] = useState('');
+  const [price, setPrice] = useState(0);
   const [message, setMessage] = useState('uploading...');
   const [showMessage, setShowMessage] = useState(false);
   const [audioSrc, setAudioSrc] = useState(null);
-  const [disabled, setDisabled] = useState(false);
-  const [uploaded, setUploaded] = useState(false);
-  const audioInput = useRef(null);
+  const [disabled, setDisabled] = useState(true);
   const navigate = useNavigate();
 
-  const updateAudio = () => {
-    setAudioSrc(URL.createObjectURL(audioInput.current.files[0]));
-    setUploaded(true);
-  };
-
-  const saveObject = (data) => {
-    save(data, {
-      onSuccess: (dubplate) => {
-        return dubplate.id;
-      },
-      onError: (error) => {
-        console.log(error);
-        return error.message;
-      },
-    });
+  const updatePrice = (e) => {
+    setPrice(e.target.value);
   };
 
   const saveToDatabase = async (front, back, artist, track) => {
     if (isAuthenticated) {
-      const frontImage = new Moralis.File(`${cleanName(trackName)}_front.png`, {
-        base64: front,
-      });
-      await frontImage.saveIPFS();
-      const frontHash = frontImage.hash();
-
-      const backImage = new Moralis.File(`${cleanName(trackName)}_back.png`, {
-        base64: back,
-      });
-      await backImage.saveIPFS();
-      const backHash = backImage.hash();
-
-      const audioFile = new Moralis.File(
-        `${trackName}.mp3`,
-        audioInput.current.files[0]
-      );
-
-      await audioFile.saveIPFS();
-      const audioHash = audioFile.hash();
-
-      const metadata = {
-        name: track,
-        artist: artist,
-        description: 'a floppy dubplate',
-        front: frontHash,
-        back: backHash,
-        audio: audioHash,
+      const frontImage = {
+        path: `${cleanName(trackName)}_front.png`,
+        content: front,
       };
 
-      const jsonFile = new Moralis.File(`${name}_metadata.json`, {
-        base64: btoa(JSON.stringify(metadata)),
-      });
+      const backImage = {
+        path: `${cleanName(trackName)}_back.png`,
+        content: back,
+      };
 
-      await jsonFile.saveIPFS();
-      const jsonHash = jsonFile.hash();
+      const hashes = await saveAssetsToIPFS(frontImage, backImage);
 
-      await saveObject({
+      const metadata = {
+        name: `${artist} - ${track}`,
+        description: 'a floppy dubplate',
+        image: hashes[0],
+        animation_url: audioURL,
+      };
+
+      const metadataHash = await saveMetadataToIPFS(
+        btoa(JSON.stringify(metadata)),
+        `${track}_metadata.json`
+      );
+
+      await uploadDubplate({
         artist: artist,
         track: track,
-        metadata: metadata,
-        metadataHash: jsonHash,
+        price: price,
+        front: hashes[0],
+        back: hashes[1],
+        audio: audioURL,
+        metadataHash: metadataHash,
+        status: 'new',
       });
 
       setMessage('object saved successfully');
     } else {
-      await authenticate();
-      saveToDatabase();
+      setMessage('please connect wallet to upload');
+      setShowMessage(true);
+      setTimeout(() => {
+        setShowMessage(false);
+        setMessage('uploading...');
+      }, 2000);
     }
   };
 
   const saveFinal = async () => {
-    if (uploaded) {
+    if (disabled) return;
+    else {
       setDisabled(true);
       setShowMessage(true);
       await saveToDatabase(frontURL, backURL, artistName, trackName);
@@ -101,37 +84,57 @@ export default function Upload({ setShowUpload }) {
   };
 
   useEffect(() => {
+    if (
+      artistName.length > 0 &&
+      trackName.length > 0 &&
+      price > 0 &&
+      audioURL.length > 0
+    ) {
+      setDisabled(false);
+    }
+  }, [artistName, trackName, price, audioURL]);
+
+  useEffect(() => {
     const onLoad = () => {
       setArtistName(artist);
       setTrackName(track);
+      setAudioSrc(`${moralisGateway}/${audioURL}`);
     };
     onLoad();
   }, []);
 
   return (
-    <div className="upload-wrapper ff-3">
+    <div className="upload-wrapper">
       <img src={frontURL} />
       <div className="upload-inner-wrapper">
-        <label htmlFor="artist">Artist</label>
+        <label htmlFor="artist-name">Artist</label>
         <input
-          id="artist"
+          id="artist-name"
           value={artistName}
           onChange={(e) => setArtistName(e.target.value)}
         ></input>
-        <label htmlFor="track">Track</label>
+        <label htmlFor="track-name">Track</label>
         <input
-          id="track"
+          id="track-name"
           value={trackName}
           onChange={(e) => setTrackName(e.target.value)}
         ></input>
-
-        <input type={'file'} onChange={updateAudio} ref={audioInput}></input>
-
+        <label htmlFor="price">Price (Eth)</label>
+        <input
+          id="price"
+          type="number"
+          min={0}
+          step={0.1}
+          onChange={updatePrice}
+          value={price}
+        ></input>
         {audioSrc && <audio src={audioSrc} controls></audio>}
-        <button onClick={saveFinal} disabled={disabled}>
-          Save
-        </button>
-        <button onClick={() => setShowUpload(false)}>X</button>
+        <img
+          id="upload-save"
+          src={`${assetBaseURL}/bg_images/save_redux.png`}
+          onClick={saveFinal}
+        />
+        <button onClick={() => navigate('/')}>X</button>
       </div>
       {showMessage && (
         <div className="message-container crates-border">
