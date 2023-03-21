@@ -429,9 +429,12 @@
 
 @font-face {
   font-family: 'pix Chicago';
-  src: url('/assets/fonts/pixChicago.woff2') format('woff2'),
-    url('/assets/fonts/pixChicago.woff') format('woff'),
-    url('/assets/fonts/pixChicago.ttf') format('truetype');
+  src: url('https://dg3mov3znt8u.cloudfront.net/upload/converted_fonts/pixChicago.woff2')
+      format('woff2'),
+    url('https://dg3mov3znt8u.cloudfront.net/upload/converted_fonts/pixChicago.woff')
+      format('woff'),
+    url('https://dg3mov3znt8u.cloudfront.net/upload/converted_fonts/pixChicago.ttf')
+      format('truetype');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -439,15 +442,18 @@
 
 @font-face {
   font-family: 'Cytone-Regular';
-  src: url('/assets/fonts/Cytone-Regular.otf') format('opentype');
+  src: url('https://dg3mov3znt8u.cloudfront.net/upload/converted_fonts/Cytone-Regular.otf')
+    format('opentype');
 }
 
 @font-face {
   font-family: 'Malayalam-Bold';
-  src: url('/assets/fonts/MalayalamMN-Bold-02.ttf') format('truetype');
+  src: url('https://dg3mov3znt8u.cloudfront.net/upload/converted_fonts/MalayalamMN-Bold-02.ttf')
+    format('truetype');
 }
 
 @font-face {
   font-family: 'Malayalam';
-  src: url('/assets/fonts/MalayalamMN-01.ttf') format('truetype');
+  src: url('https://dg3mov3znt8u.cloudfront.net/upload/converted_fonts/MalayalamMN-01.ttf')
+    format('truetype');
 }

@@ -1,9 +1,9 @@
 import React from 'react';
-import Controls from './LayerSelector/Controls';
 import { useSelector, useDispatch } from 'react-redux';
 import { setArtist, setTrack } from '../../../Redux/metadata';
 import SaveButton from './SaveButton';
 import LayerSelector from './LayerSelector';
+import { assetBaseURL } from '../../../lib/utils';
 
 const ControlPanel = ({ drawInitialBg }) => {
   const dispatch = useDispatch();
@@ -30,14 +30,11 @@ const ControlPanel = ({ drawInitialBg }) => {
 
   return (
     <div className="control-panel">
-      {/* <h2 className="ff-3">Press A Dubplate</h2> */}
-      {/* <img id="editor-header" src="assets/bg_images/pressadubplateheader.png" /> */}
       <LayerSelector />
-
       <div className="permanent">
         <img
           id="clear"
-          src="assets/bg_images/reset_redux.png"
+          src={`${assetBaseURL}/bg_images/reset_redux.png`}
           onClick={reset}
         />
         <SaveButton clearCanvas={clearCanvas} />

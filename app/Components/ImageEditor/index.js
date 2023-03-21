@@ -10,7 +10,7 @@ import {
 } from '../../Redux/editor/global';
 import Canvas from './Canvas';
 import ControlPanel from './ControlPanel';
-import { assetBaseURL, CANVAS_HEIGHT } from '../../lib/utils';
+import { corsAssetURL, CANVAS_HEIGHT } from '../../lib/utils';
 
 const ImageEditor = () => {
   const dispatch = useDispatch();
@@ -23,7 +23,7 @@ const ImageEditor = () => {
 
   const drawInitialBg = (ctx1, ctx2) => {
     const clTextureImg = new Image(CANVAS_HEIGHT, CANVAS_HEIGHT);
-    clTextureImg.src = `${assetBaseURL}/RECORD_CENTERLABEL/Centerlabel_Texture.png`;
+    clTextureImg.src = `${corsAssetURL}/RECORD_CENTERLABEL/Centerlabel_Texture.png`;
     clTextureImg.setAttribute('crossorigin', 'anonymous');
     clTextureImg.onload = () => {
       ctx1.filter = 'none';
@@ -37,7 +37,7 @@ const ImageEditor = () => {
     };
 
     const centerImg = new Image(CANVAS_HEIGHT, CANVAS_HEIGHT);
-    centerImg.src = `${assetBaseURL}/RECORD_CENTERLABEL/Record.png`;
+    centerImg.src = `${corsAssetURL}/RECORD_CENTERLABEL/Record.png`;
     centerImg.setAttribute('crossorigin', 'anonymous');
     centerImg.onload = () => {
       ctx2.filter = 'none';

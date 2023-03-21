@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { setFrontURL, setBackURL } from '../../../Redux/metadata';
+import { assetBaseURL } from '../../../lib/utils';
 
 const SaveButton = ({ clearCanvas }) => {
   const navigate = useNavigate();
@@ -85,7 +86,7 @@ const SaveButton = ({ clearCanvas }) => {
   return (
     <img
       id="save"
-      src="assets/bg_images/save_redux.png"
+      src={`${assetBaseURL}/bg_images/save_redux.png`}
       onClick={saveAndDownload}
     />
   );

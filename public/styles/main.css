@@ -73,7 +73,7 @@ ul {
   align-items: center;
   border-bottom: 1px solid var(--blue-glow);
   background-color: black;
-  z-index: 3;
+  z-index: 30000;
 }
 
 .modal {
@@ -199,7 +199,7 @@ ul {
   height: 100vh;
   width: 50vw;
   position: relative;
-  background-image: url('../assets/bg_images/recorddisplaybox.png');
+  background-image: url('https://dg3mov3znt8u.cloudfront.net/upload/bg_images/recorddisplaybox.png');
   background-size: contain;
   background-position: center;
 }
@@ -295,7 +295,7 @@ ul {
 }
 
 .assets-container-wrapper {
-  background-image: url('../assets/bg_images/asset_box.png');
+  background-image: url('https://dg3mov3znt8u.cloudfront.net/upload/bg_images/asset_box.png');
   background-size: contain;
   background-position: center;
   background-repeat: no-repeat;
@@ -525,16 +525,16 @@ ul {
 }
 
 #artist-text {
-  background-image: url('../assets/bg_images/artisttype.png');
+  background-image: url('https://dg3mov3znt8u.cloudfront.net/upload/bg_images/artisttype.png');
 }
 
 #track-text {
-  background-image: url('../assets/bg_images/tracktype.png');
+  background-image: url('https://dg3mov3znt8u.cloudfront.net/upload/bg_images/tracktype.png');
 }
 
 #artist,
 #track {
-  background-image: url('../assets/bg_images/fontselectionbox_default.png');
+  background-image: url('https://dg3mov3znt8u.cloudfront.net/upload/bg_images/fontselectionbox_default.png');
   height: 2em;
   width: 8em;
 }
@@ -758,7 +758,7 @@ ul {
   justify-content: center;
   align-items: center;
   padding-top: 1em;
-  background-image: url(../assets/crates_ui_assets/cratesbackgroundTILE.png);
+  background-image: url(https://dg3mov3znt8u.cloudfront.net/upload/crates_ui_assets/cratesbackgroundTILE.png);
   background-size: contain;
   background-repeat: repeat;
   width: 100vw;
@@ -839,7 +839,7 @@ img.audio-player-play-button,
   -webkit-appearance: none;
   width: 1.2em;
   height: 1.2em;
-  background-image: url('../assets/crates_ui_assets/audioplayerindicator_sizedforpopup.png');
+  background-image: url('https://dg3mov3znt8u.cloudfront.net/upload/crates_ui_assets/audioplayerindicator_sizedforpopup.png');
   background-size: contain;
 }
 
@@ -874,7 +874,7 @@ img.audio-player-play-button-large {
   -webkit-appearance: none;
   width: 1.9em;
   height: 1.9em;
-  background-image: url('../assets/crates_ui_assets/audioplayerindicator_sizedforpopup.png');
+  background-image: url('https://dg3mov3znt8u.cloudfront.net/upload/crates_ui_assets/audioplayerindicator_sizedforpopup.png');
   background-size: contain;
 }
 
@@ -945,7 +945,7 @@ img.audio-player-play-button-large {
 #crates {
   height: 100vh;
   width: 100vw;
-  background-image: url('../assets/listener_3d_assets/listener_background.png');
+  background-image: url('https://dg3mov3znt8u.cloudfront.net/upload/listener_3d_assets/listener_background.png');
   background-size: contain;
   overflow-y: hidden;
   box-sizing: border-box;
@@ -1051,7 +1051,7 @@ img.audio-player-play-button-large {
 }
 
 .playlist-item-selected {
-  background-image: url('../assets/listener_3d_assets/playlist_song_selected.png');
+  background-image: url('https://dg3mov3znt8u.cloudfront.net/upload/listener_3d_assets/playlist_song_selected.png');
   background-size: cover;
 }
 
@@ -1105,7 +1105,7 @@ img.audio-player-play-button-large {
   -webkit-appearance: none;
   width: 1.2em;
   height: 1.2em;
-  background-image: url('../assets/listener_3d_assets/playlist_scroll_dongle.png');
+  background-image: url('https://dg3mov3znt8u.cloudfront.net/upload/listener_3d_assets/playlist_scroll_dongle.png');
   background-size: contain;
 }
 

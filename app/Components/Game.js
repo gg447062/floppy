@@ -41,7 +41,7 @@ const Game = () => {
 
   const handleNewUpload = (url, name, id) => {
     setUploadData({ url, name, id });
-    showUploadMessage(true);
+    setShowUploadMessage(true);
   };
 
   const showGame = () => {

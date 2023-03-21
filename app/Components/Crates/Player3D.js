@@ -1,14 +1,14 @@
 import React, { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import MainCanvas from './RecordViewer';
-import { moralisGateway } from '../../lib/utils';
+import { moralisGateway, assetBaseURL } from '../../lib/utils';
 import { fetchDubplates } from '../../lib/db';
 
 function AudioPlayer({ dubplate, previous, next }) {
   const audioRef = useRef();
   const timelineRef = useRef();
   const [src, setSrc] = useState(
-    'assets/crates_ui_assets/cratesplaybutton_sizedforpopup.png'
+    `${assetBaseURL}/crates_ui_assets/cratesplaybutton_sizedforpopup.png`
   );
 
   const play = (e) => {
@@ -18,10 +18,12 @@ function AudioPlayer({ dubplate, previous, next }) {
       audioRef.current.currentTime == audioRef.current.duration
     ) {
       audioRef.current.play();
-      setSrc('assets/listener_3d_assets/Pause_button.png');
+      setSrc(`${assetBaseURL}/listener_3d_assets/Pause_button.png`);
     } else {
       audioRef.current.pause();
-      setSrc('assets/crates_ui_assets/cratesplaybutton_sizedforpopup.png');
+      setSrc(
+        `${assetBaseURL}/crates_ui_assets/cratesplaybutton_sizedforpopup.png`
+      );
     }
   };
 
@@ -50,12 +52,12 @@ function AudioPlayer({ dubplate, previous, next }) {
       <div className="controls-inner-wrapper">
         <div className="button-wrapper">
           <img
-            src="assets/listener_3d_assets/previous_track_button.png"
+            src={`${assetBaseURL}/listener_3d_assets/previous_track_button.png`}
             onClick={previous}
           />
           <img src={src} onClick={play} />
           <img
-            src="assets/listener_3d_assets/next_track_button.png"
+            src={`${assetBaseURL}/listener_3d_assets/next_track_button.png`}
             onClick={next}
           />
         </div>
@@ -72,16 +74,16 @@ function AudioPlayer({ dubplate, previous, next }) {
             ></input>
             <img
               className={`player-3d-timeline-bg`}
-              src="assets/listener_3d_assets/playlist_track_scoller_background.png"
+              src={`${assetBaseURL}/listener_3d_assets/playlist_track_scoller_background.png`}
             ></img>
             <img
               className={`player-3d-timeline-bg-upper`}
-              src="assets/listener_3d_assets/track_scroll_black.png"
+              src={`${assetBaseURL}/listener_3d_assets/track_scroll_black.png`}
             ></img>
           </div>
           <img
             className="playlist-button-default"
-            src="assets/listener_3d_assets/playlist_button_default.png"
+            src={`${assetBaseURL}/listener_3d_assets/playlist_button_default.png`}
           ></img>
         </div>
         <div className="track-info">
@@ -90,7 +92,9 @@ function AudioPlayer({ dubplate, previous, next }) {
             <p>-</p>
             <p>{dubplate.track}</p>
           </div>
-          <img src="assets/listener_3d_assets/buy_button_default.png" />
+          <img
+            src={`${assetBaseURL}/listener_3d_assets/buy_button_default.png`}
+          />
         </div>
       </div>
       <audio
@@ -117,7 +121,9 @@ function Playlist({ dubplates, current }) {
               </p>
               <div>
                 <p>2:03</p>
-                <img src="assets/listener_3d_assets/buy_button_default.png" />
+                <img
+                  src={`${assetBaseURL}/listener_3d_assets/buy_button_default.png`}
+                />
               </div>
             </div>
           );

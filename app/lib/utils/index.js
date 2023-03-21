@@ -9,10 +9,9 @@ const cleanName = (name) => {
   } else return name;
 };
 
-// const assetBaseURL = '/api/image'; // proxied from server
-// const assetBaseURL = 'https://dg3mov3znt8u.cloudfront.net/upload'; // from cloudfront need to make CDN for this
+const corsAssetURL = '/api/image'; // proxied from server
+const assetBaseURL = 'https://dg3mov3znt8u.cloudfront.net/upload';
 
-const assetBaseURL = 'assets'; // from local filesystem
 const moralisGateway = 'https://gateway.moralisipfs.com/ipfs';
 
 const CANVAS_HEIGHT = window.innerWidth / 2;
@@ -77,6 +76,7 @@ export {
   cleanName,
   downloadWAV,
   moralisGateway,
+  corsAssetURL,
   assetBaseURL,
   wallets,
   CANVAS_HEIGHT,

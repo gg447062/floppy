@@ -1,6 +1,7 @@
 import { db } from './firebase';
 import {
   collection,
+  doc,
   addDoc,
   updateDoc,
   getDocs,
@@ -43,16 +44,13 @@ export async function addWalletToUpload(id, address) {
 export function listenForNewDownload(cb, ip) {
   const downloadsQuery = query(
     collection(db, 'uploads'),
-    where('download', '==', true)
+    where('download', '==', true),
+    where('timestamp', '>=', Timestamp.now().toMillis())
   );
 
   const listener = onSnapshot(downloadsQuery, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
-      if (
-        change.type === 'added' &&
-        change.doc.data().timestamp >= Timestamp.now().toMillis() &&
-        change.doc.data().ip === ip
-      ) {
+      if (change.type === 'added' && change.doc.data().ip == ip) {
         console.log('new download: ', change.doc.data().name, change.doc.id);
         cb(change.doc.data().hash, change.doc.data().name);
       }
@@ -65,16 +63,13 @@ export function listenForNewDownload(cb, ip) {
 export function listenForNewUpload(cb, ip) {
   const uploadsQuery = query(
     collection(db, 'uploads'),
-    where('download', '==', false)
+    where('download', '==', false),
+    where('timestamp', '>=', Timestamp.now().toMillis())
   );
 
   const listener = onSnapshot(uploadsQuery, (snapshot) => {
     snapshot.docChanges().forEach((change) => {
-      if (
-        change.type === 'added' &&
-        change.doc.data().timestamp >= Timestamp.now().toMillis() &&
-        change.doc.data().ip === ip
-      ) {
+      if (change.type === 'added' && change.doc.data().ip == ip) {
         console.log('new upload: ', change.doc.data().name, change.doc.id);
         cb(change.doc.data().hash, change.doc.data().name, change.doc.id);
       }

@@ -1,26 +1,28 @@
-import React, { useState, useEffect, useRef } from "react";
-import { moralisGateway } from "../../lib/utils";
-import { fetchDubplates } from "../../lib/db";
+import React, { useState, useEffect, useRef } from 'react';
+import { moralisGateway, assetBaseURL } from '../../lib/utils';
+import { fetchDubplates } from '../../lib/db';
 
 const AudioPlayer = ({ dubplate, index, modal = false }) => {
   const audioRef = useRef();
   const timelineRef = useRef();
   const [src, setSrc] = useState(
-    "assets/crates_ui_assets/cratesplaybutton_sizedforpopup.png"
+    `${assetBaseURL}/crates_ui_assets/cratesplaybutton_sizedforpopup.png`
   );
-  const size = modal ? "-large" : "";
+  const size = modal ? '-large' : '';
 
   const playAudio = (e) => {
     if (
       audioRef.current.paused ||
-      audioRef.current.cureetTime == 0 ||
+      audioRef.current.currentTime == 0 ||
       audioRef.current.currentTime == audioRef.current.duration
     ) {
       audioRef.current.play();
-      setSrc("assets/listener_3d_assets/Pause_button.png");
+      setSrc(`${assetBaseURL}/listener_3d_assets/Pause_button.png`);
     } else {
       audioRef.current.pause();
-      setSrc("assets/crates_ui_assets/cratesplaybutton_sizedforpopup.png");
+      setSrc(
+        `${assetBaseURL}/crates_ui_assets/cratesplaybutton_sizedforpopup.png`
+      );
     }
   };
 
@@ -62,7 +64,7 @@ const AudioPlayer = ({ dubplate, index, modal = false }) => {
         ></input>
         <img
           className={`audio-player-timeline-bg${size}`}
-          src="assets/crates_ui_assets/audioplayerbar_sizedforpopup.png"
+          src={`${assetBaseURL}/crates_ui_assets/audioplayerbar_sizedforpopup.png`}
         ></img>
       </div>
       <audio
@@ -79,7 +81,7 @@ const Modal = ({ dubplate, setViewSingle, index }) => {
     <div className="dubplate-grid-view__single-wrapper">
       <img
         className="absolute grid-view-modal-close"
-        src="assets/crates_ui_assets/x_outofpopup.png"
+        src={`${assetBaseURL}/crates_ui_assets/x_outofpopup.png`}
         onClick={() => {
           setViewSingle(false);
         }}
@@ -105,7 +107,7 @@ const Modal = ({ dubplate, setViewSingle, index }) => {
       </div>
       <img
         className="grid-view-single-buy"
-        src="assets/crates_ui_assets/buybutton_sizedforpopup.png"
+        src={`${assetBaseURL}/crates_ui_assets/buybutton_sizedforpopup.png`}
       ></img>
     </div>
   );
@@ -126,7 +128,9 @@ const GridItem = ({ dubplate, openModal, index }) => {
       <AudioPlayer dubplate={dubplate} index={index} />
       <div className="dubplate-grid-view-buy">
         <p>0.1 ETH</p>
-        <img src="assets/crates_ui_assets/buybutton_sizedforpopup.png"></img>
+        <img
+          src={`${assetBaseURL}/crates_ui_assets/buybutton_sizedforpopup.png`}
+        ></img>
       </div>
     </div>
   );
@@ -155,7 +159,7 @@ const Grid = () => {
   return (
     <div className="grid-view-wrapper">
       <img
-        src="assets/crates_ui_assets/floppycratesbanner.png"
+        src={`${assetBaseURL}/crates_ui_assets/floppycratesbanner.png`}
         height="150px"
         width="auto"
       ></img>

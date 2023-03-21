@@ -6,7 +6,7 @@ import {
   Solver,
   CANVAS_HEIGHT,
   getFontName,
-  assetBaseURL,
+  corsAssetURL,
 } from '../../../../lib/utils';
 
 const ColorSelector = ({
@@ -33,7 +33,7 @@ const ColorSelector = ({
   const drawCenterLabel = (filter) => {
     cl.ctx.clearRect(0, 0, cl.canvas.width, cl.canvas.height);
     const image = new Image(CANVAS_HEIGHT, CANVAS_HEIGHT);
-    image.src = `${assetBaseURL}/RECORD_CENTERLABEL/Centerlabel.png`;
+    image.src = `${corsAssetURL}/RECORD_CENTERLABEL/Centerlabel.png`;
     cl.ctx.filter = filter;
     image.onload = () => {
       cl.ctx.drawImage(image, 0, 0, CANVAS_HEIGHT, CANVAS_HEIGHT);

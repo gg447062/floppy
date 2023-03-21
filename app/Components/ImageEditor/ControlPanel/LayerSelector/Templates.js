@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { setTemplate } from '../../../../Redux/editor/global';
 import { setFilter, setColor } from '../../../../Redux/editor/template';
-import { assetBaseURL, CANVAS_HEIGHT } from '../../../../lib/utils';
+import { corsAssetURL, CANVAS_HEIGHT } from '../../../../lib/utils';
 import { ColorSelector } from './Controls';
 
 const Templates = () => {
@@ -47,7 +47,7 @@ const Templates = () => {
                 key={i}
                 id={`cover-${i + 1}`}
                 className={'template'}
-                src={`${assetBaseURL}/TEMPLATES/cover-${i + 1}/${String(
+                src={`${corsAssetURL}/TEMPLATES/cover-${i + 1}/${String(
                   i + 1
                 ).padStart(2, 0)}_Cover_Thumb.png`}
                 onClick={drawBg}

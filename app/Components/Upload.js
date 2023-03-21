@@ -1,11 +1,11 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { cleanName, moralisGateway } from '../lib/utils';
+import { assetBaseURL, cleanName, moralisGateway } from '../lib/utils';
 import { saveAssetsToIPFS, saveMetadataToIPFS } from '../lib/ipfs';
 import { uploadDubplate } from '../lib/db';
 
-export default function Upload({ setShowUpload }) {
+export default function Upload() {
   const isAuthenticated = useSelector((state) => state.user.authenticated);
   const frontURL = useSelector((state) => state.metadata.frontURL);
   const backURL = useSelector((state) => state.metadata.backURL);
@@ -131,10 +131,10 @@ export default function Upload({ setShowUpload }) {
         {audioSrc && <audio src={audioSrc} controls></audio>}
         <img
           id="upload-save"
-          src="assets/bg_images/save_redux.png"
+          src={`${assetBaseURL}/bg_images/save_redux.png`}
           onClick={saveFinal}
         />
-        <button onClick={() => setShowUpload(false)}>X</button>
+        <button onClick={() => navigate('/')}>X</button>
       </div>
       {showMessage && (
         <div className="message-container crates-border">

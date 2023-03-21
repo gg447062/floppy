@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { assetBaseURL } from '../../../../lib/utils';
+import { corsAssetURL } from '../../../../lib/utils';
 import {
   setStampSize,
   setStampFilter,
@@ -40,7 +40,7 @@ const CenterLabel = ({ chooseStamp }) => {
               <img
                 id={`cl_${i + 1}`}
                 className="cl_stamp stamp_invert"
-                src={`${assetBaseURL}/CENTER_LABEL_ASSETS/CL_${i + 1}.png`}
+                src={`${corsAssetURL}/CENTER_LABEL_ASSETS/CL_${i + 1}.png`}
                 onClick={chooseStamp}
                 key={i}
               />
@@ -65,7 +65,7 @@ const CenterLabel = ({ chooseStamp }) => {
               />
               <img
                 id="cl-color-img"
-                src="assets/bg_images/centerlabelcolor.png"
+                src={`${corsAssetURL}/bg_images/centerlabelcolor.png`}
               />
             </div>
           </div>

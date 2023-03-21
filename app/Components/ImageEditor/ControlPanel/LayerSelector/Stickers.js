@@ -1,6 +1,6 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
-import { assetBaseURL } from '../../../../lib/utils';
+import { corsAssetURL } from '../../../../lib/utils';
 import { SizeSelector } from './Controls';
 import { setSize } from '../../../../Redux/editor/stickers';
 
@@ -15,7 +15,7 @@ const Stickers = ({ chooseStamp }) => {
               <img
                 id={`sticker_${i + 1}`}
                 className="sticker"
-                src={`${assetBaseURL}/STICKERS/STICKER_${i + 1}.png`}
+                src={`${corsAssetURL}/STICKERS/STICKER_${i + 1}.png`}
                 onClick={chooseStamp}
                 key={i}
               />

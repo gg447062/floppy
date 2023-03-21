@@ -10,6 +10,7 @@ import Templates from './Templates';
 import Stamps from './Stamps';
 import Stickers from './Stickers';
 import CenterLabel from './CenterLabel';
+import { assetBaseURL } from '../../../../lib/utils';
 
 const LayerTitle = ({ title, size, filter }) => {
   const dispatch = useDispatch();
@@ -25,7 +26,7 @@ const LayerTitle = ({ title, size, filter }) => {
   return (
     <img
       id={title}
-      src={`assets/bg_images/Categories/${title}_${state}.png`}
+      src={`${assetBaseURL}/bg_images/Categories/${title}_${state}.png`}
       onClick={chooseLayer}
     />
   );
