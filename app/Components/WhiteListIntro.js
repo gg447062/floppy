@@ -4,7 +4,7 @@ import { signInWithCustomToken } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import { setAuthenticated, setAddress } from '../Redux/user';
 import { useDispatch } from 'react-redux';
-import wallets from '../../wallets.json';
+
 import axios from 'axios';
 
 export default function WhiteListIntro() {
@@ -47,8 +47,11 @@ export default function WhiteListIntro() {
     }
   }
 
-  function checkWhitelisted(address) {
-    const allowedList = wallets.allowed.map((el) => el.toLowerCase());
+  async function checkWhitelisted(address) {
+    const { data } = await axios.get(
+      'https://dg3mov3znt8u.cloudfront.net/wallets.json'
+    );
+    const allowedList = data.allowed.map((el) => el.toLowerCase());
     if (allowedList.includes(address.toLowerCase())) {
       return true;
     } else {
