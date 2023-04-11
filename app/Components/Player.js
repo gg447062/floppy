@@ -28,7 +28,8 @@ export default class Player {
       console.log('creating iframe');
       const container = document.getElementById('player-container');
       const iframe = document.createElement('iframe');
-      iframe.setAttribute('src', `//${this.instanceIP}`);
+      iframe.setAttribute('src', `https://floppyredirect69.click/`);
+      // iframe.setAttribute('src', `//${this.instanceIP}`);
       iframe.setAttribute('id', 'ec2-player');
       iframe.setAttribute('allow', 'autoplay; fullscreen');
 
