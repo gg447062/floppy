@@ -643,27 +643,17 @@ ul {
 }
 
 #intro-video,
-#loading-video {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  transform: translate(-50%, 0);
-
-  max-height: 100vh;
+#landing-video {
+  width: 100vw;
   max-width: 100%;
 }
 
-#intro-video {
-  z-index: 5;
+#landing-video:hover {
+  cursor: pointer;
 }
 
 #loading-message {
   color: var(--blue-glow);
-}
-
-#loading-video {
-  z-index: 1;
-  display: none;
 }
 
 #intro-button-wrapper {
@@ -680,7 +670,36 @@ ul {
 }
 
 .intro-button {
-  max-height: 2em;
+  max-height: 2.5em;
+  position: absolute;
+}
+
+.intro-button {
+  transition: all 1s ease-in;
+}
+
+#skip-button {
+  bottom: 1em;
+  right: 1em;
+}
+
+#start-button,
+#crates-button,
+#tutorial-button {
+  left: 50%;
+  transform: translate(-50%, 0);
+}
+
+#start-button {
+  bottom: 8em;
+}
+
+#crates-button {
+  bottom: 5em;
+}
+
+#tutorial-button {
+  bottom: 2em;
 }
 
 .intro-button:hover {
