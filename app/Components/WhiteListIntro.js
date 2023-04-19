@@ -4,10 +4,11 @@ import { signInWithCustomToken } from 'firebase/auth';
 import { auth } from '../lib/firebase';
 import { setAuthenticated, setAddress } from '../Redux/user';
 import { useDispatch } from 'react-redux';
+import { assetBaseURL } from '../lib/utils';
 
 import axios from 'axios';
 
-export default function WhiteListIntro() {
+export default function WhiteListIntro({ videoOneRef }) {
   const [blocked, setBlocked] = useState(false);
   const dispatch = useDispatch();
   const bgRef = useRef();
@@ -29,6 +30,7 @@ export default function WhiteListIntro() {
     dispatch(setAuthenticated(true));
     dispatch(setAddress(address));
     bgRef.current.style.display = 'none';
+    videoOneRef.current.play();
   }
 
   async function login() {
@@ -61,7 +63,22 @@ export default function WhiteListIntro() {
 
   return (
     <div className="whitelist-intro" ref={bgRef}>
-      {!blocked && <button onClick={login}>Login to Enter</button>}
+      {!blocked && (
+        <video
+          id="landing-video"
+          onClick={login}
+          // onClick={() => {
+          //   bgRef.current.style.display = 'none';
+          //   videoOneRef.current.play();
+          // }}
+          src={`${assetBaseURL}/intro_assets/intro_1_720.mov`}
+          muted
+          autoPlay
+          loop
+          height={'100%'}
+          width={'100%'}
+        ></video>
+      )}
       {blocked && (
         <div className="blocked">
           <p>Sorry, you aren't on the allowlist</p>

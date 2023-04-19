@@ -24,6 +24,7 @@ const Game = () => {
   const [showUploadMessage, setShowUploadMessage] = useState(false);
   const [uploadData, setUploadData] = useState({});
   const introModalRef = useRef();
+  const videoOneRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -107,10 +108,14 @@ const Game = () => {
 
   return (
     <div>
-      <WhiteListIntro />
-      <Header />
+      <WhiteListIntro videoOneRef={videoOneRef} />
+      {/* <Header /> */}
       <div id="player-container"></div>
-      <SplashPage introModalRef={introModalRef} player={player} />
+      <SplashPage
+        introModalRef={introModalRef}
+        videoOneRef={videoOneRef}
+        player={player}
+      />
       {showUploadMessage && (
         <div className="alert-upload-modal">
           <p>{uploadMessage}</p>
