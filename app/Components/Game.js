@@ -25,6 +25,8 @@ const Game = () => {
   const [uploadData, setUploadData] = useState({});
   const introModalRef = useRef();
   const videoOneRef = useRef();
+  const loadingVideoRef = useRef();
+  const loadingAudioRef = useRef();
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -47,6 +49,8 @@ const Game = () => {
   };
 
   const showGame = () => {
+    loadingVideoRef.current.pause();
+    loadingAudioRef.current.pause();
     introModalRef.current.style.display = 'none';
   };
 
@@ -114,6 +118,8 @@ const Game = () => {
       <SplashPage
         introModalRef={introModalRef}
         videoOneRef={videoOneRef}
+        loadingVideoRef={loadingVideoRef}
+        loadingAudioRef={loadingAudioRef}
         player={player}
       />
       {showUploadMessage && (

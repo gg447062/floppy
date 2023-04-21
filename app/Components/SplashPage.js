@@ -1,9 +1,15 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { assetBaseURL } from '../lib/utils';
 
-export default function SplashPage({ introModalRef, videoOneRef, player }) {
+export default function SplashPage({
+  introModalRef,
+  videoOneRef,
+  loadingVideoRef,
+  loadingAudioRef,
+  player,
+}) {
   const isAuthenticated = useSelector((state) => state.user.authenticated);
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -11,6 +17,7 @@ export default function SplashPage({ introModalRef, videoOneRef, player }) {
   const [showMessage, setShowMessage] = useState(false);
   const [skipButtonState, setSkipButtonState] = useState('none');
   const [buttonState, setButtonState] = useState('none');
+  const containerRef = useRef();
 
   const mouseEnter = (e) => {
     e.target.src = e.target.src.slice(0, -4) + 'hover.png';
@@ -36,6 +43,9 @@ export default function SplashPage({ introModalRef, videoOneRef, player }) {
     }
     player.startInstance();
     setLoading(true);
+    containerRef.current.style.zIndex = 1;
+    loadingVideoRef.current.play();
+    loadingAudioRef.current.play();
   };
 
   useEffect(() => {
@@ -67,7 +77,7 @@ export default function SplashPage({ introModalRef, videoOneRef, player }) {
         </div>
       )}
       {!loading && (
-        <div>
+        <div id="intro-menu-container">
           <video
             id="intro-video"
             src={`${assetBaseURL}/intro_assets/splash_page.mp4`}
@@ -118,7 +128,21 @@ export default function SplashPage({ introModalRef, videoOneRef, player }) {
           </a>
         </div>
       )}
-      {loading && <div id="loading-message">Loading...</div>}
+      <div id="loading-container" ref={containerRef}>
+        <video
+          id="loading-video"
+          src={`${assetBaseURL}/intro_assets/loading.mov`}
+          height="100%"
+          width="100%"
+          preload="auto"
+          loop
+          ref={loadingVideoRef}
+        ></video>
+        <audio
+          src={`${assetBaseURL}/intro_assets/loading.mp3`}
+          ref={loadingAudioRef}
+        ></audio>
+      </div>
     </div>
   );
 }

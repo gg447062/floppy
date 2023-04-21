@@ -24,7 +24,7 @@ body {
   margin: 0;
   padding: 0;
   background-color: var(--bg-grey);
-  overflow-x: hidden;
+  overflow: hidden;
 }
 
 iframe {
@@ -185,7 +185,6 @@ ul {
   height: 100vh;
   width: 100vw;
   z-index: 100000;
-  background-color: #00ff12;
 }
 
 .alert-upload-modal {
@@ -643,7 +642,8 @@ ul {
 }
 
 #intro-video,
-#landing-video {
+#landing-video,
+#loading-video {
   width: 100vw;
   max-width: 100%;
 }
@@ -652,8 +652,11 @@ ul {
   cursor: pointer;
 }
 
-#loading-message {
-  color: var(--blue-glow);
+#loading-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
 }
 
 #intro-button-wrapper {
