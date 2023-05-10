@@ -14,7 +14,7 @@ const assetBaseURL = 'https://dg3mov3znt8u.cloudfront.net/upload';
 
 const moralisGateway = 'https://gateway.moralisipfs.com/ipfs';
 
-const CANVAS_HEIGHT = window.innerWidth / 2;
+const CANVAS_HEIGHT = window.innerWidth / 2.25;
 
 const downloadWAV = async (url, name) => {
   const { data } = await axios.post('/api/ipfs/fetch', { url });
