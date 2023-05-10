@@ -7,6 +7,7 @@ import {
   setCl,
   setFront,
   setBack,
+  setRecord,
 } from '../../Redux/editor/global';
 import Canvas from './Canvas';
 import ControlPanel from './ControlPanel';
@@ -21,7 +22,7 @@ const ImageEditor = () => {
   const fg = useSelector((state) => state.editor.global.fg);
   const layer = useSelector((state) => state.editor.global.layer);
 
-  const drawInitialBg = (ctx1, ctx2) => {
+  const drawInitialBg = (ctx1, ctx2, ctx3) => {
     const clTextureImg = new Image(CANVAS_HEIGHT, CANVAS_HEIGHT);
     clTextureImg.src = `${corsAssetURL}/RECORD_CENTERLABEL/Centerlabel_Texture.png`;
     clTextureImg.setAttribute('crossorigin', 'anonymous');
@@ -37,11 +38,19 @@ const ImageEditor = () => {
     };
 
     const centerImg = new Image(CANVAS_HEIGHT, CANVAS_HEIGHT);
-    centerImg.src = `${corsAssetURL}/RECORD_CENTERLABEL/Record.png`;
+    centerImg.src = `${corsAssetURL}/RECORD_CENTERLABEL/Centerlabel.png`;
     centerImg.setAttribute('crossorigin', 'anonymous');
     centerImg.onload = () => {
       ctx2.filter = 'none';
       ctx2.drawImage(centerImg, 0, 0, centerImg.width, centerImg.height);
+    };
+
+    const recordImg = new Image(CANVAS_HEIGHT, CANVAS_HEIGHT);
+    recordImg.src = `${corsAssetURL}/RECORD_CENTERLABEL/record.png`;
+    recordImg.setAttribute('crossorigin', 'anonymous');
+    recordImg.onload = () => {
+      ctx3.filter = 'none';
+      ctx3.drawImage(recordImg, 0, 0, recordImg.width, recordImg.height);
     };
   };
 
@@ -82,6 +91,8 @@ const ImageEditor = () => {
       const _bgTxtCtx = _bgTxt.getContext('2d');
       const _fg = document.getElementById('canvas-fg');
       const _fgCtx = _fg.getContext('2d');
+      const _record = document.getElementById('record');
+      const _recordCtx = _record.getContext('2d');
       const _cl = document.getElementById('centerlabel');
       const _clCtx = _cl.getContext('2d');
       const _clTxt = document.getElementById('centerlabel-texture');
@@ -97,12 +108,13 @@ const ImageEditor = () => {
       dispatch(
         setBg({ canvas: _bg, ctx: _bgCtx }, { canvas: _bgTxt, ctx: _bgTxtCtx })
       );
+      dispatch(setRecord({ canvas: _record, ctx: _recordCtx }));
       dispatch(
         setCl({ canvas: _cl, ctx: _clCtx }, { canvas: _clTxt, ctx: _clTxtCtx })
       );
       dispatch(setFront({ canvas: _front, ctx: _frontCtx }));
       dispatch(setBack({ canvas: _back, ctx: _backCtx }));
-      drawInitialBg(_clTxtCtx, _clCtx);
+      drawInitialBg(_clTxtCtx, _clCtx, _recordCtx);
     };
 
     prepareCanvas();

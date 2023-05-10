@@ -3,7 +3,7 @@ const SET_TEMPLATE = 'SET_TEMPLATE';
 const SET_LAYER = 'SET_LAYER';
 const SET_OVERLAY = 'SET_OVERLAY';
 const SET_OVERLAY_SIZE = 'SET_OVERLAY_SIZE';
-// const SET_COLOR = 'SET_COLOR';
+const SET_RECORD = 'SET_RECORD';
 const SET_OVERLAY_FILTER = 'SET_OVERLAY_FILTER';
 const SET_BG = 'SET_BG';
 const SET_CENTERLABEL = 'SET_CENTERLABEL';
@@ -41,10 +41,10 @@ export const setFilter = (filter) => ({
   filter,
 });
 
-// export const setColor = (color) => ({
-//   type: SET_COLOR,
-//   color,
-// });
+export const setRecord = (record) => ({
+  type: SET_RECORD,
+  record,
+});
 
 export const setBg = (bg, bgTexture) => ({
   type: SET_BG,
@@ -80,9 +80,9 @@ const initState = {
   layer: 'template',
   size: 0.5,
   filter: null,
-  // color: '#000000',
   bg: {},
   bgTexture: {},
+  record: {},
   cl: {},
   clTexture: {},
   fg: {},
@@ -102,8 +102,8 @@ const editorReducer = (state = initState, action) => {
       return { ...state, overlay: action.overlay };
     case SET_OVERLAY_SIZE:
       return { ...state, size: action.size };
-    // case SET_COLOR:
-    //   return { ...state, color: action.color };
+    case SET_RECORD:
+      return { ...state, record: action.record };
     case SET_OVERLAY_FILTER:
       return { ...state, filter: action.filter };
     case SET_BG:

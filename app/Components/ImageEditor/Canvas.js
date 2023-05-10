@@ -25,12 +25,11 @@ const Canvas = () => {
   const track = useSelector((state) => state.metadata.track);
   const [coords, setCoords] = useState(null);
 
-  const handleStop = (e, data) => {
+  const handleStop = (e) => {
     const targetRect = e.target.getBoundingClientRect();
     const canvasRect = fg.canvas.getBoundingClientRect();
     const _x = targetRect.left - canvasRect.left;
     const _y = targetRect.bottom - canvasRect.top - targetRect.height / 4;
-    console.log('target-y', targetRect.bottom, 'canvas-y', canvasRect.top);
 
     if (e.target.id === 'artiste') {
       dispatch(setArtistPosition([_x, _y]));
@@ -85,37 +84,25 @@ const Canvas = () => {
   return (
     <div className="editor-canvas-wrapper">
       <canvas
-        id="canvas-final-back"
+        id="canvas-final-back" // final "mixdown" image, used for 3d display
         className="canvas"
         height={`${CANVAS_HEIGHT}px`}
         width={`${CANVAS_HEIGHT}px`}
       ></canvas>
       <canvas
-        id="canvas-final-front"
+        id="canvas-final-front" // final "mixdown cover"
         className="canvas"
         height={`${CANVAS_HEIGHT}px`}
         width={`${CANVAS_HEIGHT}px`}
       ></canvas>
       <canvas
-        id="centerlabel"
+        id="centerlabel" // draw the centerlabel
         className="canvas"
         height={`${CANVAS_HEIGHT}px`}
         width={`${CANVAS_HEIGHT}px`}
       ></canvas>
       <canvas
-        id="centerlabel-texture"
-        className="canvas"
-        height={`${CANVAS_HEIGHT}px`}
-        width={`${CANVAS_HEIGHT}px`}
-      ></canvas>
-      <canvas
-        id="canvas-bg"
-        className="canvas"
-        height={`${CANVAS_HEIGHT}px`}
-        width={`${CANVAS_HEIGHT}px`}
-      ></canvas>
-      <canvas
-        id="canvas-fg"
+        id="centerlabel-texture" // centerlabel texture layer
         className="canvas"
         height={`${CANVAS_HEIGHT}px`}
         width={`${CANVAS_HEIGHT}px`}
@@ -123,15 +110,33 @@ const Canvas = () => {
         onClick={draw}
       ></canvas>
       <canvas
-        id="bg-texture"
+        id="record" // record, no centerlabel
+        className="canvas"
+        height={`${CANVAS_HEIGHT}px`}
+        width={`${CANVAS_HEIGHT}px`}
+      ></canvas>
+      <canvas
+        id="canvas-bg" // record cover template
+        className="canvas"
+        height={`${CANVAS_HEIGHT}px`}
+        width={`${CANVAS_HEIGHT}px`}
+      ></canvas>
+      <canvas
+        id="canvas-fg" // stamps and stickers
+        className="canvas"
+        height={`${CANVAS_HEIGHT}px`}
+        width={`${CANVAS_HEIGHT}px`}
+      ></canvas>
+      <canvas
+        id="bg-texture" // texture of the chosen template
         className="canvas"
         height={`${CANVAS_HEIGHT}px`}
         width={`${CANVAS_HEIGHT}px`}
       ></canvas>
       <Draggable onStop={handleStop}>
         <div
-          id="artiste"
-          className={`artist overlay ${artistFont.class}`}
+          id="artiste" // artist overlay
+          className={`overlay ${artistFont.class}`}
           style={{ color: artistColor, fontSize: `${artistSize}px` }}
         >
           {artist}
@@ -139,7 +144,8 @@ const Canvas = () => {
       </Draggable>
       <Draggable onStop={handleStop}>
         <div
-          className={`track overlay ${trackFont.class}`}
+          id="track-ol"
+          className={`overlay ${trackFont.class}`} // track name overlay
           style={{ color: trackColor, fontSize: `${trackSize}px` }}
         >
           {track}
