@@ -22,7 +22,7 @@ const initState = {
     'invert(0%) sepia(84%) saturate(7436%) hue-rotate(328deg) brightness(114%) contrast(114%)',
   // filter: null,
   color: '#000000',
-  size: 0.5,
+  size: 0.375,
 };
 
 const stampsReducer = (state = initState, action) => {

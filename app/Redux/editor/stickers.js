@@ -6,7 +6,7 @@ export const setSize = (size) => ({
 });
 
 const initState = {
-  size: 0.5,
+  size: 0.375,
 };
 
 const stickersReducer = (state = initState, action) => {

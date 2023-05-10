@@ -78,7 +78,7 @@ export const setTrackFontSize = (size) => ({
 });
 
 const initState = {
-  stampSize: 0.5,
+  stampSize: 0.375,
   stampFilter:
     'invert(0%) sepia(84%) saturate(7436%) hue-rotate(328deg) brightness(114%) contrast(114%)',
   stampColor: '#000000',

@@ -92,7 +92,7 @@ const SizeSelector = ({ action, size, text = false }) => {
     dispatch(action(e.target.value));
   };
   const min = text ? '8' : '0.25';
-  const max = text ? '40' : '0.75';
+  const max = text ? '40' : '0.5';
 
   return (
     <div className="input-wrapper">
