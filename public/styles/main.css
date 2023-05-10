@@ -228,6 +228,7 @@ ul {
   background-image: url('https://dg3mov3znt8u.cloudfront.net/upload/bg_images/recorddisplaybox.png');
   background-size: contain;
   background-position: center;
+  background-repeat: no-repeat;
 }
 
 #editor-header {
@@ -238,32 +239,56 @@ ul {
 .canvas {
   position: absolute;
   top: 50%;
-  left: 0%;
-  transform: translate(0, -50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+#centerlabel {
+  z-index: 5;
+}
+
+#centerlabel-texture {
+  z-index: 10;
+}
+
+#artiste,
+#track-ol {
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 15;
+}
+
+#artiste {
+  top: 40%;
+}
+
+#track-ol {
+  top: 50%;
+}
+
+#record {
+  z-index: 20;
 }
 
 #canvas-bg {
-  z-index: 20;
-  pointer-events: none;
-}
-
-#bg-texture {
-  pointer-events: none;
-  z-index: 50;
+  z-index: 25;
 }
 
 #canvas-fg {
   z-index: 30;
 }
 
-#centerlabel {
-  z-index: 5;
-  pointer-events: none;
+#bg-texture {
+  z-index: 50;
 }
 
-#centerlabel-texture {
+#record,
+#canvas-bg,
+#canvas-fg,
+#bg-texture,
+#canvas-final-front,
+#canvas-final-back {
   pointer-events: none;
-  z-index: 10;
 }
 
 .layer-selector {
@@ -502,27 +527,15 @@ ul {
 
 #stamp-ol {
   pointer-events: none;
+  z-index: 100;
 }
 
 .overlay {
   position: absolute;
-  z-index: 100;
   opacity: 0.7;
   padding: 0;
   margin: 0;
   transition: opacity 200ms;
-}
-
-.artist {
-  top: 40%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-
-.track {
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 #artist,
