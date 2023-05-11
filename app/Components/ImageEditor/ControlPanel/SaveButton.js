@@ -22,6 +22,7 @@ const SaveButton = ({ clearCanvas }) => {
   const bgTxt = useSelector((state) => state.editor.global.bgTexture);
   const cl = useSelector((state) => state.editor.global.cl);
   const clTxt = useSelector((state) => state.editor.global.clTexture);
+  const record = useSelector((state) => state.editor.global.record);
   const front = useSelector((state) => state.editor.global.front);
   const back = useSelector((state) => state.editor.global.back);
 
@@ -41,8 +42,13 @@ const SaveButton = ({ clearCanvas }) => {
     writeTextToCanvas(front.ctx, artist, artistPos[0], artistPos[1]);
     writeTextToCanvas(front.ctx, track, trackPos[0], trackPos[1], false);
     front.ctx.drawImage(clTxt.canvas, 0, 0);
+    front.ctx.drawImage(record.canvas, 0, 0);
     front.ctx.drawImage(bg.canvas, 0, 0);
+
+    front.ctx.globalCompositeOperation = 'source-atop';
     front.ctx.drawImage(fg.canvas, 0, 0);
+
+    front.ctx.globalCompositeOperation = 'screen';
     front.ctx.drawImage(bgTxt.canvas, 0, 0);
     const frontImgURL = front.canvas.toDataURL('image/png');
 

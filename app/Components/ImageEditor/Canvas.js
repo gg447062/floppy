@@ -14,7 +14,7 @@ const Canvas = () => {
   const size = useSelector((state) => state.editor.global.size);
   const filter = useSelector((state) => state.editor.global.filter);
   const fg = useSelector((state) => state.editor.global.fg);
-  const cl = useSelector((state) => state.editor.global.cl);
+  const clTexture = useSelector((state) => state.editor.global.clTexture);
   const artistFont = useSelector((state) => state.editor.cl.artistFont);
   const artistSize = useSelector((state) => state.editor.cl.artistFontSize);
   const artistColor = useSelector((state) => state.editor.cl.artistFontColor);
@@ -53,7 +53,7 @@ const Canvas = () => {
     const offsetY = y - (stamp.naturalHeight * size) / 2;
     switch (layer) {
       case 'center-label':
-        drawFg(offsetX, offsetY, true, cl.ctx);
+        drawFg(offsetX, offsetY, true, clTexture.ctx);
         break;
       case 'stickers':
         drawFg(offsetX, offsetY, false, fg.ctx);

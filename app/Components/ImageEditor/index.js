@@ -103,17 +103,17 @@ const ImageEditor = () => {
       const _back = document.getElementById('canvas-final-back');
       const _backCtx = _back.getContext('2d');
 
+      dispatch(setFront({ canvas: _front, ctx: _frontCtx }));
+      dispatch(setBack({ canvas: _back, ctx: _backCtx }));
       dispatch(setOverlay(_overlay));
       dispatch(setFg({ canvas: _fg, ctx: _fgCtx }));
+      dispatch(setRecord({ canvas: _record, ctx: _recordCtx }));
       dispatch(
         setBg({ canvas: _bg, ctx: _bgCtx }, { canvas: _bgTxt, ctx: _bgTxtCtx })
       );
-      dispatch(setRecord({ canvas: _record, ctx: _recordCtx }));
       dispatch(
         setCl({ canvas: _cl, ctx: _clCtx }, { canvas: _clTxt, ctx: _clTxtCtx })
       );
-      dispatch(setFront({ canvas: _front, ctx: _frontCtx }));
-      dispatch(setBack({ canvas: _back, ctx: _backCtx }));
       drawInitialBg(_clTxtCtx, _clCtx, _recordCtx);
     };
 
