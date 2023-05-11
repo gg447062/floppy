@@ -44,6 +44,10 @@ const AudioPlayer = ({ dubplate, index, modal = false }) => {
     }
   });
 
+  useEffect(() => {
+    document.body.style.overflow = 'scroll';
+  });
+
   return (
     <div className={`dubplate-grid-audio-player${size}`}>
       <img
