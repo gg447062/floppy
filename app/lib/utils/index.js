@@ -2,13 +2,6 @@ import axios from 'axios';
 import { Color, Solver } from './colorSolver';
 import { fontNames, getFontName } from './fonts';
 
-const cleanName = (name) => {
-  if (/\s/g.test(name)) {
-    const noWhiteSpace = name.split(' ').join('_');
-    return noWhiteSpace;
-  } else return name;
-};
-
 const corsAssetURL = '/api/image'; // proxied from server
 const assetBaseURL = 'https://dg3mov3znt8u.cloudfront.net/upload';
 
@@ -73,7 +66,6 @@ export {
   Solver,
   fontNames,
   getFontName,
-  cleanName,
   downloadWAV,
   moralisGateway,
   corsAssetURL,

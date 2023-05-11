@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
-import { assetBaseURL, cleanName, moralisGateway } from '../lib/utils';
+import { assetBaseURL, moralisGateway } from '../lib/utils';
 import { saveAssetsToIPFS, saveMetadataToIPFS } from '../lib/ipfs';
 import { uploadDubplate } from '../lib/db';
 
@@ -28,12 +28,12 @@ export default function Upload() {
   const saveToDatabase = async (front, back, artist, track) => {
     if (isAuthenticated) {
       const frontImage = {
-        path: `${cleanName(trackName)}_front.png`,
+        path: `${encodeURIComponent(trackName)}_front.png`,
         content: front,
       };
 
       const backImage = {
-        path: `${cleanName(trackName)}_back.png`,
+        path: `${encodeURIComponent(trackName)}_back.png`,
         content: back,
       };
 
@@ -48,8 +48,11 @@ export default function Upload() {
 
       const metadataHash = await saveMetadataToIPFS(
         btoa(JSON.stringify(metadata)),
-        `${track}_metadata.json`
+        `${encodeURIComponent(track)}_metadata.json`
       );
+
+      const audio = document.getElementById('audio');
+      const audioDuration = (audio.duration / 60).toFixed(2);
 
       await uploadDubplate({
         artist: artist,
@@ -58,6 +61,7 @@ export default function Upload() {
         front: hashes[0],
         back: hashes[1],
         audio: audioURL,
+        length: audioDuration,
         metadataHash: metadataHash,
         status: 'new',
       });
@@ -128,7 +132,7 @@ export default function Upload() {
           onChange={updatePrice}
           value={price}
         ></input>
-        {audioSrc && <audio src={audioSrc} controls></audio>}
+        {audioSrc && <audio id="audio" src={audioSrc} controls></audio>}
         <img
           id="upload-save"
           src={`${assetBaseURL}/bg_images/save_redux.png`}
