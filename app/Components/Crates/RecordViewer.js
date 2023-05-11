@@ -18,22 +18,26 @@ const Record = ({ front, back }) => {
         <meshStandardMaterial
           attach="material-0"
           transparent={true}
-          color={'black'}
+          opacity={0}
+          // color={'pink'}
         />
         <meshStandardMaterial
           attach="material-1"
           transparent={true}
-          color={'black'}
+          opacity={0}
+          // color={'pink'}
         />
         <meshStandardMaterial
           attach="material-2"
           transparent={true}
-          color={'black'}
+          opacity={0}
+          // color={'pink'}
         />
         <meshStandardMaterial
           attach="material-3"
           transparent={true}
-          color={'black'}
+          opacity={0}
+          // color={'pink'}
         />
         <meshStandardMaterial
           attach="material-4"
