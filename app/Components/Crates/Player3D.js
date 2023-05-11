@@ -4,20 +4,39 @@ import MainCanvas from './RecordViewer';
 import { moralisGateway, assetBaseURL } from '../../lib/utils';
 import { fetchDubplates } from '../../lib/db';
 
-function AudioPlayer({ dubplate, previous, next }) {
+function AudioPlayer({
+  dubplate,
+  timelineRef,
+  previous,
+  next,
+  opacity,
+  setOpacity,
+}) {
   const audioRef = useRef();
-  const timelineRef = useRef();
   const [src, setSrc] = useState(
     `${assetBaseURL}/crates_ui_assets/cratesplaybutton_sizedforpopup.png`
   );
 
+  const toggleOpacity = () => {
+    if (opacity === 0) {
+      setOpacity(100);
+    } else {
+      setOpacity(0);
+    }
+  };
+
   const play = (e) => {
     if (
       audioRef.current.paused ||
-      audioRef.current.cureetTime == 0 ||
+      audioRef.current.currentTime == 0 ||
       audioRef.current.currentTime == audioRef.current.duration
     ) {
       audioRef.current.play();
+      audioRef.current.onended = () => {
+        setSrc(
+          `${assetBaseURL}/crates_ui_assets/cratesplaybutton_sizedforpopup.png`
+        );
+      };
       setSrc(`${assetBaseURL}/listener_3d_assets/Pause_button.png`);
     } else {
       audioRef.current.pause();
@@ -34,10 +53,11 @@ function AudioPlayer({ dubplate, previous, next }) {
 
   useEffect(() => {
     const update = () => {
-      const percentagePosition = (
+      const percentage = (
         (100 * audioRef.current.currentTime) /
         audioRef.current.duration
       ).toFixed(1);
+      const percentagePosition = isNaN(percentage) ? 0 : percentage;
       timelineRef.current.style.backgroundSize = `${percentagePosition}% 100%`;
       timelineRef.current.value = percentagePosition;
     };
@@ -84,6 +104,7 @@ function AudioPlayer({ dubplate, previous, next }) {
           <img
             className="playlist-button-default"
             src={`${assetBaseURL}/listener_3d_assets/playlist_button_default.png`}
+            onClick={toggleOpacity}
           ></img>
         </div>
         <div className="track-info">
@@ -93,6 +114,7 @@ function AudioPlayer({ dubplate, previous, next }) {
             <p>{dubplate.track}</p>
           </div>
           <img
+            className="playlist-buy-button"
             src={`${assetBaseURL}/listener_3d_assets/buy_button_default.png`}
           />
         </div>
@@ -106,21 +128,22 @@ function AudioPlayer({ dubplate, previous, next }) {
   );
 }
 
-function Playlist({ dubplates, current }) {
+function Playlist({ dubplates, current, opacity, setIndex }) {
   return (
-    <div className="playlist-outer-wrapper ">
+    <div className="playlist-outer-wrapper " style={{ opacity: opacity }}>
       <div className="playlist-wrapper ">
         {dubplates.map((dubplate, i) => {
           return (
             <div
               className={`playlist-item${current === i ? '-selected' : ''}`}
+              onClick={() => setIndex(i)}
               key={i}
             >
               <p>
                 {dubplate.artist} ------ {dubplate.track}
               </p>
               <div>
-                <p>2:03</p>
+                <p>{dubplate.length ? dubplate.length : '4:20'}</p>
                 <img
                   src={`${assetBaseURL}/listener_3d_assets/buy_button_default.png`}
                 />
@@ -138,6 +161,8 @@ export default function Player3D() {
   const [index, setIndex] = useState(0);
   const [frontURL, setFrontURL] = useState(null);
   const [backURL, setBackURL] = useState(null);
+  const [opacity, setOpacity] = useState(0);
+  const timelineRef = useRef();
 
   useEffect(() => {
     async function _fetchDubplates() {
@@ -183,11 +208,19 @@ export default function Player3D() {
             )}
           </div>
           <div className="crates-playlist-wrapper">
-            <Playlist dubplates={dubplates} current={index} />
+            <Playlist
+              dubplates={dubplates}
+              current={index}
+              opacity={opacity}
+              setIndex={setIndex}
+            />
             <AudioPlayer
               dubplate={dubplates[index]}
+              timelineRef={timelineRef}
               next={next}
               previous={previous}
+              opacity={opacity}
+              setOpacity={setOpacity}
             />
           </div>
         </div>
