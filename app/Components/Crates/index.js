@@ -6,8 +6,7 @@ export default function Crates() {
   const [grid, setGrid] = useState(true);
   const view = grid ? '3D' : 'GRID';
   const toggle = () => {
-    const _grid = !grid;
-    setGrid(_grid);
+    setGrid(!grid);
   };
 
   return (

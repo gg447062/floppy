@@ -105,7 +105,8 @@ const Modal = ({ dubplate, setViewSingle, index }) => {
           <span>Catalog#: </span> 001 {/* dubplate.cat */}
         </p>
         <p>
-          <span>Price: </span> 0.1 ETH {/* dubplate.price */}
+          <span>Price: </span>
+          {dubplate.price ? dubplate.price : '0.1'} ETH
         </p>
         <AudioPlayer dubplate={dubplate} index={index} modal={true} />
       </div>
@@ -120,7 +121,7 @@ const Modal = ({ dubplate, setViewSingle, index }) => {
 const GridItem = ({ dubplate, openModal, index }) => {
   return (
     <div className="dubplate-grid-view">
-      <p>
+      <p className="ff-3">
         {dubplate.artist} - {dubplate.track}
       </p>
       <img
@@ -130,8 +131,8 @@ const GridItem = ({ dubplate, openModal, index }) => {
         onClick={openModal}
       />
       <AudioPlayer dubplate={dubplate} index={index} />
-      <div className="dubplate-grid-view-buy">
-        <p>0.1 ETH</p>
+      <div className="dubplate-grid-view-buy ff-26">
+        <p>{dubplate.price ? dubplate.price : '0.1'} ETH</p>
         <img
           src={`${assetBaseURL}/crates_ui_assets/buybutton_sizedforpopup.png`}
         ></img>
@@ -168,7 +169,7 @@ const Grid = () => {
         width="auto"
       ></img>
 
-      <div className="grid-view ff-3">
+      <div className="grid-view">
         {dubplates &&
           dubplates.map((dubplate, i) => {
             return (

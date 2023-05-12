@@ -113,10 +113,12 @@ function AudioPlayer({
             <p>-</p>
             <p>{dubplate.track}</p>
           </div>
-          <img
-            className="playlist-buy-button"
-            src={`${assetBaseURL}/listener_3d_assets/buy_button_default.png`}
-          />
+          <div>
+            <p>{dubplate.price ? dubplate.price : 0.1} ETH</p>
+            <img
+              src={`${assetBaseURL}/listener_3d_assets/buy_button_default.png`}
+            />
+          </div>
         </div>
       </div>
       <audio
@@ -147,6 +149,7 @@ function Playlist({ dubplates, current, opacity, setIndex }) {
                 <img
                   src={`${assetBaseURL}/listener_3d_assets/buy_button_default.png`}
                 />
+                <p>{dubplate.price ? dubplate.price : 0.1} ETH</p>
               </div>
             </div>
           );
