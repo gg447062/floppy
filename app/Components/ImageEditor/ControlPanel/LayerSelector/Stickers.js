@@ -21,6 +21,17 @@ const Stickers = ({ chooseStamp }) => {
               />
             );
           })}
+          {[...Array(5)].map((_, i) => {
+            return (
+              <img
+                id={`price_sticker_${i + 2}`}
+                className="sticker"
+                src={`${corsAssetURL}/STICKERS/FW_Sticker_0${i + 2}.png`}
+                onClick={chooseStamp}
+                key={i}
+              />
+            );
+          })}
         </div>
       </div>
       <div className="controls-container">
