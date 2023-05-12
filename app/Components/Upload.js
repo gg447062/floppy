@@ -52,7 +52,7 @@ export default function Upload() {
       );
 
       const audio = document.getElementById('audio');
-      const audioDuration = (audio.duration / 60).toFixed(2);
+      const audioDuration = (audio.duration / 60).toFixed(2).replace('.', ':');
 
       await uploadDubplate({
         artist: artist,
